@@ -48,7 +48,8 @@ Hostname: `kronk-gate`.
 
 ## Open questions
 
-- Two-way audio, and exporting the Gate camera to HomeKit.
+- Audio in Apple Home. HomeKit wants Opus over SRTP. Waiting on the real mic to debug. Scrypted is the fallback.
+- Two-way audio.
 - RTSP lag in the Home Assistant card. WebRTC is the likely fix.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.

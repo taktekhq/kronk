@@ -28,8 +28,13 @@ The indoor unit is alive.
 - The RTSP card in Home Assistant lags a few seconds. A WebRTC integration is the later latency fix.
 - Configured the HomeKit Bridge camera settings: checked Gate as a native H.264 stream, since rpicam-vid outputs H.264 and the Pi 5 relays instead of transcoding, and checked Gate for audio. Steps in [home setup](home-setup.md).
 - A second camera entity named Building Entrance showed up in the HomeKit Bridge list. Figuring out what it is.
+- Redid the Apple Home setup from scratch. The Apple TV integration I had added in Home Assistant looped back through the HomeKit Bridge into Apple Home as ghost duplicates of the Apple TV. Removed the Apple TV integration from HA, removed the bridge from the Home app, and deleted all three HomeKit Bridge entries in HA.
+- Skipped the bridged device triggers screen while pairing. The doorbell button is not wired yet.
+- Added a fresh HomeKit Bridge meant to include only `camera.gate`. The include filter came in empty, so it exported everything and the bridge showed up as Manufacturer Person, serial `person.nizar`. Set the filter to just the camera and it registered properly.
+- The camera pairs as its own accessory. Added it as a new service under the bridge, scanned its QR code, and the Gate feed is live in Apple Home on the iPhone.
+- No audio in the Apple Home app. HomeKit wants Opus in an SRTP session, and HA transcodes mic audio only when the source track cooperates. The synthetic AAC tone likely gets dropped at that hop, so audio debugging waits for the real mic. If HA cannot do it, Scrypted reads go2rtc directly and handles HomeKit camera audio.
 
-Next: buy the mic adapter, put the real mic in the stream, and export the Gate camera to Apple Home through the HomeKit Bridge.
+Next: buy the mic adapter, put the real mic in the stream, then debug audio in Apple Home.
 
 ## 2026-08-08: All parts bought
 

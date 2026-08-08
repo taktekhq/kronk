@@ -19,7 +19,7 @@ First hardware project, documented in public so anyone can build one.
 
 ## Status
 
-Indoor unit is up: the Pi 5 runs Home Assistant, bridged to Apple Home. Gate unit is next.
+The gate camera streams live into Apple Home. Microphone, speaker, and the gate opener are next.
 
 ## License
 

@@ -28,6 +28,11 @@ The RTSP card lags a few seconds. A WebRTC integration is the later latency fix.
 
 ## Gate camera in Apple Home
 
-1. Settings, Devices and Services, HomeKit Bridge, Configure.
+1. Add Integration, HomeKit Bridge. Include only the `camera.gate` entity. An empty filter exports everything, and the bridge registers as whatever entity it grabs first.
 2. In camera configuration, check Gate under cameras that support native H.264 streams. rpicam-vid outputs H.264, so the Pi 5 relays the stream instead of transcoding. Transcoding is too heavy for it.
 3. Check Gate under cameras that support audio.
+4. The camera pairs as its own accessory under the bridge. Scan both QR codes from HA notifications: the bridge and the Gate camera.
+
+Keep Apple devices out of Home Assistant. The Apple TV integration loops back through the HomeKit Bridge and fills Apple Home with ghost duplicates.
+
+Audio does not play in the Apple Home app yet. HomeKit wants Opus in an SRTP session. Open issue, pending the real microphone.
