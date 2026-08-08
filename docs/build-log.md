@@ -23,8 +23,11 @@ The indoor unit is alive.
 - The stream looked laggy for a moment. Switched to the WebRTC stream and it is amazingly fast.
 - Made go2rtc a systemd service with [gate/go2rtc.service](../gate/go2rtc.service) so it always runs. Enabled it, checked active (running), and the stream survives a reboot.
 - Noticed the test tone plays in the MSE stream but the WebRTC stream is silent. WebRTC does not carry AAC audio, it wants Opus. Looking into having go2rtc transcode.
+- Added the gate camera to Home Assistant. The go2rtc brand was not in the integration list, so used Generic Camera with `rtsp://kronk-gate.local:8554/gate`. go2rtc serves RTSP on 8554 automatically. Left still image URL and credentials blank, named it Gate. Steps in [home setup](home-setup.md).
+- Audio over WebRTC worked fine inside Home Assistant. The silence was only in the browser stream page.
+- The RTSP card in Home Assistant lags a few seconds. A WebRTC integration is the later latency fix.
 
-Next: buy the mic adapter and put the real mic in the stream.
+Next: buy the mic adapter, put the real mic in the stream, and export the Gate camera to Apple Home through the HomeKit Bridge.
 
 ## 2026-08-08: All parts bought
 

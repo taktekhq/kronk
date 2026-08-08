@@ -16,5 +16,6 @@ Repo layout:
 - `docs/parts.md`: what you need, generic, with the exact item bought
 - `docs/parts/*.md`: one page per part that has detailed specs
 - `docs/bill.csv`: exactly what was paid
+- `docs/gate-setup.md` and `docs/home-setup.md`: reproducible setup steps
 - `docs/build-log.md`: dated journal, newest first
 - `docs/architecture.md`: how the system fits together
