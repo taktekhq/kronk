@@ -11,11 +11,11 @@ What you need to build kronk, and what I got. Prices are in the [bill](bill.csv)
 - Microphone: [USB 2.0 mini microphone](parts/microphone.md)
 - Relay for the gate opener: [1 channel 5V relay](parts/relay.md)
 - Power: [12V to 5V 3A buck converter](parts/buck-converter.md)
+- Microphone adapter: micro USB male to USB-A female (OTG). A plain cable does not work. Getting a UGreen Micro USB Male to USB 2.0 Female Adapter Converter.
 
 From home, not in the [bill](bill.csv):
 
 - Power cable: micro USB to USB-A. I used one I had.
-- Microphone cable: micro USB to USB-A, an adapter works too. I used one I had.
 - Power brick with a USB-A port: any charger works. I used an old Samsung one.
 
 ## Indoor unit

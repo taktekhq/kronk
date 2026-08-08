@@ -18,8 +18,12 @@ The indoor unit is alive.
 - Verified the sensor with `rpicam-hello --list-cameras`, which printed `imx708`. Took the first photo with `rpicam-still -o first-look.jpg` and pulled it to the Mac with `scp`.
 - Streamed the camera with go2rtc: live video in the browser at `http://kronk-gate.local:1984`. Steps in [gate setup](gate-setup.md).
 - The stream did not show at first. The config was named `go2rtc.yml`, which go2rtc ignores. Renamed it to `go2rtc.yaml` and it worked.
+- Went to hook up the mic and found the micro USB cable will not do. It needs a micro USB male to USB-A female adapter (OTG). Buying a UGreen one next week on a business day.
+- Meanwhile, installed ffmpeg and added a 440Hz test tone as a second source in [gate/go2rtc.yaml](../gate/go2rtc.yaml), next to the video.
+- The stream looked laggy for a moment. Switched to the WebRTC stream and it is amazingly fast.
+- Made go2rtc a systemd service with [gate/go2rtc.service](../gate/go2rtc.service) so it always runs. Enabled it, checked active (running), and the stream survives a reboot.
 
-Next: add the microphone to the stream.
+Next: buy the mic adapter and put the real mic in the stream.
 
 ## 2026-08-08: All parts bought
 

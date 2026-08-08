@@ -32,11 +32,29 @@ Download it on the Pi:
 curl -Lo go2rtc https://github.com/AlexxIT/go2rtc/releases/latest/download/go2rtc_linux_arm64 && chmod +x go2rtc
 ```
 
-Create `go2rtc.yaml`. The name matters: go2rtc ignores `go2rtc.yml`.
+Create `go2rtc.yaml` from [gate/go2rtc.yaml](../gate/go2rtc.yaml). The name matters: go2rtc ignores `go2rtc.yml`.
 
-```yaml
-streams:
-  gate: exec:rpicam-vid -t 0 --inline --width 1280 --framerate 25 --codec h264 -o -
+Run `./go2rtc`, open `http://kronk-gate.local:1984`, and click the `gate` stream. Live video in the browser. Use the WebRTC stream, it is much faster than the default.
+
+## Audio
+
+The real microphone is pending an adapter. For now the stream carries a 440Hz test tone.
+
+```
+sudo apt install -y ffmpeg
 ```
 
-Run `./go2rtc`, open `http://kronk-gate.local:1984`, and click the `gate` stream. Live video in the browser.
+The tone comes from the second `exec` source in [gate/go2rtc.yaml](../gate/go2rtc.yaml).
+
+## Run as a service
+
+Install [gate/go2rtc.service](../gate/go2rtc.service) so go2rtc always runs:
+
+```
+sudo cp go2rtc.service /etc/systemd/system/go2rtc.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now go2rtc
+systemctl status go2rtc
+```
+
+Status should say active (running). Reboot to confirm the stream survives.
