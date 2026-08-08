@@ -17,7 +17,7 @@ First hardware project, documented in public so anyone can build one.
 
 ## Status
 
-Parts bought. Build starting.
+Indoor unit is up: the Pi 5 runs Home Assistant, bridged to Apple Home. Gate unit is next.
 
 ## License
 

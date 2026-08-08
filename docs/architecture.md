@@ -1,6 +1,6 @@
 # Architecture
 
-Working plan. Nothing is built yet. The [build log](build-log.md) tracks reality.
+Working plan, partially built. The [build log](build-log.md) tracks reality.
 
 ```
         BUILDING GATE                          APARTMENT
@@ -8,7 +8,7 @@ Working plan. Nothing is built yet. The [build log](build-log.md) tracks reality
 │  Gate unit                  │      │  Indoor unit                  │
 │                             │      │                               │
 │  Raspberry Pi Zero 2 W      │ WiFi │  Raspberry Pi 5 (4GB)         │
-│   ├─ Camera Module 3 NoIR   │◄────►│   ├─ Display / UI (TBD)       │
+│   ├─ Camera Module 3 NoIR   │◄────►│   ├─ Home Assistant           │
 │   ├─ USB mini microphone    │      │   ├─ TDA7266 amp + speaker    │
 │   ├─ Doorbell push button   │      │   └─ Microphone (TBD)         │
 │   ├─ Relay → gate opener    │      │                               │
@@ -16,7 +16,16 @@ Working plan. Nothing is built yet. The [build log](build-log.md) tracks reality
 └─────────────────────────────┘      └───────────────────────────────┘
 ```
 
+## Software
+
+- The Pi 5 runs Home Assistant.
+- The HomeKit Bridge exposes it to Apple Home.
+- An Apple TV is the Home hub, which enables access over the internet.
+- UI: the Apple Home app.
+
 ## Gate unit
+
+Hostname: `kronk-gate`.
 
 | Function | Part |
 |---|---|
@@ -33,13 +42,12 @@ Working plan. Nothing is built yet. The [build log](build-log.md) tracks reality
 |---|---|
 | Compute | Pi 5 with [27W PSU](parts/power-supply.md) and [Active Cooler](parts/active-cooler.md) |
 | Audio out | [TDA7266 amp](parts/amplifier.md) + [50mm speaker](parts/speaker.md) |
-| Display / UI | TBD |
+| Display / UI | Apple Home app via HomeKit |
 | Audio in | TBD |
 
 ## Open questions
 
-- Streaming stack for video and two-way audio. WebRTC is the likely pick.
-- Indoor UI: dedicated screen, phone web app, or both.
+- Streaming stack for video and two-way audio. Likely a HomeKit camera through Home Assistant.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
 - The second Pi Zero 2 W: spare, or a second unit later.
