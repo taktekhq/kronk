@@ -8,6 +8,7 @@ Writing rules for this repo. No exceptions.
 - Details go in a separate linked doc, Wikipedia style. Readers click if they care.
 - Keep money separate from parts. Parts docs say what is needed. The bill says what was paid.
 - List parts generically first, then the exact item bought.
+- The build log is a journal of steps. No lessons, morals, or advice.
 
 Repo layout:
 
