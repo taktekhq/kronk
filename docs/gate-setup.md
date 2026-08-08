@@ -32,7 +32,7 @@ Download it on the Pi:
 curl -Lo go2rtc https://github.com/AlexxIT/go2rtc/releases/latest/download/go2rtc_linux_arm64 && chmod +x go2rtc
 ```
 
-Create `go2rtc.yaml`:
+Create `go2rtc.yaml`. The name matters: go2rtc ignores `go2rtc.yml`.
 
 ```yaml
 streams:
