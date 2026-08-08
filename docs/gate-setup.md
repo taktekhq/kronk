@@ -46,6 +46,8 @@ sudo apt install -y ffmpeg
 
 The tone comes from the second `exec` source in [gate/go2rtc.yaml](../gate/go2rtc.yaml).
 
+The tone is AAC, so it plays over MSE but not WebRTC. WebRTC only carries Opus audio.
+
 ## Run as a service
 
 Install [gate/go2rtc.service](../gate/go2rtc.service) so go2rtc always runs:

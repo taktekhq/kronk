@@ -22,6 +22,7 @@ The indoor unit is alive.
 - Meanwhile, installed ffmpeg and added a 440Hz test tone as a second source in [gate/go2rtc.yaml](../gate/go2rtc.yaml), next to the video.
 - The stream looked laggy for a moment. Switched to the WebRTC stream and it is amazingly fast.
 - Made go2rtc a systemd service with [gate/go2rtc.service](../gate/go2rtc.service) so it always runs. Enabled it, checked active (running), and the stream survives a reboot.
+- Noticed the test tone plays in the MSE stream but the WebRTC stream is silent. WebRTC does not carry AAC audio, it wants Opus. Looking into having go2rtc transcode.
 
 Next: buy the mic adapter and put the real mic in the stream.
 
