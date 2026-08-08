@@ -26,6 +26,8 @@ The indoor unit is alive.
 - Added the gate camera to Home Assistant. The go2rtc brand was not in the integration list, so used Generic Camera with `rtsp://kronk-gate.local:8554/gate`. go2rtc serves RTSP on 8554 automatically. Left still image URL and credentials blank, named it Gate. Steps in [home setup](home-setup.md).
 - Audio over WebRTC worked fine inside Home Assistant. The silence was only in the browser stream page.
 - The RTSP card in Home Assistant lags a few seconds. A WebRTC integration is the later latency fix.
+- Configured the HomeKit Bridge camera settings: checked Gate as a native H.264 stream, since rpicam-vid outputs H.264 and the Pi 5 relays instead of transcoding, and checked Gate for audio. Steps in [home setup](home-setup.md).
+- A second camera entity named Building Entrance showed up in the HomeKit Bridge list. Figuring out what it is.
 
 Next: buy the mic adapter, put the real mic in the stream, and export the Gate camera to Apple Home through the HomeKit Bridge.
 

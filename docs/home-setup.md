@@ -25,3 +25,9 @@ The go2rtc brand did not show in the integration list, so the camera comes in as
 4. Name the entity Gate and put it on the dashboard.
 
 The RTSP card lags a few seconds. A WebRTC integration is the later latency fix.
+
+## Gate camera in Apple Home
+
+1. Settings, Devices and Services, HomeKit Bridge, Configure.
+2. In camera configuration, check Gate under cameras that support native H.264 streams. rpicam-vid outputs H.264, so the Pi 5 relays the stream instead of transcoding. Transcoding is too heavy for it.
+3. Check Gate under cameras that support audio.
