@@ -13,8 +13,9 @@ The indoor unit is alive.
 - Finished Home Assistant setup, updated the software, rebooted.
 - Set up the Apple HomeKit Bridge and added it to Apple Home. Reset the Apple TV and set it up with my account. It became the Home hub automatically, which gives access to the home over the internet.
 - Flashed the SD card for `kronk-gate`, the gate Pi Zero 2 W.
+- `kronk-gate` would not come up. The micro USB cables were bad. Swapped them, flashed again, and now it boots and SSH works.
 
-Next: set up `kronk-gate`.
+Next: continue setting up `kronk-gate`.
 
 ## 2026-08-08: All parts bought
 
