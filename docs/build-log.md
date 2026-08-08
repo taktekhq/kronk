@@ -16,8 +16,9 @@ The indoor unit is alive.
 - `kronk-gate` would not come up. The micro USB cables were bad. Swapped them, flashed again, and now it boots and SSH works.
 - Installed the [NoIR camera](parts/camera.md) on `kronk-gate`. First time ever connecting a camera, and it was easy: open the connector latches, remove the standard cable, insert the Pi Zero cable, close the latches.
 - Verified the sensor with `rpicam-hello --list-cameras`, which printed `imx708`. Took the first photo with `rpicam-still -o first-look.jpg` and pulled it to the Mac with `scp`.
+- Streamed the camera with go2rtc: live video in the browser at `http://kronk-gate.local:1984`. Steps in [gate setup](gate-setup.md).
 
-Next: continue setting up `kronk-gate`.
+Next: add the microphone to the stream.
 
 ## 2026-08-08: All parts bought
 

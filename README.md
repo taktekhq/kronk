@@ -12,6 +12,7 @@ First hardware project, documented in public so anyone can build one.
 |---|---|
 | [Parts](docs/parts.md) | What you need, and what I got |
 | [Bill](docs/bill.csv) | What I paid |
+| [Gate setup](docs/gate-setup.md) | Setting up `kronk-gate`, step by step |
 | [Build log](docs/build-log.md) | Progress journal |
 | [Architecture](docs/architecture.md) | How it fits together |
 

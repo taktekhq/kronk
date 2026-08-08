@@ -18,6 +18,7 @@ Working plan, partially built. The [build log](build-log.md) tracks reality.
 
 ## Software
 
+- `kronk-gate` streams camera video with [go2rtc](https://github.com/AlexxIT/go2rtc). Setup in [gate setup](gate-setup.md).
 - The Pi 5 runs Home Assistant.
 - The HomeKit Bridge exposes it to Apple Home.
 - An Apple TV is the Home hub, which enables access over the internet.
@@ -47,7 +48,7 @@ Hostname: `kronk-gate`.
 
 ## Open questions
 
-- Streaming stack for video and two-way audio. Likely a HomeKit camera through Home Assistant.
+- Two-way audio, and wiring the go2rtc stream into Home Assistant and HomeKit.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
 - The second Pi Zero 2 W: spare, or a second unit later.
