@@ -24,7 +24,7 @@ Working plan, partially built. The [build log](build-log.md) tracks reality.
 - The HomeKit Bridge will expose Home Assistant entities to Apple Home, the future doorbell and lock.
 - An Apple TV is the Home hub, which enables access over the internet.
 - UI: the Apple Home app.
-- Recording: HomeKit Secure Video with iCloud+. Apple archives, the Pi streams.
+- Recording: HomeKit Secure Video with iCloud+. Apple archives, the Pi streams. OpenCV motion detection in Scrypted gates it.
 - Doorbell and lock path: gate GPIO, MQTT, Home Assistant entity, HomeKit.
 
 ## Gate unit
@@ -35,9 +35,9 @@ Hostname: `kronk-gate`.
 |---|---|
 | Compute | [Pi Zero 2 W](parts.md#gate-unit) |
 | Video | [Camera Module 3 NoIR](parts/camera.md) |
-| Doorbell | [Push button with LED ring](parts/push-button.md) |
+| Doorbell | [Push button with LED ring](parts/push-button.md) on GPIO27 |
 | Audio in | [USB mini microphone](parts/microphone.md) |
-| Gate opener | [5V relay](parts/relay.md) on a GPIO pin |
+| Gate opener | [5V relay](parts/relay.md) on GPIO17 |
 | Power | 12V feed, [buck converter](parts/buck-converter.md) to 5V |
 
 ## Indoor unit
@@ -51,9 +51,10 @@ Hostname: `kronk-gate`.
 
 ## Open questions
 
-- Audio in Apple Home. HomeKit wants Opus over SRTP. Waiting on the real mic and Scrypted.
 - Two-way audio.
+- Remote viewing through the Apple TV hub is slow, poor over cellular. Candidate fix: a low bandwidth substream in Scrypted.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
 - The second Pi Zero 2 W: spare, or a second unit later.
+- The building's existing wired doorbell has a button per floor. Tap it for the floors, or add a separate board. Needs a voltage measurement first, those bells often run 8 to 12V AC.
 - Multi-tenant support. Out of scope for the first prototype.

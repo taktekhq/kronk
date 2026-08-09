@@ -28,3 +28,23 @@ The camera does not go through Home Assistant. Scrypted serves it to Apple Home 
 2. In Scrypted, install the `@scrypted/homekit` and `@scrypted/rtsp` plugins.
 3. Add the camera with the go2rtc RTSP URL: `rtsp://kronk-gate.local:8554/gate`.
 4. Skip the Scrypted Home Bridge. Enable the HomeKit extension on the camera itself, so it pairs in Apple Home as its own accessory. Scan its QR code in the Home app.
+
+Stream settings:
+
+- RTSP Parser: Scrypted (TCP). The stream crosses WiFi, and UDP drops show as gray smears and corrupt frames.
+- Prebuffered Streams: on. Scrypted keeps a rolling buffer so HomeKit opens instantly, and it feeds HomeKit Secure Video motion events.
+- Keep the Rebroadcast, Snapshot, and WebRTC plugins on. Rebroadcast drives the prebuffer, Snapshot feeds the Home app tile.
+- Detected stream should read 1920x1080 around 2000Kb/s, h264/opus, 4 second keyframe interval. That matches everything Scrypted recommends.
+
+If re-adding the camera says it is part of a different home, use Reset Pairing in the camera's HomeKit section to get a fresh QR code.
+
+## Recording (HomeKit Secure Video)
+
+HKSV needs iCloud+, an online home hub, and the camera exposing a motion sensor. Without motion, the Home app hides the Recording section entirely.
+
+1. In Scrypted, install `@scrypted/objectdetector` and `@scrypted/opencv`. The detector is the framework, OpenCV is a light engine, enough to gate HKSV for one camera.
+2. On the camera, enable the OpenCV Motion Detection extension. Defaults are fine. Leave FFmpeg Audio Detection off, a street-facing mic would trigger it constantly.
+3. Keep Prebuffer on. HKSV uses it for pre-motion footage.
+4. HomeKit extension, Reset Pairing. In the Home app, remove the stale camera, add the accessory with the new QR code, and pick Stream and Allow Recording during setup.
+
+Recording options and Face Recognition appear in the camera's settings. Activity zones are drawn in the Home app, not Scrypted.

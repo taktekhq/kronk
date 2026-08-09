@@ -2,6 +2,18 @@
 
 Dated journal. Newest first.
 
+## 2026-08-09: Relay wired, Kronk gets hands
+
+- Wired the relay's control side to `kronk-gate` with three F-F jumpers: VCC to pin 2 (5V), GND to pin 6, IN to pin 11 (GPIO17). Red for power, black for ground, a bright color for signal.
+- The relay's three screw terminals, COM, NO, NC, are the switched side. The gate opener lands on COM and NO later. Normally open means the gate stays locked if power drops.
+- Installed `python3-gpiozero` and pulsed GPIO17. The relay clicked on and off, only during the script and not at boot, so the board is not active low. Kronk has hands.
+- Started on the doorbell button, GPIO27. It has four terminals, two for the switch and two for the 12V LED ring. Found the pairs.
+- Leaving the LED ring unconnected, it wants 12V. The button gets a 3D printed housing later.
+- Wired the switch contacts to pin 13 (GPIO27) and pin 14 (GND) with M-F jumpers, the male pin twisted around the terminal. Good enough for the desk, soldering comes before anything mounts outside. Pressed the button, DING printed. The doorbell nerve is alive.
+- Turns out the building already has a wired doorbell with a button per floor. Option for later: tap that line instead of new wiring, or a separate board for the floors. Those bells often run 8 to 12V AC, so it needs a voltage measurement and an optocoupler before touching GPIO.
+
+Next: wire relay and button into MQTT and Home Assistant.
+
 ## 2026-08-09: Headers soldered, everything moved to a hotspot
 
 - Installed Scrypted on the Pi 5. Needed to add its repository first.
@@ -20,8 +32,23 @@ Dated journal. Newest first.
 - Reworked the camera path: removed the Gate camera from Home Assistant. The camera goes through Scrypted only.
 - Installed the Scrypted add-on with the repository from its [install guide](https://github.com/koush/scrypted/wiki/Installation:-Home-Assistant-OS), then the `@scrypted/homekit` and `@scrypted/rtsp` plugins.
 - Set up the camera in Scrypted from the go2rtc RTSP stream. Skipped the Scrypted Home Bridge and enabled the HomeKit extension on the camera itself, so it pairs in Apple Home as its own accessory. Steps in [home setup](home-setup.md).
+- The mic worked but the volume was very low, face against the mic to be heard.
+- Raised the ALSA capture gain in `alsamixer` on the USB card, to about 85 since 100 clips, and persisted it with `sudo alsactl store`. `vc4-hdmi` in the device list is the Pi's HDMI output, not the mic.
+- Upgraded the video line to 1920x1080 at 25fps, 2Mb/s, with `--intra 100` for a 4 second keyframe interval, matching Scrypted's recommendations. The earlier 1280-wide line came out as 1280x480 with no explicit height.
+- Long audio codec fight. Scrypted detected the AAC track as unknown, and HomeKit takes only Opus or PCM-mulaw. Tried an `#audio=opus` transform stream, PCM-mulaw, and Opus in ogg over the exec pipe. Audio piped from `exec:ffmpeg` never registered, the go2rtc info page showed the producer as a bare url with no tracks.
+- The fix: go2rtc's native ffmpeg device source, `ffmpeg:device?audio=plughw:0,0#audio=opus#raw=-af volume=24dB`. Native Opus with a 24dB boost. Scrypted now detects h264/opus. Final config in [gate/go2rtc.yaml](../gate/go2rtc.yaml).
+- Debugging tools that cracked it: the `info` link on `http://kronk-gate.local:1984` lists every producer, track, and codec, and `journalctl -u go2rtc` shows the spawned ffmpeg's errors.
+- Set the Scrypted RTSP parser to Scrypted (TCP). UDP over WiFi drops frames.
+- Video in Apple Home is much faster now with the native Opus stream.
+- Confirmed: audio plays in Apple Home, the volume is great, and the camera is real time on the home network. Kronk's ears are online.
+- Viewing from outside the home network, through the Apple TV hub, is slow, and poor over cellular. Candidate fix for later: a low bandwidth substream in Scrypted, 640x360 around 400Kbps, assigned as the remote stream.
+- The Home app showed no Recording section even with iCloud+. HomeKit Secure Video requires the camera to expose a motion sensor, without one Apple hides recording entirely.
+- Installed `@scrypted/objectdetector` and `@scrypted/opencv`, and enabled the OpenCV Motion Detection extension on the camera with default settings. Left FFmpeg Audio Detection off, the street would trigger it constantly.
+- Reset Pairing, re-added the camera, and picked Stream and Record during setup. Recording options and Face Recognition appeared. HomeKit Secure Video is live. Steps in [home setup](home-setup.md).
 
-Next: confirm voice comes through the stream.
+The camera pillar is complete: camera, go2rtc, Scrypted, HomeKit, with HKSV clips, face recognition, and live audio.
+
+Next: wire the relay and the doorbell button.
 
 ## 2026-08-08: Pi 5 up, running Home Assistant
 

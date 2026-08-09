@@ -19,7 +19,7 @@ First hardware project, documented in public so anyone can build one.
 
 ## Status
 
-The gate camera streams live into Apple Home. Microphone, speaker, and the gate opener are next.
+The gate camera is live in Apple Home with audio, recording, and face recognition. Speaker, doorbell button, and the gate opener are next.
 
 ## License
 

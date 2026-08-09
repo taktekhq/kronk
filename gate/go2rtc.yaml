@@ -1,4 +1,4 @@
 streams:
   gate:
-    - exec:rpicam-vid -t 0 --inline --width 1280 --framerate 25 --codec h264 -o -
-    - exec:ffmpeg -f alsa -i plughw:0,0 -ac 1 -ar 16000 -c:a aac -f adts -
+    - exec:rpicam-vid -t 0 --inline --width 1920 --height 1080 --framerate 25 --intra 100 --bitrate 2000000 --codec h264 -o -
+    - ffmpeg:device?audio=plughw:0,0#audio=opus#raw=-af volume=24dB
