@@ -51,8 +51,8 @@ Hostname: `kronk-gate`.
 
 ## Open questions
 
-- Audio in Apple Home. The stream is now native Opus, confirmation pending.
 - Two-way audio.
+- Remote viewing through the Apple TV hub is slow. Real time on the home network.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
 - The second Pi Zero 2 W: spare, or a second unit later.

@@ -28,8 +28,10 @@ Dated journal. Newest first.
 - Debugging tools that cracked it: the `info` link on `http://kronk-gate.local:1984` lists every producer, track, and codec, and `journalctl -u go2rtc` shows the spawned ffmpeg's errors.
 - Set the Scrypted RTSP parser to Scrypted (TCP). UDP over WiFi drops frames.
 - Video in Apple Home is much faster now with the native Opus stream.
+- Confirmed: audio plays in Apple Home, the volume is great, and the camera is real time on the home network. Kronk's ears are online.
+- Viewing from outside the home network, through the Apple TV hub, is slow. To look into later.
 
-Next: confirm audio in Apple Home, then wire the relay and the doorbell button.
+Next: wire the relay and the doorbell button.
 
 ## 2026-08-08: Pi 5 up, running Home Assistant
 
