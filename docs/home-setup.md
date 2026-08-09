@@ -24,6 +24,7 @@ Keep Apple devices out of Home Assistant. The Apple TV integration loops back th
 The camera does not go through Home Assistant. Scrypted serves it to Apple Home directly. It cuts the latency of Home Assistant's HomeKit Bridge repackaging the stream.
 
 1. Install the Scrypted add-on. Add the repository from the [install guide](https://github.com/koush/scrypted/wiki/Installation:-Home-Assistant-OS), then install.
+2. Enable everything in the add-on controls: start on boot, watchdog, auto update, show in sidebar. Then start Scrypted.
 2. In Scrypted, install the `@scrypted/homekit` and `@scrypted/rtsp` plugins.
 3. Add the camera with the go2rtc RTSP URL: `rtsp://kronk-gate.local:8554/gate`.
 4. Skip the Scrypted Home Bridge. Enable the HomeKit extension on the camera itself, so it pairs in Apple Home as its own accessory. Scan its QR code in the Home app.
