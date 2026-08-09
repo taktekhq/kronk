@@ -1,0 +1,4 @@
+streams:
+  gate:
+    - exec:rpicam-vid -t 0 --inline --width 1280 --framerate 25 --codec h264 -o -
+    - exec:ffmpeg -re -f lavfi -i sine=frequency=440:sample_rate=16000 -c:a aac -f adts -

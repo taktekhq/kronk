@@ -11,6 +11,12 @@ What you need to build kronk, and what I got. Prices are in the [bill](bill.csv)
 - Microphone: [USB 2.0 mini microphone](parts/microphone.md)
 - Relay for the gate opener: [1 channel 5V relay](parts/relay.md)
 - Power: [12V to 5V 3A buck converter](parts/buck-converter.md)
+- Microphone adapter: micro USB male to USB-A female (OTG). A plain cable does not work. Getting a UGreen Micro USB Male to USB 2.0 Female Adapter Converter.
+
+From home, not in the [bill](bill.csv):
+
+- Power cable: micro USB to USB-A. I used one I had.
+- Power brick with a USB-A port: any charger works. I used an old Samsung one.
 
 ## Indoor unit
 
@@ -19,6 +25,7 @@ What you need to build kronk, and what I got. Prices are in the [bill](bill.csv)
 - Cooling: [official Raspberry Pi 5 Active Cooler](parts/active-cooler.md)
 - Amplifier: [TDA7266 dual channel](parts/amplifier.md)
 - Speaker: [stereo speaker, 50mm, 8 ohm, 3W](parts/speaker.md)
+- Home hub for internet access: an Apple TV or HomePod. I used an Apple TV I had.
 
 ## Storage
 
@@ -29,6 +36,7 @@ What you need to build kronk, and what I got. Prices are in the [bill](bill.csv)
 ## Tools and wiring
 
 - Soldering iron: 60W, adjustable temperature
+- Solder: activated flux core solder wire, under 1mm diameter. Borrowed from a friend.
 - GPIO headers: 40 pin male, single row, 2.54mm pitch. I got 2, one per Pi Zero.
 - Jumper wires: DuPont 20cm, 40 piece packs. I got M-M, M-F, and F-F.
 

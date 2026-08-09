@@ -1,0 +1,14 @@
+[Unit]
+Description=go2rtc
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=nizarmah
+WorkingDirectory=/home/nizarmah
+ExecStart=/home/nizarmah/go2rtc
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
