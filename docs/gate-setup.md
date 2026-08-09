@@ -82,6 +82,31 @@ If the mic is silent, isolate mic vs pipeline by recording straight from ALSA:
 arecord -D plughw:0,0 -f S16_LE -r 16000 test.wav
 ```
 
+## Relay
+
+The [relay](parts/relay.md) has two sides. The 3 pin control side connects to the Zero. The 3 screw terminals, COM, NO, NC, switch the gate opener circuit and stay empty until that wiring session. The opener goes on COM and NO: normally open keeps the gate locked if power drops.
+
+Three F-F jumpers on the control side:
+
+| Relay | Zero physical pin | Why |
+|---|---|---|
+| VCC | 2 | 5V for the relay coil |
+| GND | 6 | shared ground |
+| IN | 11 (GPIO17) | the control signal |
+
+Counting pins: hold the board SD card up with the header on the right. Pin 1 is top left, pin 2 top right, odds run down the left, evens down the right.
+
+Colors: red for VCC, black for GND, a bright color for signal.
+
+Test with nothing on the screw side:
+
+```
+sudo apt install -y python3-gpiozero
+python3 -c "from gpiozero import OutputDevice; import time; r=OutputDevice(17); r.on(); time.sleep(2); r.off()"
+```
+
+The relay clicks on, then off. If it is already energized at boot, the board is active low and the signal needs inverting in software.
+
 ## Run as a service
 
 Install [gate/go2rtc.service](../gate/go2rtc.service) so go2rtc always runs:

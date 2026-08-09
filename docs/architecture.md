@@ -37,7 +37,7 @@ Hostname: `kronk-gate`.
 | Video | [Camera Module 3 NoIR](parts/camera.md) |
 | Doorbell | [Push button with LED ring](parts/push-button.md) |
 | Audio in | [USB mini microphone](parts/microphone.md) |
-| Gate opener | [5V relay](parts/relay.md) on a GPIO pin |
+| Gate opener | [5V relay](parts/relay.md) on GPIO17 |
 | Power | 12V feed, [buck converter](parts/buck-converter.md) to 5V |
 
 ## Indoor unit
