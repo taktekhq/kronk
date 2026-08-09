@@ -23,6 +23,8 @@ Working plan, partially built. The [build log](build-log.md) tracks reality.
 - The HomeKit Bridge exposes it to Apple Home.
 - An Apple TV is the Home hub, which enables access over the internet.
 - UI: the Apple Home app.
+- Recording: HomeKit Secure Video with iCloud+. Apple archives, the Pi streams.
+- Scrypted will take over the camera lane to Apple Home for latency and audio. Decided, not set up yet.
 
 ## Gate unit
 
@@ -48,9 +50,8 @@ Hostname: `kronk-gate`.
 
 ## Open questions
 
-- Audio in Apple Home. HomeKit wants Opus over SRTP. Waiting on the real mic to debug. Scrypted is the fallback.
+- Audio in Apple Home. HomeKit wants Opus over SRTP. Waiting on the real mic and Scrypted.
 - Two-way audio.
-- RTSP lag in the Home Assistant card. WebRTC is the likely fix.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
 - The second Pi Zero 2 W: spare, or a second unit later.

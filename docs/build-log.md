@@ -34,7 +34,11 @@ The indoor unit is alive.
 - The camera pairs as its own accessory. Added it as a new service under the bridge, scanned its QR code, and the Gate feed is live in Apple Home on the iPhone.
 - No audio in the Apple Home app. HomeKit wants Opus in an SRTP session, and HA transcodes mic audio only when the source track cooperates. The synthetic AAC tone likely gets dropped at that hop, so audio debugging waits for the real mic. If HA cannot do it, Scrypted reads go2rtc directly and handles HomeKit camera audio.
 
-Next: buy the mic adapter, put the real mic in the stream, then debug audio in Apple Home.
+- The Gate camera in Apple Home offers recording profiles for home and away. That is HomeKit Secure Video. It needs iCloud+ and stores clips in Apple's cloud. Going with it: Apple archives, the Pi streams.
+- The camera feed in Apple Home is slow. Apple Home does not do WebRTC. HomeKit streams over SRTP, and the extra hop through Home Assistant repackaging the stream adds seconds of startup and latency.
+- Decided to move the camera lane to Scrypted. It reads go2rtc directly, serves HomeKit cameras near instantly, and handles HomeKit Secure Video and two-way audio. Home Assistant keeps the automations and the future lock entity.
+
+Next: set up Scrypted, solder the headers on the Pi Zero, then the doorbell button, the relay, the mic, and the speaker.
 
 ## 2026-08-08: All parts bought
 
