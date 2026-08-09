@@ -17,7 +17,11 @@ Dated journal. Newest first.
 - The WiFi config USB has to stay plugged into the Pi 5. Remove it and the network drops.
 - Plugged the mic into `kronk-gate` through the OTG adapter. `arecord -l` lists it as card 0, USB PnP Sound Device. Swapped the test tone in [gate/go2rtc.yaml](../gate/go2rtc.yaml) for the mic at `plughw:0,0`.
 
-Next: confirm voice comes through the stream, then Scrypted takes the camera.
+- Reworked the camera path: removed the Gate camera from Home Assistant. The camera goes through Scrypted only.
+- Installed the Scrypted add-on with the repository from its [install guide](https://github.com/koush/scrypted/wiki/Installation:-Home-Assistant-OS), then the `@scrypted/homekit` and `@scrypted/rtsp` plugins.
+- Set up the camera in Scrypted from the go2rtc RTSP stream. Skipped the Scrypted Home Bridge and enabled the HomeKit extension on the camera itself, so it pairs in Apple Home as its own accessory. Steps in [home setup](home-setup.md).
+
+Next: confirm voice comes through the stream.
 
 ## 2026-08-08: Pi 5 up, running Home Assistant
 
