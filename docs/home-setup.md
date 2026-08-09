@@ -37,3 +37,14 @@ Stream settings:
 - Detected stream should read 1920x1080 around 2000Kb/s, h264/opus, 4 second keyframe interval. That matches everything Scrypted recommends.
 
 If re-adding the camera says it is part of a different home, use Reset Pairing in the camera's HomeKit section to get a fresh QR code.
+
+## Recording (HomeKit Secure Video)
+
+HKSV needs iCloud+, an online home hub, and the camera exposing a motion sensor. Without motion, the Home app hides the Recording section entirely.
+
+1. In Scrypted, install `@scrypted/objectdetector` and `@scrypted/opencv`. The detector is the framework, OpenCV is a light engine, enough to gate HKSV for one camera.
+2. On the camera, enable the OpenCV Motion Detection extension. Defaults are fine. Leave FFmpeg Audio Detection off, a street-facing mic would trigger it constantly.
+3. Keep Prebuffer on. HKSV uses it for pre-motion footage.
+4. HomeKit extension, Reset Pairing. In the Home app, remove the stale camera, add the accessory with the new QR code, and pick Stream and Allow Recording during setup.
+
+Recording options and Face Recognition appear in the camera's settings. Activity zones are drawn in the Home app, not Scrypted.

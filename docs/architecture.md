@@ -24,7 +24,7 @@ Working plan, partially built. The [build log](build-log.md) tracks reality.
 - The HomeKit Bridge will expose Home Assistant entities to Apple Home, the future doorbell and lock.
 - An Apple TV is the Home hub, which enables access over the internet.
 - UI: the Apple Home app.
-- Recording: HomeKit Secure Video with iCloud+. Apple archives, the Pi streams.
+- Recording: HomeKit Secure Video with iCloud+. Apple archives, the Pi streams. OpenCV motion detection in Scrypted gates it.
 - Doorbell and lock path: gate GPIO, MQTT, Home Assistant entity, HomeKit.
 
 ## Gate unit
@@ -52,7 +52,7 @@ Hostname: `kronk-gate`.
 ## Open questions
 
 - Two-way audio.
-- Remote viewing through the Apple TV hub is slow. Real time on the home network.
+- Remote viewing through the Apple TV hub is slow, poor over cellular. Candidate fix: a low bandwidth substream in Scrypted.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
 - The second Pi Zero 2 W: spare, or a second unit later.

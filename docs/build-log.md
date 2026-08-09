@@ -29,7 +29,12 @@ Dated journal. Newest first.
 - Set the Scrypted RTSP parser to Scrypted (TCP). UDP over WiFi drops frames.
 - Video in Apple Home is much faster now with the native Opus stream.
 - Confirmed: audio plays in Apple Home, the volume is great, and the camera is real time on the home network. Kronk's ears are online.
-- Viewing from outside the home network, through the Apple TV hub, is slow. To look into later.
+- Viewing from outside the home network, through the Apple TV hub, is slow, and poor over cellular. Candidate fix for later: a low bandwidth substream in Scrypted, 640x360 around 400Kbps, assigned as the remote stream.
+- The Home app showed no Recording section even with iCloud+. HomeKit Secure Video requires the camera to expose a motion sensor, without one Apple hides recording entirely.
+- Installed `@scrypted/objectdetector` and `@scrypted/opencv`, and enabled the OpenCV Motion Detection extension on the camera with default settings. Left FFmpeg Audio Detection off, the street would trigger it constantly.
+- Reset Pairing, re-added the camera, and picked Stream and Record during setup. Recording options and Face Recognition appeared. HomeKit Secure Video is live. Steps in [home setup](home-setup.md).
+
+The camera pillar is complete: camera, go2rtc, Scrypted, HomeKit, with HKSV clips, face recognition, and live audio.
 
 Next: wire the relay and the doorbell button.
 
