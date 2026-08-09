@@ -7,9 +7,12 @@ Dated journal. Newest first.
 - Wired the relay's control side to `kronk-gate` with three F-F jumpers: VCC to pin 2 (5V), GND to pin 6, IN to pin 11 (GPIO17). Red for power, black for ground, a bright color for signal.
 - The relay's three screw terminals, COM, NO, NC, are the switched side. The gate opener lands on COM and NO later. Normally open means the gate stays locked if power drops.
 - Installed `python3-gpiozero` and pulsed GPIO17. The relay clicked on and off, only during the script and not at boot, so the board is not active low. Kronk has hands.
-- Started on the doorbell button, GPIO27. It has four terminals, two for the switch and two for the 12V LED ring. Working out which is which.
+- Started on the doorbell button, GPIO27. It has four terminals, two for the switch and two for the 12V LED ring. Found the pairs.
+- Leaving the LED ring unconnected, it wants 12V. The button gets a 3D printed housing later.
+- Wired the switch contacts to pin 13 (GPIO27) and pin 14 (GND) with M-F jumpers, the male pin twisted around the terminal. Good enough for the desk, soldering comes before anything mounts outside. Pressed the button, DING printed. The doorbell nerve is alive.
+- Turns out the building already has a wired doorbell with a button per floor. Option for later: tap that line instead of new wiring, or a separate board for the floors. Those bells often run 8 to 12V AC, so it needs a voltage measurement and an optocoupler before touching GPIO.
 
-Next: finish the button, then wire relay and button into MQTT and Home Assistant.
+Next: wire relay and button into MQTT and Home Assistant.
 
 ## 2026-08-09: Headers soldered, everything moved to a hotspot
 

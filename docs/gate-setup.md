@@ -107,6 +107,27 @@ python3 -c "from gpiozero import OutputDevice; import time; r=OutputDevice(17); 
 
 The relay clicks on, then off. If it is already energized at boot, the board is active low and the signal needs inverting in software.
 
+## Doorbell button
+
+The [button](parts/push-button.md) has four terminals: two are the switch contacts, two are the 12V LED ring. The LED stays unconnected for now.
+
+Two jumpers on the switch contacts, any order:
+
+| Button | Zero physical pin |
+|---|---|
+| switch contact | 13 (GPIO27) |
+| switch contact | 14 (GND) |
+
+F-F jumpers if the sockets grip the lugs, or M-F with the male pin twisted around the terminal for a desk test. Solder before mounting outside, a loose contact means phantom rings.
+
+Test:
+
+```
+python3 -c "from gpiozero import Button; b=Button(27); b.wait_for_press(); print('DING')"
+```
+
+Press the button and DING prints.
+
 ## Run as a service
 
 Install [gate/go2rtc.service](../gate/go2rtc.service) so go2rtc always runs:
