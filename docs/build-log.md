@@ -20,8 +20,16 @@ Dated journal. Newest first.
 - Reworked the camera path: removed the Gate camera from Home Assistant. The camera goes through Scrypted only.
 - Installed the Scrypted add-on with the repository from its [install guide](https://github.com/koush/scrypted/wiki/Installation:-Home-Assistant-OS), then the `@scrypted/homekit` and `@scrypted/rtsp` plugins.
 - Set up the camera in Scrypted from the go2rtc RTSP stream. Skipped the Scrypted Home Bridge and enabled the HomeKit extension on the camera itself, so it pairs in Apple Home as its own accessory. Steps in [home setup](home-setup.md).
+- The mic worked but the volume was very low, face against the mic to be heard.
+- Raised the ALSA capture gain in `alsamixer` on the USB card, to about 85 since 100 clips, and persisted it with `sudo alsactl store`. `vc4-hdmi` in the device list is the Pi's HDMI output, not the mic.
+- Upgraded the video line to 1920x1080 at 25fps, 2Mb/s, with `--intra 100` for a 4 second keyframe interval, matching Scrypted's recommendations. The earlier 1280-wide line came out as 1280x480 with no explicit height.
+- Long audio codec fight. Scrypted detected the AAC track as unknown, and HomeKit takes only Opus or PCM-mulaw. Tried an `#audio=opus` transform stream, PCM-mulaw, and Opus in ogg over the exec pipe. Audio piped from `exec:ffmpeg` never registered, the go2rtc info page showed the producer as a bare url with no tracks.
+- The fix: go2rtc's native ffmpeg device source, `ffmpeg:device?audio=plughw:0,0#audio=opus#raw=-af volume=24dB`. Native Opus with a 24dB boost. Scrypted now detects h264/opus. Final config in [gate/go2rtc.yaml](../gate/go2rtc.yaml).
+- Debugging tools that cracked it: the `info` link on `http://kronk-gate.local:1984` lists every producer, track, and codec, and `journalctl -u go2rtc` shows the spawned ffmpeg's errors.
+- Set the Scrypted RTSP parser to Scrypted (TCP). UDP over WiFi drops frames.
+- Video in Apple Home is much faster now with the native Opus stream.
 
-Next: confirm voice comes through the stream.
+Next: confirm audio in Apple Home, then wire the relay and the doorbell button.
 
 ## 2026-08-08: Pi 5 up, running Home Assistant
 

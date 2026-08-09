@@ -28,3 +28,12 @@ The camera does not go through Home Assistant. Scrypted serves it to Apple Home 
 2. In Scrypted, install the `@scrypted/homekit` and `@scrypted/rtsp` plugins.
 3. Add the camera with the go2rtc RTSP URL: `rtsp://kronk-gate.local:8554/gate`.
 4. Skip the Scrypted Home Bridge. Enable the HomeKit extension on the camera itself, so it pairs in Apple Home as its own accessory. Scan its QR code in the Home app.
+
+Stream settings:
+
+- RTSP Parser: Scrypted (TCP). The stream crosses WiFi, and UDP drops show as gray smears and corrupt frames.
+- Prebuffered Streams: on. Scrypted keeps a rolling buffer so HomeKit opens instantly, and it feeds HomeKit Secure Video motion events.
+- Keep the Rebroadcast, Snapshot, and WebRTC plugins on. Rebroadcast drives the prebuffer, Snapshot feeds the Home app tile.
+- Detected stream should read 1920x1080 around 2000Kb/s, h264/opus, 4 second keyframe interval. That matches everything Scrypted recommends.
+
+If re-adding the camera says it is part of a different home, use Reset Pairing in the camera's HomeKit section to get a fresh QR code.

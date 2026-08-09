@@ -51,7 +51,7 @@ Hostname: `kronk-gate`.
 
 ## Open questions
 
-- Audio in Apple Home. HomeKit wants Opus over SRTP. Waiting on the real mic and Scrypted.
+- Audio in Apple Home. The stream is now native Opus, confirmation pending.
 - Two-way audio.
 - Gate unit enclosure and weatherproofing.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
