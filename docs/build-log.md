@@ -2,6 +2,19 @@
 
 Dated journal. Newest first.
 
+## 2026-08-09: Headers soldered, everything moved to a hotspot
+
+- Installed Scrypted on the Pi 5. Needed to add its repository first.
+- Settled the division of labor: Scrypted is the eyes, the camera lane where speed matters. Home Assistant is the hands, GPIO, automations, and the future lock. The doorbell and lock path will be gate GPIO, MQTT, HA entity, HomeKit.
+- Bought the UGreen OTG adapter for the mic.
+- Solder hunt: a candidate wire at home would not melt on the iron, so it was not solder. Bread ties are thin steel and do not bond either. A friend had activated flux core solder wire, which is electronics-grade, ideally under 1mm diameter.
+- Took the Zero, the iron, and the electronics to the friend's house. Soldered the headers onto the Pi Zero 2 W. First soldering job done.
+- Set up the Apple TV there too, connected to my hotspot.
+- Reset the Pi 5 for the new network. Ethernet cannot reach a hotspot, so the WiFi details went on a FAT32 USB stick for Home Assistant to import. Reset the Pi Zero 2 W with the hotspot details as well. The resets turned out to be unnecessary, the USB network import also works on an existing install.
+- Set up Scrypted on the Pi 5 again.
+
+Next: reinstall go2rtc and ffmpeg on `kronk-gate` per [gate setup](gate-setup.md), then hook up the mic through the OTG adapter.
+
 ## 2026-08-08: Pi 5 up, running Home Assistant
 
 The indoor unit is alive.

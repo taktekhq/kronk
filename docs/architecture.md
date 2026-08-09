@@ -24,7 +24,8 @@ Working plan, partially built. The [build log](build-log.md) tracks reality.
 - An Apple TV is the Home hub, which enables access over the internet.
 - UI: the Apple Home app.
 - Recording: HomeKit Secure Video with iCloud+. Apple archives, the Pi streams.
-- Scrypted will take over the camera lane to Apple Home for latency and audio. Decided, not set up yet.
+- Scrypted, on the Pi 5, takes the camera lane to Apple Home for latency and audio. Installed, camera not wired in yet.
+- Doorbell and lock path: gate GPIO, MQTT, Home Assistant entity, HomeKit.
 
 ## Gate unit
 
