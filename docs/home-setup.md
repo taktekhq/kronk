@@ -7,6 +7,8 @@ Steps to set up the [Pi 5](parts.md#indoor-unit). Work in progress.
 1. Install the [Active Cooler](parts/active-cooler.md).
 2. Flash the SD card with Home Assistant.
 3. Boot with ethernet and a solid power outlet, then finish onboarding. You can watch status and logs during setup.
+   On WiFi instead: put the network details on a FAT32 USB stick named CONFIG. The stick has to stay plugged in, WiFi drops without it.
+   `http://homeassistant.local:4357` shows Home Assistant's health while the main page is still loading.
 4. Update the software and reboot.
 
 ## Apple Home

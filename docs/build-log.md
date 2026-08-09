@@ -13,7 +13,11 @@ Dated journal. Newest first.
 - Reset the Pi 5 for the new network. Ethernet cannot reach a hotspot, so the WiFi details went on a FAT32 USB stick for Home Assistant to import. Reset the Pi Zero 2 W with the hotspot details as well. The resets turned out to be unnecessary, the USB network import also works on an existing install.
 - Set up Scrypted on the Pi 5 again.
 
-Next: reinstall go2rtc and ffmpeg on `kronk-gate` per [gate setup](gate-setup.md), then hook up the mic through the OTG adapter.
+- Found `http://homeassistant.local:4357`, the observer page that shows Home Assistant's health while the main page is still loading.
+- The WiFi config USB has to stay plugged into the Pi 5. Remove it and the network drops.
+- Plugged the mic into `kronk-gate` through the OTG adapter. `arecord -l` lists it as card 0, USB PnP Sound Device. Swapped the test tone in [gate/go2rtc.yaml](../gate/go2rtc.yaml) for the mic at `plughw:0,0`.
+
+Next: confirm voice comes through the stream, then Scrypted takes the camera.
 
 ## 2026-08-08: Pi 5 up, running Home Assistant
 
