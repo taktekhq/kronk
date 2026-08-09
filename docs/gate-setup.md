@@ -38,15 +38,37 @@ Run `./go2rtc`, open `http://kronk-gate.local:1984`, and click the `gate` stream
 
 ## Audio
 
-The real microphone is pending an adapter. For now the stream carries a 440Hz test tone.
+ffmpeg feeds the audio source in [gate/go2rtc.yaml](../gate/go2rtc.yaml):
 
 ```
 sudo apt install -y ffmpeg
 ```
 
-The tone comes from the second `exec` source in [gate/go2rtc.yaml](../gate/go2rtc.yaml).
+To test without a mic, use a 440Hz sine as the second `exec` source:
 
-The tone is AAC, so it plays over MSE but not WebRTC. WebRTC only carries Opus audio.
+```
+- exec:ffmpeg -re -f lavfi -i sine=frequency=440:sample_rate=16000 -c:a aac -f adts -
+```
+
+The tone is AAC, so it plays over MSE but not WebRTC in the browser. WebRTC only carries Opus audio.
+
+For the real [microphone](parts/microphone.md), plug it in through the OTG adapter, then find its card number:
+
+```
+arecord -l
+```
+
+Swap the sine source for the mic, using the card number in `plughw` (no `-re` on live sources):
+
+```
+- exec:ffmpeg -f alsa -i plughw:1,0 -ac 1 -ar 16000 -c:a aac -f adts -
+```
+
+Restart go2rtc and speak at the mic with the stream open. If silent, isolate mic vs pipeline by recording straight from ALSA:
+
+```
+arecord -D plughw:1,0 -f S16_LE -r 16000 test.wav
+```
 
 ## Run as a service
 
