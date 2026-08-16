@@ -12,7 +12,7 @@ Writing rules for this repo. No exceptions.
 
 Repo layout:
 
-- `gate/`: config files that live on `kronk-gate`
+- `gate/`: the `kronk-gate` daemon source and config files that live on `kronk-gate`
 - `docs/parts.md`: what you need, generic, with the exact item bought
 - `docs/parts/*.md`: one page per part that has detailed specs
 - `docs/bill.csv`: exactly what was paid

@@ -21,19 +21,20 @@ GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o kro
 
 ## Deploy
 
-Create `/home/nizarmah/kronk-gate.env` on the Pi:
+Create `/home/nizarmah/kronk-gate.env` on the Pi. Single-quote the values, no single quotes inside. Both systemd and the shell read this file, single quotes work in both.
 
 ```
-KRONK_BROKER=tcp://homeassistant.local:1883
-KRONK_MQTT_USER=kronk-gate
-KRONK_MQTT_PASS=change-me
+KRONK_BROKER='tcp://homeassistant.local:1883'
+KRONK_MQTT_USER='kronk-gate'
+KRONK_MQTT_PASS='change-me'
 ```
 
-Copy the binary and unit, then enable:
+Copy the binary, unit, and run script, then enable:
 
 ```
+chmod +x kronk-gate-arm64
 scp kronk-gate-arm64 nizarmah@kronk-gate.local:kronk-gate
-scp kronk-gate.service nizarmah@kronk-gate.local:
+scp run.sh kronk-gate.service nizarmah@kronk-gate.local:
 ssh nizarmah@kronk-gate.local
 sudo mv kronk-gate.service /etc/systemd/system/
 sudo systemctl daemon-reload

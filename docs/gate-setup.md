@@ -148,3 +148,7 @@ sudo systemctl restart go2rtc
 systemctl status go2rtc
 journalctl -u go2rtc -f
 ```
+
+## Doorbell and lock daemon
+
+The `kronk-gate` daemon bridges the button and relay to MQTT. Build, deploy, and test steps in [gate/README.md](../gate/README.md).

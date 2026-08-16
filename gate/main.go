@@ -42,7 +42,6 @@ func main() {
 	}
 	defer relay.Close()
 
-	// Capacity 1: an UNLOCK during a pulse is dropped, not queued.
 	unlocks := make(chan struct{}, 1)
 
 	opts := mqtt.NewClientOptions().
@@ -51,20 +50,11 @@ func main() {
 		SetUsername(user).
 		SetPassword(pass).
 		SetAutoReconnect(true).
-		SetConnectRetry(true).
 		SetWill(statusTopic, "offline", qos, true).
 		SetOnConnectHandler(func(c mqtt.Client) {
 			log.Printf("connected to %s", broker)
 			publish(c, statusTopic, true, "online")
-			c.Subscribe(lockSetTopic, qos, func(_ mqtt.Client, m mqtt.Message) {
-				if string(m.Payload()) != "UNLOCK" {
-					return
-				}
-				select {
-				case unlocks <- struct{}{}:
-				default:
-				}
-			})
+			subscribe(c, unlocks)
 		}).
 		SetConnectionLostHandler(func(_ mqtt.Client, err error) {
 			log.Printf("connection lost: %v", err)
@@ -73,6 +63,12 @@ func main() {
 	client := mqtt.NewClient(opts)
 	if t := client.Connect(); t.Wait() && t.Error() != nil {
 		log.Fatalf("connect %s: %v", broker, t.Error())
+	}
+
+	// The relay is low after AsOutput(0). Reconcile retained state left
+	// over from a shutdown mid-pulse, before the worker starts pulsing.
+	if t := client.Publish(lockStateTopic, qos, true, "LOCKED"); t.Wait() && t.Error() != nil {
+		log.Printf("publish %s: %v", lockStateTopic, t.Error())
 	}
 
 	button, err := gpiocdev.RequestLine(chip, buttonPin,
@@ -88,9 +84,22 @@ func main() {
 	}
 	defer button.Close()
 
+	quit := make(chan struct{})
+	done := make(chan struct{})
 	go func() {
-		for range unlocks {
-			unlock(client, relay)
+		defer close(done)
+		for {
+			select {
+			case <-quit:
+				return
+			case <-unlocks:
+				unlock(client, relay)
+				// Drop the UNLOCK, if any, that arrived mid-pulse.
+				select {
+				case <-unlocks:
+				default:
+				}
+			}
 		}
 	}()
 
@@ -98,8 +107,39 @@ func main() {
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 	<-sig
 
+	// Let an in-flight pulse finish so the relay ends low and the
+	// retained state ends LOCKED, then force the relay low anyway.
+	close(quit)
+	<-done
+	if err := relay.SetValue(0); err != nil {
+		log.Printf("relay off: %v", err)
+	}
+
 	client.Publish(statusTopic, qos, true, "offline").WaitTimeout(time.Second)
 	client.Disconnect(250)
+}
+
+func subscribe(client mqtt.Client, unlocks chan<- struct{}) {
+	t := client.Subscribe(lockSetTopic, qos, func(_ mqtt.Client, m mqtt.Message) {
+		if string(m.Payload()) != "UNLOCK" {
+			return
+		}
+		select {
+		case unlocks <- struct{}{}:
+		default:
+		}
+	})
+	go func() {
+		t.Wait()
+		if err := t.Error(); err != nil {
+			log.Printf("subscribe %s: %v", lockSetTopic, err)
+			return
+		}
+		// The token carries no error when the broker refuses with 0x80.
+		if st, ok := t.(*mqtt.SubscribeToken); ok && st.Result()[lockSetTopic] >= 0x80 {
+			log.Printf("subscribe %s: rejected 0x%x", lockSetTopic, st.Result()[lockSetTopic])
+		}
+	}()
 }
 
 func unlock(client mqtt.Client, relay *gpiocdev.Line) {
@@ -107,8 +147,9 @@ func unlock(client mqtt.Client, relay *gpiocdev.Line) {
 	publish(client, lockStateTopic, true, "UNLOCKED")
 	if err := relay.SetValue(1); err != nil {
 		log.Printf("relay on: %v", err)
+	} else {
+		time.Sleep(unlockHold)
 	}
-	time.Sleep(unlockHold)
 	if err := relay.SetValue(0); err != nil {
 		log.Printf("relay off: %v", err)
 	}
