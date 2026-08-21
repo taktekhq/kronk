@@ -8,20 +8,24 @@
 
 Tray for the Raspberry Pi 5. Rests on the LDNIO Z11 socket extender and the Cudy AC1200 WiFi extender. No wall screws, no board screws, tool free.
 
+v2. The v1 fit test passed on the Z11 and failed on everything else: the arm ran into the antennas at the Cudy's far end, and the edge grips hit the power button and the ports. v2 lands the foot just past the plug hump, clear of the antennas, and mounts the Pi on four pegs in its mounting holes. Nothing touches the board edges.
+
 Print:
 
-- Orientation: upright, as modeled, skirt and foot on the bed. No supports.
-- The plate underside prints as bridges. Rough is fine, it faces the devices. Enable thick bridges if the slicer offers it.
+- Orientation: upright, as modeled, skirt and foot on the bed. Do not rotate.
+- Supports ON: tree, build plate only. They fill the skirt cavity and under the arm and pop out. The top stays clean.
+- 0.2mm layers, PLA.
+- Stringing is filament, not the model: dry the PLA, tune retraction.
 - Regenerate the STL after edits: `openscad -o pi5-saddle.stl pi5-saddle.scad`
 
 Assembly:
 
 - Cap the Z11 with the platform. The skirt grips three sides, the right side stays open for the Cudy.
-- The arm passes between the antennas, the flared side notches nest around their bases, the foot lands on the Cudy flat top. The antennas carry no weight.
-- Pi in: USB-C edge facing the room, ports edge right. Set the board on the ribs between the guide walls, slide left under the two pocket lips until it clicks past the latch.
-- Pi out: press the latch tab down, slide the board right, lift.
+- The short arm crosses the plug hump, the foot lands on the Cudy flat just past it, before the antennas.
+- Pi on: line the four mounting holes over the pegs, press down. Two pegs are slightly fat and grip by friction. The pads keep 3mm of air under the board for the microSD card.
+- Pi off: lift straight up.
 - Optional anchors, only if the fit is loose: one zip tie around the Z11 through the three skirt slots, one around the arm and the Cudy through the arm edge notches.
 
 Fit:
 
-- Test fit before mounting. Rocking: tune `cudy_drop`. Tight or loose on the cube: tune `clr`. Latch too stiff or weak: tune `nub_h`. Antenna notches off: tune `ant_x`. One variable per reprint.
+- Rocking between cube and foot: tune `cudy_drop`. Tight or loose on the cube: tune `clr`. Pegs tight or loose: tune `peg_d`, `peg_extra`. Foot not on clear flat: tune `arm_len`. One variable per reprint.

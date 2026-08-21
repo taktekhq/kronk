@@ -2,6 +2,17 @@
 
 Dated journal. Newest first.
 
+## 2026-08-21: First saddle print, failed fit, v2
+
+- Printed the v1 saddle. 0.2mm PLA, no supports, 43 minutes. Heavy stringing, and the bridged underside printed badly.
+- Fit test on the wall. The Z11 side is right, the skirt seats well on the cube.
+- The Cudy side is wrong. The antennas stand near the Cudy's far end, not along the arm's sides, so the flares are useless and the arm reaching for the far edge ends at the antennas with the foot never touching the surface 10mm below.
+- The Pi mount is wrong. The pocket side hits the power button, the latch side hits the ethernet and USB ports, the latch never clicked.
+- Redesigned as v2: the foot lands just past the plug hump, well before the antennas. The antenna flares are gone. The edge grips are gone, the Pi drops onto four pegs in its mounting holes, two slightly fat for friction, nothing at the board edges.
+- Print change: still upright, now with tree supports on the build plate only, so the underside stops relying on long bridges.
+
+Next: print v2, test fit.
+
 ## 2026-08-21: Power corner up, Pi 5 saddle designed
 
 - Bought the LDNIO Z11 socket extender, 4 AC outlets, and plugged it into the wall socket by the main router.
