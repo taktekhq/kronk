@@ -1,35 +1,33 @@
-// Saddle tray for the Raspberry Pi 5, v2. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v3. Tool free, no screws.
 // Rests on the LDNIO Z11 socket extender and the Cudy AC1200 (RE1200)
 // WiFi extender plugged into the Z11's right face.
 //
-// v1 fit test: the Z11 skirt fit is right. The arm was wrong, it
-// reached for the Cudy's far edge and ran into the antennas standing
-// there. The edge grips were wrong, they hit the power button and the
-// ports. v2 lands the foot just past the plug hump, well before the
-// antennas, and mounts the Pi on four pegs in its mounting holes,
-// nothing touches the board edges.
+// v1 fit test: the Z11 skirt fit is right, everything else was wrong.
+// A top photo then decoded the Cudy: the antennas are fold flat
+// paddles splayed at the far end of its top, their hinges eat that far
+// end. So: no notches, no chamfers, the arm runs full width. The foot
+// lands 45mm out, mid flat, clear of the hinges. Two through slots in
+// the arm let the raised paddles pass and key the saddle against
+// sliding, no load on the hinges.
 //
-// Frame: X runs along the wall, left to right. Y runs away from the
-// wall. Z up. Origin: left wall-side corner of the Z11 top face, Z=0
-// at the Z11 top plane. The plate caps the Z11, a skirt grips three
-// cube sides, a short arm crosses the Cudy plug hump and a foot steps
-// down onto the flat just past it.
+// Pi mount: four pegs in the board's mounting holes, the only spots on
+// a Pi 5 guaranteed free of parts. v1's edge grips hit the power
+// button and the ports; nothing touches the board edges now. Drop the
+// board on, press; two diagonal pegs run fat for friction; lift off.
 //
-// Pi mount: drop the board onto the four pegs, holes over pegs, and
-// press. Two diagonal pegs are slightly fat for friction. Lift to
-// remove. Pads under the holes give 3mm of air for the microSD card
-// and the solder side.
+// MEASURE BEFORE PRINTING, placeholder paddle numbers below:
+//   paddle_x     distance, cube face to paddle center
+//   paddle_span  distance between the two paddle centers
+//   paddle_w, paddle_t  one paddle's width and thickness
 //
-// Print: upright, as modeled, skirt and foot on the bed. Supports ON:
-// tree, build plate only. They fill the skirt cavity and the space
-// under the arm and pop out; the top surfaces stay clean.
-// Bambu Lab A1 Mini, PLA. Stringing is filament, not the model: dry
-// the PLA, tune retraction.
+// Print: upright, as modeled, skirt and foot on the bed. Do not
+// rotate. Supports: tree, build plate only, they fill the skirt cavity
+// and under the arm and pop out. Dry the PLA first, the stringing was
+// moisture. Bambu Lab A1 Mini, 0.2mm.
 // Regenerate STL: openscad -o pi5-saddle.stl pi5-saddle.scad
 //
-// Test fit. Rocking between cube and foot: tune cudy_drop. Tight or
-// loose on the cube: tune clr. Pegs tight or loose in the board:
-// tune peg_d and peg_extra. Foot not on clear flat: tune arm_len.
+// Fit tuning, one variable per reprint: rocking, cudy_drop. Cube grip,
+// clr. Peg fit, peg_d and peg_extra. Foot placement, foot_x.
 
 clr = 0.5;        // clearance added around measured device sizes
 wall = 2.5;       // skirt wall thickness
@@ -40,11 +38,18 @@ z11 = 50;         // cube top, both directions
 skirt_drop = 10;  // skirt depth down the cube sides
 
 // Cudy AC1200
-cudy_hump = 16;   // plug hump length before the flat zone
 cudy_drop = 10;   // Cudy flat top sits this far below the Z11 top
-arm_len = 26;     // arm length past the cube face; the foot lands at
-                  // its end, just past the hump, clear of the antennas
+arm_len = 58;     // arm length past the cube face, spans the whole top
+foot_x = 42;      // foot lands here, from the cube face: mid flat,
+                  // past the 16mm plug hump, fully clear of the
+                  // paddle slots so raised paddles never hit the foot
 foot_t = 4;       // foot wall thickness
+
+// antenna paddles, raised through the arm // MEASURE all four
+paddle_x = 48;    // cube face to paddle center
+paddle_span = 36; // between the two paddle centers, across the arm
+paddle_w = 14;    // paddle width, slot gets +4
+paddle_t = 9;     // paddle thickness, slot gets +3
 
 // Raspberry Pi 5, long side parallel to the wall
 pi_l = 85;
@@ -69,7 +74,7 @@ plat_x0 = -(clr + wall);          // platform outer left edge
 plat_y0 = -(clr + wall);          // platform outer wall-side edge
 plat_y1 = z11 + clr + wall;       // platform outer room-side edge
 arm_x0 = z11 + clr;               // arm starts at the cube's right face
-arm_x1 = arm_x0 + arm_len;        // arm end, foot outer face
+arm_x1 = arm_x0 + arm_len;        // arm end, past the paddle slots
 
 pi_x0 = 7.5;                      // board left edge
 pi_y0 = z11/2 - pi_w/2;
@@ -91,8 +96,8 @@ difference() {
             cube([z11 - plat_x0, wall, skirt_drop + eps]);
         translate([plat_x0, plat_y1 - wall, -skirt_drop])
             cube([z11 - plat_x0, wall, skirt_drop + eps]);
-        // foot, drops onto the Cudy flat just past the hump
-        translate([arm_x1 - foot_t, pi_y0, -cudy_drop])
+        // foot, drops onto the Cudy flat mid way, clear of the hinges
+        translate([arm_x0 + foot_x - foot_t, pi_y0, -cudy_drop])
             cube([foot_t, pi_w, cudy_drop + eps]);
 
         // pegs: pad, straight peg, cone tip; two diagonals run fat
@@ -107,6 +112,13 @@ difference() {
             }
         }
     }
+
+    // paddle slots: raised antennas pass through the arm and key the
+    // saddle in place, loose fit, zero load on the hinges
+    for (s = [-1, 1])
+        translate([arm_x0 + paddle_x - (paddle_t + 3)/2,
+                   z11/2 + s*paddle_span/2 - (paddle_w + 4)/2, -1])
+            cube([paddle_t + 3, paddle_w + 4, plate_t + 2]);
 
     // vent window under the board center
     translate([16, 6, -eps]) cube([46, z11 - 12, plate_t + 2*eps]);

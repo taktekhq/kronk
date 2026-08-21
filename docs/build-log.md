@@ -8,10 +8,12 @@ Dated journal. Newest first.
 - Fit test on the wall. The Z11 side is right, the skirt seats well on the cube.
 - The Cudy side is wrong. The antennas stand near the Cudy's far end, not along the arm's sides, so the flares are useless and the arm reaching for the far edge ends at the antennas with the foot never touching the surface 10mm below.
 - The Pi mount is wrong. The pocket side hits the power button, the latch side hits the ethernet and USB ports, the latch never clicked.
-- Redesigned as v2: the foot lands just past the plug hump, well before the antennas. The antenna flares are gone. The edge grips are gone, the Pi drops onto four pegs in its mounting holes, two slightly fat for friction, nothing at the board edges.
-- Print change: still upright, now with tree supports on the build plate only, so the underside stops relying on long bridges.
+- A top photo decoded the Cudy: the antennas are fold flat paddles splayed at the far end of its top, their hinges eat that far end. Not vertical posts beside the arm.
+- Redesigned as v3. The antenna flares and edge chamfers are gone. The foot lands 42mm out on the mid flat, past the hump, before the hinges. Two through slots in the arm let the raised paddles pass and key the saddle against sliding, no load on the hinges. Paddle position and size are placeholders in the file, measure before printing.
+- The edge grips are gone. The Pi drops onto four pegs in its mounting holes, the only spots on a Pi 5 guaranteed free of parts, two pegs slightly fat for friction. Nothing touches the board edges.
+- Print change: still upright, now with tree supports on the build plate only, so the underside stops relying on long bridges. The stringing was moisture, dry the spool.
 
-Next: print v2, test fit.
+Next: measure the paddles, print v3, test fit.
 
 ## 2026-08-21: Power corner up, Pi 5 saddle designed
 
