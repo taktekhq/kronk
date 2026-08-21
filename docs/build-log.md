@@ -2,6 +2,19 @@
 
 Dated journal. Newest first.
 
+## 2026-08-21: Power corner up, Pi 5 saddle designed
+
+- Bought the LDNIO Z11 socket extender, 4 AC outlets, and plugged it into the wall socket by the main router.
+- Plugged the Cudy AC1200 mesh WiFi extender into the Z11's right face. It bridges the Pi 5 to the network over ethernet.
+- The Pi 5, its power supply, and the ethernet cable still need a home. Decided against a wall box: no screws in the wall, no closed box around a hot Pi. Instead a printed saddle that rests on the Z11 and the Cudy.
+- The web has no body dimensions for the Z11 or the indoor AC1200. Measured by hand: Z11 cube 50x50x50, sticking 70mm from the wall. Cudy protrudes 54mm from the Z11 face, a 16mm plug hump then a 58x38 flat top, 10mm below the Z11 top. Antennas flank the flat top, 58mm gap between them.
+- Designed the saddle: [print/pi5-saddle.scad](../print/pi5-saddle.scad). A platform caps the Z11 with a skirt gripping three sides, a 54mm arm passes between the antennas, a foot steps down 10mm onto the Cudy flat. Vent windows under the board, zip tie slots as fallback anchors.
+- No screws anywhere. The Pi slides onto the tray: edge ribs lift the board 3mm, side guides set it straight, two pockets catch the left edge, a latch clicks behind the right edge. Press the latch, slide right, the Pi is out.
+- Flared notches on the arm sides nest around the antenna bases as lateral guides. No vertical load on the antennas, they are hinged plastic and would droop.
+- One part, prints upright, no supports, fits the A1 mini bed. PLA Basic Black.
+
+Next: print, test fit, adjust one variable and reprint if needed.
+
 ## 2026-08-21: Doorbell and lock on MQTT
 
 - Wrote the `kronk-gate` daemon in Go: the GPIO27 button publishes `kronk/doorbell`, `UNLOCK` on `kronk/lock/set` pulses the GPIO17 relay for 3s and publishes `kronk/lock/state`. Source and topics in [gate/README.md](../gate/README.md).
