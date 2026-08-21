@@ -8,12 +8,13 @@ Dated journal. Newest first.
 - Fit test on the wall. The Z11 side is right, the skirt seats well on the cube.
 - The Cudy side is wrong. The antennas stand near the Cudy's far end, not along the arm's sides, so the flares are useless and the arm reaching for the far edge ends at the antennas with the foot never touching the surface 10mm below.
 - The Pi mount is wrong. The pocket side hits the power button, the latch side hits the ethernet and USB ports, the latch never clicked.
-- A top photo decoded the Cudy: the antennas are fold flat paddles splayed at the far end of its top, their hinges eat that far end. Not vertical posts beside the arm.
-- Redesigned as v3. The antenna flares and edge chamfers are gone. The foot lands 42mm out on the mid flat, past the hump, before the hinges. Two through slots in the arm let the raised paddles pass and key the saddle against sliding, no load on the hinges. Paddle position and size are placeholders in the file, measure before printing.
+- A top photo decoded the Cudy: the antennas hinge at the sides of the body near its far end and splay outward at body level, one toward the wall, one toward the room. They never rise through the arm. The hinge fronts sit about 30mm from the cube face. The cube is 51mm each way, not 50.
+- Redesigned as v4. The antenna flares, chamfers, and through slots are gone. Open notches on the arm's side edges span the hinge zone, room for the paddles raised or splayed, no hinge load. The foot lands on the clear flat with its far face against the hinge fronts, which stops the saddle sliding off the open side; the left skirt wall stops the other direction.
 - The edge grips are gone. The Pi drops onto four pegs in its mounting holes, the only spots on a Pi 5 guaranteed free of parts, two pegs slightly fat for friction. Nothing touches the board edges.
+- Cube cavity kept at the printed 51.0 that fit well.
 - Print change: still upright, now with tree supports on the build plate only, so the underside stops relying on long bridges. The stringing was moisture, dry the spool.
 
-Next: measure the paddles, print v3, test fit.
+Next: check hinge_x with a ruler, print v4, test fit.
 
 ## 2026-08-21: Power corner up, Pi 5 saddle designed
 
