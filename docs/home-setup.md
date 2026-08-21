@@ -38,6 +38,40 @@ Stream settings:
 
 If re-adding the camera says it is part of a different home, use Reset Pairing in the camera's HomeKit section to get a fresh QR code.
 
+## MQTT broker
+
+The [`kronk-gate` daemon](../gate/README.md) publishes the doorbell and lock over MQTT.
+
+1. Install the Mosquitto broker add-on and start it.
+2. Create a Home Assistant user `kronk-gate` for the daemon. Mosquitto accepts Home Assistant credentials.
+3. Add the MQTT integration. It finds the add-on broker.
+4. Put the credentials in the daemon's env file on `kronk-gate`. Broker URL: `tcp://homeassistant.local:1883`.
+
+Lock and doorbell entities in `configuration.yaml`:
+
+```yaml
+mqtt:
+  lock:
+    - name: Gate
+      command_topic: kronk/lock/set
+      state_topic: kronk/lock/state
+      payload_unlock: UNLOCK
+      state_locked: LOCKED
+      state_unlocked: UNLOCKED
+      availability_topic: kronk/status
+  event:
+    - name: Gate doorbell
+      state_topic: kronk/doorbell
+      event_types: [ding]
+      device_class: doorbell
+      value_template: '{"event_type": "{{ value }}"}'
+      availability_topic: kronk/status
+```
+
+The Lock button does nothing by design. The relay is momentary, the gate locks itself after the pulse.
+
+Expose both through the HomeKit Bridge.
+
 ## Recording (HomeKit Secure Video)
 
 HKSV needs iCloud+, an online home hub, and the camera exposing a motion sensor. Without motion, the Home app hides the Recording section entirely.

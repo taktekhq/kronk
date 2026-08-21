@@ -27,9 +27,14 @@ const (
 	statusTopic    = "kronk/status"
 
 	qos        = 1
+	pubTimeout = 5 * time.Second
 	debounce   = 100 * time.Millisecond
 	unlockHold = 3 * time.Second
 )
+
+// relayOwner is a single-slot semaphore. Whoever holds it owns the relay:
+// an unlock pulse, or shutdown. An UNLOCK that finds it taken is dropped.
+var relayOwner = make(chan struct{}, 1)
 
 func main() {
 	broker := mustEnv("KRONK_BROKER")
@@ -42,19 +47,26 @@ func main() {
 	}
 	defer relay.Close()
 
-	unlocks := make(chan struct{}, 1)
-
 	opts := mqtt.NewClientOptions().
 		AddBroker(broker).
 		SetClientID(clientID).
 		SetUsername(user).
 		SetPassword(pass).
 		SetAutoReconnect(true).
+		SetWriteTimeout(pubTimeout).
 		SetWill(statusTopic, "offline", qos, true).
 		SetOnConnectHandler(func(c mqtt.Client) {
 			log.Printf("connected to %s", broker)
-			publish(c, statusTopic, true, "online")
-			subscribe(c, unlocks)
+			// Subscribe first, the publishes below can block 5s each
+			// and commands during that window would be lost.
+			subscribe(c, relay)
+			publish(c, statusTopic, qos, true, "online")
+			// The relay idles low. Reconcile retained state left over
+			// from dying mid-pulse. A reconnect during a pulse shows
+			// LOCKED a moment early, the pulse ends on LOCKED anyway.
+			publish(c, lockStateTopic, qos, true, "LOCKED")
+			// Clear a retained command so the broker cannot replay it.
+			publish(c, lockSetTopic, qos, true, "")
 		}).
 		SetConnectionLostHandler(func(_ mqtt.Client, err error) {
 			log.Printf("connection lost: %v", err)
@@ -65,68 +77,51 @@ func main() {
 		log.Fatalf("connect %s: %v", broker, t.Error())
 	}
 
-	// The relay is low after AsOutput(0). Reconcile retained state left
-	// over from a shutdown mid-pulse, before the worker starts pulsing.
-	if t := client.Publish(lockStateTopic, qos, true, "LOCKED"); t.Wait() && t.Error() != nil {
-		log.Printf("publish %s: %v", lockStateTopic, t.Error())
-	}
-
 	button, err := gpiocdev.RequestLine(chip, buttonPin,
 		gpiocdev.WithPullUp,
 		gpiocdev.WithFallingEdge,
 		gpiocdev.WithDebounce(debounce),
 		gpiocdev.WithEventHandler(func(gpiocdev.LineEvent) {
 			log.Print("doorbell pressed")
-			publish(client, doorbellTopic, false, "ding")
+			// QoS 0, a ring replayed after an outage is a false ring.
+			// Off the event loop, a slow socket must not block presses.
+			go publish(client, doorbellTopic, 0, false, "ding")
 		}))
 	if err != nil {
 		log.Fatalf("button GPIO%d: %v", buttonPin, err)
 	}
 	defer button.Close()
 
-	quit := make(chan struct{})
-	done := make(chan struct{})
-	go func() {
-		defer close(done)
-		for {
-			select {
-			case <-quit:
-				return
-			case <-unlocks:
-				unlock(client, relay)
-				// Drop the UNLOCK, if any, that arrived mid-pulse.
-				select {
-				case <-unlocks:
-				default:
-				}
-			}
-		}
-	}()
-
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 	<-sig
 
-	// Let an in-flight pulse finish so the relay ends low and the
-	// retained state ends LOCKED, then force the relay low anyway.
-	close(quit)
-	<-done
+	// Take the relay: waits out an in-flight pulse, blocks new ones.
+	relayOwner <- struct{}{}
 	if err := relay.SetValue(0); err != nil {
 		log.Printf("relay off: %v", err)
 	}
 
+	// 1s, not the usual 5s: shutdown must not hang on a dead socket,
+	// and the will covers offline if this publish never lands.
 	client.Publish(statusTopic, qos, true, "offline").WaitTimeout(time.Second)
 	client.Disconnect(250)
 }
 
-func subscribe(client mqtt.Client, unlocks chan<- struct{}) {
+func subscribe(client mqtt.Client, relay *gpiocdev.Line) {
 	t := client.Subscribe(lockSetTopic, qos, func(_ mqtt.Client, m mqtt.Message) {
-		if string(m.Payload()) != "UNLOCK" {
+		// A retained UNLOCK would replay on every reconnect. Live only.
+		if m.Retained() || string(m.Payload()) != "UNLOCK" {
 			return
 		}
 		select {
-		case unlocks <- struct{}{}:
+		case relayOwner <- struct{}{}:
+			go func() {
+				defer func() { <-relayOwner }()
+				unlock(client, relay)
+			}()
 		default:
+			log.Print("unlock dropped, relay busy")
 		}
 	})
 	go func() {
@@ -142,27 +137,31 @@ func subscribe(client mqtt.Client, unlocks chan<- struct{}) {
 	}()
 }
 
+// unlock pulses the relay. State follows the relay: nothing publishes
+// until the pin actually changed.
 func unlock(client mqtt.Client, relay *gpiocdev.Line) {
 	log.Print("unlocking")
-	publish(client, lockStateTopic, true, "UNLOCKED")
 	if err := relay.SetValue(1); err != nil {
 		log.Printf("relay on: %v", err)
-	} else {
-		time.Sleep(unlockHold)
+		return
 	}
+	publish(client, lockStateTopic, qos, true, "UNLOCKED")
+	time.Sleep(unlockHold)
 	if err := relay.SetValue(0); err != nil {
-		log.Printf("relay off: %v", err)
+		// Energized and stuck. Die: systemd restarts the daemon and
+		// AsOutput(0) forces the pin low again.
+		log.Fatalf("relay stuck on: %v", err)
 	}
-	publish(client, lockStateTopic, true, "LOCKED")
+	publish(client, lockStateTopic, qos, true, "LOCKED")
 }
 
-func publish(client mqtt.Client, topic string, retained bool, payload string) {
+func publish(client mqtt.Client, topic string, qos byte, retained bool, payload string) {
 	t := client.Publish(topic, qos, retained, payload)
-	go func() {
-		if t.Wait(); t.Error() != nil {
-			log.Printf("publish %s: %v", topic, t.Error())
-		}
-	}()
+	if !t.WaitTimeout(pubTimeout) {
+		log.Printf("publish %s: timeout", topic)
+	} else if t.Error() != nil {
+		log.Printf("publish %s: %v", topic, t.Error())
+	}
 }
 
 func mustEnv(key string) string {
