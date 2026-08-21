@@ -2,7 +2,7 @@
 
 Dated journal. Newest first.
 
-## 2026-08-21: First saddle print, failed fit, v2
+## 2026-08-21: First saddle print failed, redesigned to v5
 
 - Printed the v1 saddle. 0.2mm PLA, no supports, 43 minutes. Heavy stringing, and the bridged underside printed badly.
 - Fit test on the wall. The Z11 side is right, the skirt seats well on the cube.
@@ -10,8 +10,9 @@ Dated journal. Newest first.
 - The Pi mount is wrong. The pocket side hits the power button, the latch side hits the ethernet and USB ports, the latch never clicked.
 - A top photo decoded the Cudy: the antennas hinge at the sides of the body near its far end and splay outward at body level, one toward the wall, one toward the room. They never rise through the arm. The hinge fronts sit about 30mm from the cube face. The cube is 51mm each way, not 50.
 - Redesigned as v4. The antenna flares, chamfers, and through slots are gone. Open notches on the arm's side edges span the hinge zone, room for the paddles raised or splayed, no hinge load. The foot lands on the clear flat with its far face against the hinge fronts, which stops the saddle sliding off the open side; the left skirt wall stops the other direction.
-- The edge grips are gone. The Pi drops onto four pegs in its mounting holes, the only spots on a Pi 5 guaranteed free of parts, two pegs slightly fat for friction. Nothing touches the board edges.
+- The edge grips are gone. The Pi mounts by its four mounting holes, the only spots on a Pi 5 guaranteed free of parts. Nothing touches the board edges.
 - Cube cavity kept at the printed 51.0 that fit well.
+- The photo is scaled off the 51mm cube, good for layout, not for lengths: the Cudy top sits lower and reads about 15 percent short. The tape numbers stand where they conflict: 54 protrusion, 16 hump, 10 drop, 58 width. hinge_x is the one photo length the fit depends on, set to 30, ruler check pending.
 - Split the pegs into separate press-in parts as v5. The saddle's top is flat now, so it prints upside down on the bed, no supports and no bridges, which removes what failed in print one. The pegs print standing, four plus two spares. Press them into the board first, then drop board and pegs into sockets in the plate; the board's weight traps the flanges.
 - The stringing was moisture, dry the spool.
 
