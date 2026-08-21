@@ -1,30 +1,35 @@
-// Saddle tray for the Raspberry Pi 5, v4. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v5. Tool free, no screws.
 // Rests on the LDNIO Z11 socket extender and the Cudy AC1200 (RE1200)
 // WiFi extender plugged into the Z11's right face.
 //
-// Photo-corrected topology: the Cudy's antennas hinge at the SIDES of
-// its body near the far end and splay OUTWARD at body level, one
-// toward the wall, one toward the room. They never rise through the
-// arm, so v3's through slots were wrong. v4 keys them at the arm's
-// side edges instead: open notches over the hinge zone, and the foot's
-// far face butts the hinge fronts, which stops the saddle sliding off
-// the open side. The left skirt wall stops the other direction.
+// v5: the pegs are separate press-in parts. The saddle top is flat, so
+// it prints upside down, top face on the bed, no supports, no bridges.
+// Press the four pegs into the Pi's mounting holes first, then drop
+// board and pegs into the saddle's sockets. The peg flange is captured
+// between board and plate, the pegs cannot fall out while the board
+// sits on them.
 //
-// Pi mount: four pegs in the board's mounting holes, the only spots on
-// a Pi 5 guaranteed free of parts. Drop the board on, press; two
-// diagonal pegs run fat for friction; lift off.
+// Cudy topology, photo corrected: the antennas hinge at the SIDES of
+// the body near its far end and splay outward at body level. Open
+// notches on the arm's side edges give them room; the foot's far face
+// butts the hinge fronts and stops the saddle sliding off the open
+// side. The left skirt wall stops the other direction.
 //
-// MEASURE, placeholders below, all flagged:
-//   hinge_x      cube face to the front of the antenna hinges
-//   hinge_len    hinge zone length along the body
+// Two parts from this one file:
+//   openscad -o pi5-saddle.stl pi5-saddle.scad            (print ready, flipped)
+//   openscad -D 'part="pegs"' -o pi5-pegs.stl pi5-saddle.scad
+// Set part="assembly" to preview everything upright with pegs seated.
 //
-// Print: upright, as modeled, skirt and foot on the bed. Do not
-// rotate. Supports: tree, build plate only. Dry the PLA first, the
-// stringing was moisture. Bambu Lab A1 Mini, 0.2mm.
-// Regenerate STL: openscad -o pi5-saddle.stl pi5-saddle.scad
+// MEASURE: hinge_x, cube face to the front of the antenna hinges.
+//
+// Print: saddle exactly as the STL opens, flat face on the bed, no
+// supports. Pegs standing, add a brim. 0.2mm, PLA, dry the spool.
 //
 // Fit tuning, one variable per reprint: rocking, cudy_drop. Cube grip,
-// clr. Peg fit, peg_d and peg_extra. Foot placement, hinge_x.
+// clr. Pin in the board holes, pin_d. Peg in the saddle, socket_d.
+// Foot placement, hinge_x.
+
+part = "saddle";  // "saddle" | "pegs" | "assembly"
 
 clr = 0;          // extra clearance around the cube; the printed 51.0
                   // cavity fit the 51 cube well, raise only if a
@@ -51,11 +56,16 @@ pi_l = 85;
 pi_w = 56;
 hole_dx = 58;     // official mounting hole pattern, holes 3.5 from edges
 hole_dy = 49;
-pad_d = 7;        // standoff pad under each hole
-pad_h = 3;        // board sits this far above the plate
-peg_d = 2.4;      // peg diameter; board holes are 2.7
-peg_extra = 0.15; // added to two diagonal pegs for friction
-peg_h = 3.5;      // straight peg length above the pad, plus a cone tip
+
+// pegs, printed separately
+pin_d = 2.45;     // pin through the board's 2.7 holes, light friction
+pin_h = 3;        // straight pin above the flange, plus a cone tip
+flange_d = 7;     // standoff flange, board rests on it
+flange_h = 3;     // air under the board, clears the microSD card
+shaft_d = 4;      // shaft into the saddle socket
+shaft_h = 2.8;    // a touch shorter than the socket
+socket_d = 4.3;   // socket in the plate, loose drop-in fit
+socket_h = 3;     // blind, 1mm floor keeps the underside clean
 
 // zip tie anchors, fallback only
 slot_l = 5;
@@ -77,57 +87,74 @@ holes = [[pi_x0 + 3.5, pi_y0 + 3.5], [pi_x0 + 3.5 + hole_dx, pi_y0 + 3.5],
          [pi_x0 + 3.5, pi_y0 + 3.5 + hole_dy],
          [pi_x0 + 3.5 + hole_dx, pi_y0 + 3.5 + hole_dy]];
 
-difference() {
-    union() {
-        // one full width plate, platform and arm
-        translate([plat_x0, plat_y0, 0])
-            cube([arm_x0 - plat_x0, plat_y1 - plat_y0, plate_t]);
-        translate([arm_x0 - eps, pi_y0, 0])
-            cube([arm_x1 - arm_x0 + eps, pi_w, plate_t]);
-        // skirt, three sides: left, wall side, room side; right stays open
-        translate([plat_x0, plat_y0, -skirt_drop])
-            cube([wall, plat_y1 - plat_y0, skirt_drop + eps]);
-        translate([plat_x0, plat_y0, -skirt_drop])
-            cube([z11 - plat_x0, wall, skirt_drop + eps]);
-        translate([plat_x0, plat_y1 - wall, -skirt_drop])
-            cube([z11 - plat_x0, wall, skirt_drop + eps]);
-        // foot on the clear flat, far face against the hinge fronts,
-        // vertical support and the stop against sliding off
-        translate([arm_x0 + hinge_x - foot_t, pi_y0, -cudy_drop])
-            cube([foot_t, pi_w, cudy_drop + eps]);
-
-        // pegs: pad, straight peg, cone tip; two diagonals run fat
-        for (i = [0:3]) {
-            fat = (i == 0 || i == 3) ? peg_extra : 0;
-            translate([holes[i][0], holes[i][1], plate_t - eps]) {
-                cylinder(d = pad_d, h = pad_h + eps);
-                translate([0, 0, pad_h])
-                    cylinder(d = peg_d + fat, h = peg_h + eps);
-                translate([0, 0, pad_h + peg_h])
-                    cylinder(d1 = peg_d + fat, d2 = 1.2, h = 1);
-            }
+module saddle() {
+    difference() {
+        union() {
+            // one full width plate, platform and arm, flat top
+            translate([plat_x0, plat_y0, 0])
+                cube([arm_x0 - plat_x0, plat_y1 - plat_y0, plate_t]);
+            translate([arm_x0 - eps, pi_y0, 0])
+                cube([arm_x1 - arm_x0 + eps, pi_w, plate_t]);
+            // skirt, three sides: left, wall side, room side; right open
+            translate([plat_x0, plat_y0, -skirt_drop])
+                cube([wall, plat_y1 - plat_y0, skirt_drop + eps]);
+            translate([plat_x0, plat_y0, -skirt_drop])
+                cube([z11 - plat_x0, wall, skirt_drop + eps]);
+            translate([plat_x0, plat_y1 - wall, -skirt_drop])
+                cube([z11 - plat_x0, wall, skirt_drop + eps]);
+            // foot on the clear flat, far face against the hinge fronts
+            translate([arm_x0 + hinge_x - foot_t, pi_y0, -cudy_drop])
+                cube([foot_t, pi_w, cudy_drop + eps]);
         }
+
+        // blind sockets for the pegs, open from the top
+        for (h = holes)
+            translate([h[0], h[1], plate_t - socket_h])
+                cylinder(d = socket_d, h = socket_h + eps);
+
+        // antenna notches: open cuts on both arm edges over the hinge
+        // zone, room for the paddles raised or splayed, no hinge load
+        for (y = [pi_y0 - eps, pi_y0 + pi_w - notch_depth + eps])
+            translate([arm_x0 + hinge_x, y, -1])
+                cube([hinge_len, notch_depth, plate_t + 2]);
+
+        // vent window under the board center
+        translate([16, z11/2 - 19.5, -eps]) cube([46, 39, plate_t + 2*eps]);
+
+        // zip tie slots in the three skirts, one loop around the cube
+        translate([plat_x0 - eps, z11/2 - slot_l/2, -6.5])
+            cube([wall + 2*eps, slot_l, slot_w]);
+        translate([z11/2 - slot_l/2, plat_y0 - eps, -6.5])
+            cube([slot_l, wall + 2*eps, slot_w]);
+        translate([z11/2 - slot_l/2, plat_y1 - wall - eps, -6.5])
+            cube([slot_l, wall + 2*eps, slot_w]);
+
+        // zip tie notches on the arm edges, one loop around arm and Cudy
+        translate([66, pi_y0 - eps, -eps]) cube([slot_w, 2, plate_t + 2*eps]);
+        translate([66, pi_y0 + pi_w - 2 + eps, -eps])
+            cube([slot_w, 2, plate_t + 2*eps]);
     }
+}
 
-    // antenna notches: open cuts on both arm edges over the hinge
-    // zone, room for the paddles raised or splayed, no hinge load
-    for (y = [pi_y0 - eps, pi_y0 + pi_w - notch_depth + eps])
-        translate([arm_x0 + hinge_x, y, -1])
-            cube([hinge_len, notch_depth, plate_t + 2]);
+// one peg, standing as printed: shaft, flange, pin, cone tip
+module peg() {
+    cylinder(d = shaft_d, h = shaft_h);
+    translate([0, 0, shaft_h]) cylinder(d = flange_d, h = flange_h);
+    translate([0, 0, shaft_h + flange_h]) cylinder(d = pin_d, h = pin_h);
+    translate([0, 0, shaft_h + flange_h + pin_h])
+        cylinder(d1 = pin_d, d2 = 1.2, h = 1);
+}
 
-    // vent window under the board center
-    translate([16, z11/2 - 19.5, -eps]) cube([46, 39, plate_t + 2*eps]);
-
-    // zip tie slots in the three skirts, one loop around the cube
-    translate([plat_x0 - eps, z11/2 - slot_l/2, -6.5])
-        cube([wall + 2*eps, slot_l, slot_w]);
-    translate([z11/2 - slot_l/2, plat_y0 - eps, -6.5])
-        cube([slot_l, wall + 2*eps, slot_w]);
-    translate([z11/2 - slot_l/2, plat_y1 - wall - eps, -6.5])
-        cube([slot_l, wall + 2*eps, slot_w]);
-
-    // zip tie notches on the arm edges, one loop around arm and Cudy
-    translate([66, pi_y0 - eps, -eps]) cube([slot_w, 2, plate_t + 2*eps]);
-    translate([66, pi_y0 + pi_w - 2 + eps, -eps])
-        cube([slot_w, 2, plate_t + 2*eps]);
+if (part == "saddle") {
+    // flipped, print ready: flat top on the bed
+    rotate([180, 0, 0]) saddle();
+} else if (part == "pegs") {
+    // four pegs plus two spares, standing, print with a brim
+    for (i = [0:5])
+        translate([12*(i%3), 12*floor(i/3), 0]) peg();
+} else {
+    // assembly preview, upright, pegs seated in their sockets
+    saddle();
+    for (h = holes)
+        translate([h[0], h[1], plate_t - shaft_h]) peg();
 }

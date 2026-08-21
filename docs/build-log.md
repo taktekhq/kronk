@@ -12,9 +12,10 @@ Dated journal. Newest first.
 - Redesigned as v4. The antenna flares, chamfers, and through slots are gone. Open notches on the arm's side edges span the hinge zone, room for the paddles raised or splayed, no hinge load. The foot lands on the clear flat with its far face against the hinge fronts, which stops the saddle sliding off the open side; the left skirt wall stops the other direction.
 - The edge grips are gone. The Pi drops onto four pegs in its mounting holes, the only spots on a Pi 5 guaranteed free of parts, two pegs slightly fat for friction. Nothing touches the board edges.
 - Cube cavity kept at the printed 51.0 that fit well.
-- Print change: still upright, now with tree supports on the build plate only, so the underside stops relying on long bridges. The stringing was moisture, dry the spool.
+- Split the pegs into separate press-in parts as v5. The saddle's top is flat now, so it prints upside down on the bed, no supports and no bridges, which removes what failed in print one. The pegs print standing, four plus two spares. Press them into the board first, then drop board and pegs into sockets in the plate; the board's weight traps the flanges.
+- The stringing was moisture, dry the spool.
 
-Next: check hinge_x with a ruler, print v4, test fit.
+Next: check hinge_x with a ruler, print the saddle and the pegs, test fit.
 
 ## 2026-08-21: Power corner up, Pi 5 saddle designed
 
