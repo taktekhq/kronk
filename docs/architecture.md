@@ -21,11 +21,11 @@ Working plan, partially built. The [build log](build-log.md) tracks reality.
 - `kronk-gate` streams camera video and mic audio with [go2rtc](https://github.com/AlexxIT/go2rtc). Setup in [gate setup](gate-setup.md).
 - The Pi 5 runs Home Assistant. Setup in [home setup](home-setup.md).
 - Scrypted, a Home Assistant add-on, pulls the gate stream over RTSP and serves the camera to Apple Home as its own accessory. The camera does not go through Home Assistant.
-- The HomeKit Bridge will expose Home Assistant entities to Apple Home, the future doorbell and lock.
+- The HomeKit Bridge will expose Home Assistant entities to Apple Home, the doorbell and lock.
 - An Apple TV is the Home hub, which enables access over the internet.
 - UI: the Apple Home app.
 - Recording: HomeKit Secure Video with iCloud+. Apple archives, the Pi streams. OpenCV motion detection in Scrypted gates it.
-- Doorbell and lock path: gate GPIO, MQTT, Home Assistant entity, HomeKit.
+- Doorbell and lock path: gate GPIO, MQTT, Home Assistant entity, HomeKit. The GPIO to MQTT leg is the [`kronk-gate` daemon](../gate/README.md). The Home Assistant entities are next.
 
 ## Gate unit
 

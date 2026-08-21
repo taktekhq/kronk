@@ -10,6 +10,8 @@ EnvironmentFile=/home/nizarmah/kronk-gate.env
 ExecStart=/home/nizarmah/kronk-gate
 Restart=always
 RestartSec=3
+# Covers the 3s unlock pulse and the daemon's bounded publishes.
+TimeoutStopSec=20
 
 [Install]
 WantedBy=multi-user.target

@@ -2,6 +2,14 @@
 
 Dated journal. Newest first.
 
+## 2026-08-21: Doorbell and lock on MQTT
+
+- Wrote the `kronk-gate` daemon in Go: the GPIO27 button publishes `kronk/doorbell`, `UNLOCK` on `kronk/lock/set` pulses the GPIO17 relay for 3s and publishes `kronk/lock/state`. Source and topics in [gate/README.md](../gate/README.md).
+- Added a release workflow that builds `kronk-gate-arm64` on `gate-v*` tags, and a CI workflow that builds on pull requests.
+- Review hardened the lock logic: retained commands are ignored and cleared so a reconnect cannot replay an unlock, the relay actuates before any state publish, state follows the actual pin writes, publishes are bounded at 5s, and shutdown waits out an in-flight pulse then forces the relay low.
+
+Next: Mosquitto on the Pi 5, MQTT lock and doorbell entities in Home Assistant, HomeKit.
+
 ## 2026-08-09: Relay wired, Kronk gets hands
 
 - Wired the relay's control side to `kronk-gate` with three F-F jumpers: VCC to pin 2 (5V), GND to pin 6, IN to pin 11 (GPIO17). Red for power, black for ground, a bright color for signal.
