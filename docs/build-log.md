@@ -23,6 +23,8 @@ Dated journal. Newest first.
 - v13: the sockets now run straight through the plate, open at the bottom, so the trapped air escapes below instead of fighting the shaft. The ring stays whole, all four sockets identical, and the shaft is shorter than the plate so nothing pokes out underneath. The zip tie notches are gone, the arm is a uniform rectangle, the plug is the only anchor.
 - Made the pegs stronger: the split no longer runs through the shaft. A solid shaft takes the socket press, the split spans only the seat and pin where the barb needs its flex. One more peg died to the old air pocket during install, the Pi rides on three of four meanwhile.
 
+- Lengthened the peg shafts from 2.9 to 3.7, the through sockets made the room: deeper seat, straighter peg, still 0.3 shy of the plate bottom.
+
 Next: print the v13 saddle and pegs, swap in, all four corners.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
