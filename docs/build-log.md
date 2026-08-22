@@ -15,8 +15,9 @@ Dated journal. Newest first.
 - v10 prongs match the European convention, 4.8 by 19, and lean 0.5mm toward each other like a Europlug's converging pins, the socket bends them straight and the springback grips.
 - Measured the top socket well: 38 wide, 4 deep to the socket face, not the guessed 9. The base grew to 37.4 by 3.8, filling the well 0.2 shy of its floor, so the plate seats on the cube and the base bears just after. The prongs shortened to match the real depth.
 - Tested the v9 pegs: snug in the saddle sockets and they click into the Pi's holes properly. One peg died to a too-hard squeeze, a spare took its place.
+- Printed the v10 saddle, 16g, 40 minutes. Plugged it in: perfect fit, locked in. The full-size converging prongs grip in the socket, the base fills the well, the plate seats flat on the cube. The saddle is done.
 
-Next: print the v10 saddle, plug it in, test the pull-out force, then click the Pi on.
+Next: pegs in, Pi on, power and ethernet connected, cable tug test.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 
