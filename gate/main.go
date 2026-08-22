@@ -53,6 +53,7 @@ func main() {
 		SetUsername(user).
 		SetPassword(pass).
 		SetAutoReconnect(true).
+		SetCustomOpenConnectionFn(openConn).
 		SetWriteTimeout(pubTimeout).
 		SetWill(statusTopic, "offline", qos, true).
 		SetOnConnectHandler(func(c mqtt.Client) {

@@ -31,7 +31,28 @@ KRONK_MQTT_USER='kronk-gate'
 KRONK_MQTT_PASS='change-me'
 ```
 
-Copy the binary and unit, then enable:
+The daemon resolves `.local` names itself, one mDNS query per connect attempt. The static build cannot use the system resolver, so a plain hostname lookup would die with `no such host`.
+
+It holds the MQTT password, keep it owner-only:
+
+```
+chmod 600 ~/kronk-gate.env
+```
+
+Download the release binary and unit on the Pi, then enable:
+
+```
+curl -Lo kronk-gate https://github.com/taktekhq/kronk/releases/latest/download/kronk-gate-arm64
+curl -LO https://raw.githubusercontent.com/taktekhq/kronk/main/gate/kronk-gate.service
+chmod +x kronk-gate
+sudo mv kronk-gate.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now kronk-gate
+```
+
+Upgrading: `sudo systemctl stop kronk-gate` first. Writing into the running binary fails with `Text file busy`. Curl, then start the service again.
+
+Or scp a [local build](#build):
 
 ```
 chmod +x kronk-gate-arm64
