@@ -1,4 +1,11 @@
-// Saddle tray for the Raspberry Pi 5, v8. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v9. Tool free, no screws.
+//
+// v9: snap pegs. The v5 pegs sat loose in their sockets and the Pi
+// lifted off freely. The pegs are now split snap pins like the Pi
+// active cooler's: the barbed tip squeezes through the board's hole
+// and clicks open above it, and the fatter split shaft squeezes snug
+// into the saddle socket. Remove the board with a firm straight pull,
+// or pinch the tips.
 // Plugs into the top socket of the LDNIO Z11 socket extender and
 // carries the Pi over it and the Cudy AC1200 (RE1200) beside it.
 //
@@ -65,14 +72,23 @@ pi_w = 56;
 hole_dx = 58;     // official mounting hole pattern, holes 3.5 from edges
 hole_dy = 49;
 
-// pegs, printed separately
-pin_d = 2.45;     // pin through the board's 2.7 holes, light friction
-pin_h = 3;        // straight pin above the flange, plus a cone tip
-flange_d = 7;     // standoff flange, board rests on it
-flange_h = 3;     // air under the board, clears the microSD card
-shaft_d = 4;      // shaft into the saddle socket
-shaft_h = 2.8;    // a touch shorter than the socket
-socket_d = 4.3;   // socket in the plate, loose drop-in fit
+// pegs, printed separately. Snap pins like the active cooler's: a
+// split runs the whole peg, the barbed tip squeezes through the
+// board's hole and clicks open above it. The flex lives in the long
+// split, which keeps PLA inside its elastic range.
+pin_d = 2.5;      // pin through the board's 2.7 holes
+pcb_t = 1.6;      // Pi board thickness, the barb catches just above
+barb_d = 3.1;     // barb over the 2.7 hole, 0.2 catch per side
+barb_h = 0.3;     // the flat catch ledge
+tip_h = 1.8;      // cone above the barb, the squeeze-in lead
+seat_l = 7;       // seat bar the board rests on, along the split
+seat_w = 2.6;     // seat bar width
+seat_h = 3;       // air under the board, clears the microSD card
+split_w = 1.1;    // the split; the halves flex toward each other
+shaft_d = 4.2;    // shaft into the saddle socket, snug, and the split
+                  // lets it squeeze in
+shaft_h = 2.9;    // a touch shorter than the socket
+socket_d = 4.3;   // socket in the plate
 socket_h = 3;     // blind, 1mm floor keeps the underside clean
 
 // zip tie anchors on the arm, fallback only
@@ -140,13 +156,27 @@ module saddle() {
     }
 }
 
-// one peg, standing as printed: shaft, flange, pin, cone tip
+// one peg, standing as printed: chamfered shaft, seat bar, pin, barb,
+// cone tip, all split lengthwise so the halves can flex
 module peg() {
-    cylinder(d = shaft_d, h = shaft_h);
-    translate([0, 0, shaft_h]) cylinder(d = flange_d, h = flange_h);
-    translate([0, 0, shaft_h + flange_h]) cylinder(d = pin_d, h = pin_h);
-    translate([0, 0, shaft_h + flange_h + pin_h])
-        cylinder(d1 = pin_d, d2 = 1.2, h = 1);
+    difference() {
+        union() {
+            cylinder(d1 = 3.4, d2 = shaft_d, h = 0.8);
+            translate([0, 0, 0.8 - eps])
+                cylinder(d = shaft_d, h = shaft_h - 0.8 + eps);
+            translate([-seat_l/2, -seat_w/2, shaft_h - eps])
+                cube([seat_l, seat_w, seat_h + eps]);
+            translate([0, 0, shaft_h + seat_h - eps])
+                cylinder(d = pin_d, h = pcb_t + 0.1 + 2*eps);
+            translate([0, 0, shaft_h + seat_h + pcb_t + 0.1])
+                cylinder(d = barb_d, h = barb_h + eps);
+            translate([0, 0, shaft_h + seat_h + pcb_t + 0.1 + barb_h])
+                cylinder(d1 = barb_d, d2 = 1.4, h = tip_h);
+        }
+        // the split, from just above the shaft base to past the tip
+        translate([-seat_l/2 - 1, -split_w/2, 1.5])
+            cube([seat_l + 2, split_w, shaft_h + seat_h + pcb_t + barb_h + tip_h]);
+    }
 }
 
 if (part == "saddle") {
