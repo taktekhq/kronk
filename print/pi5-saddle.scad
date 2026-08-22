@@ -108,7 +108,8 @@ seat_h = 3;       // air under the board, clears the microSD card
 split_w = 1.1;    // the split; the halves flex toward each other
 shaft_d = 4.2;    // shaft into the saddle socket, snug, and the split
                   // lets it squeeze in
-shaft_h = 2.9;    // a touch shorter than the socket
+shaft_h = 3.7;    // fills most of the through socket, 0.3 shy of
+                  // the plate bottom, never pokes out
 socket_d = 4.3;   // socket through the plate, open at the bottom so
                   // the air escapes; the shaft is shorter than the
                   // plate and never pokes out underneath
