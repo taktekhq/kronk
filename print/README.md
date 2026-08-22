@@ -4,7 +4,7 @@
 
 ## Pi 5 saddle
 
-[pi5-saddle.scad](pi5-saddle.scad), rendered to [pi5-saddle.stl](pi5-saddle.stl) and [pi5-pegs.stl](pi5-pegs.stl).
+[pi5-saddle.scad](pi5-saddle.scad), rendered to [pi5-saddle.stl](pi5-saddle.stl) and [pi5-pegs.stl](pi5-pegs.stl). [pi5-saddle-and-pegs.3mf](pi5-saddle-and-pegs.3mf) is the ready Bambu Studio project, both parts on one plate with the working settings.
 
 Tray for the Raspberry Pi 5. Plugs into the top socket of the LDNIO Z11 socket extender and cantilevers over the Cudy AC1200. No wall screws, no board screws, tool free. Two parts: the saddle, and press-in pegs.
 

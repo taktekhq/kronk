@@ -25,6 +25,8 @@ Dated journal. Newest first.
 
 - Lengthened the peg shafts from 2.9 to 3.7, the through sockets made the room: deeper seat, straighter peg, still 0.3 shy of the plate bottom.
 
+- Saved the Bambu Studio project with both parts and the working settings: [print/pi5-saddle-and-pegs.3mf](../print/pi5-saddle-and-pegs.3mf).
+
 Next: print the v13 saddle and pegs, swap in, all four corners.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
