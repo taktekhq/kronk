@@ -50,7 +50,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now kronk-gate
 ```
 
-Upgrading while the service runs: curl to `kronk-gate.new`, `chmod +x`, `mv` over `kronk-gate`, restart. Writing into the running binary fails with `Text file busy`, mv replaces the directory entry instead.
+Upgrading: `sudo systemctl stop kronk-gate` first. Writing into the running binary fails with `Text file busy`. Curl, then start the service again.
 
 Or scp a [local build](#build):
 
