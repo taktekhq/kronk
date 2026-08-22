@@ -31,6 +31,12 @@ KRONK_MQTT_USER='kronk-gate'
 KRONK_MQTT_PASS='change-me'
 ```
 
+It holds the MQTT password, keep it owner-only:
+
+```
+chmod 600 ~/kronk-gate.env
+```
+
 Copy the binary and unit, then enable:
 
 ```
