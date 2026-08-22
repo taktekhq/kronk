@@ -33,12 +33,13 @@ Next: listen test on `kronk/#`, the lock and doorbell entities, HomeKit Bridge.
 - Correction, from the CAD screenshots: the Pi's holes were never covered and the pegs were never the problem. The hard "holes" were the saddle's peg sockets. The two sockets the arm's zip tie notches happened to cut open took pegs easily and held snug; the two whole sockets were too stiff, trapped air under the shaft, and broke pegs during insertion. The accident was the better design.
 - v13: the sockets now run straight through the plate, open at the bottom, so the trapped air escapes below instead of fighting the shaft. The ring stays whole, all four sockets identical, and the shaft is shorter than the plate so nothing pokes out underneath. The zip tie notches are gone, the arm is a uniform rectangle, the plug is the only anchor.
 - Made the pegs stronger: the split no longer runs through the shaft. A solid shaft takes the socket press, the split spans only the seat and pin where the barb needs its flex. One more peg died to the old air pocket during install, the Pi rides on three of four meanwhile.
-
 - Lengthened the peg shafts from 2.9 to 3.7, the through sockets made the room: deeper seat, straighter peg, still 0.3 shy of the plate bottom.
+- Saved the Bambu Studio project with both parts and the working settings.
+- Printed v13: impossible to press in. Printed holes shrink, and the solid shaft that was meant to be stronger cannot give the way the old split one did. Friction fits between printed parts are done.
+- v14: the pegs are double-ended rivets. The bore opened to a clearance fit, nothing rubs, and each end clicks: a bottom barb into a counterbore hidden in the plate's underside, flush, and the top barb through the Pi's hole as before. Two crossed splits, one per barb, each with a long PLA-safe flex. Push to click at both ends, pull the seat bar to free a peg.
+- Dropped the stale 3mf, re-export after v14 proves out.
 
-- Saved the Bambu Studio project with both parts and the working settings: [print/pi5-saddle-and-pegs.3mf](../print/pi5-saddle-and-pegs.3mf).
-
-Next: print the v13 saddle and pegs, swap in, all four corners.
+Next: print the v14 saddle and pegs, swap in, all four corners.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 

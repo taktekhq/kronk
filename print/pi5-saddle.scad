@@ -1,4 +1,13 @@
-// Saddle tray for the Raspberry Pi 5, v12. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v14. Tool free, no screws.
+//
+// v14: rivet pegs, both ends. The v13 solid shaft in a friction bore
+// was impossible to press in, printed holes shrink and a solid shaft
+// cannot give. The bore is now a clearance fit and the peg is a
+// double-ended rivet: the bottom barb clicks into a counterbore
+// hidden inside the plate's underside, flush, nothing protruding, and
+// the top barb clicks through the Pi's hole as before. Two crossed
+// splits give each barb its own long flex, overlapping mid-peg where
+// the four quadrants stay joined. Push to click, both ends.
 //
 // v13: vented sockets, clean arm, stronger pegs. The whole blind
 // sockets trapped air under the entering shaft and broke pegs; the
@@ -93,10 +102,8 @@ pi_w = 56;
 hole_dx = 58;     // official mounting hole pattern, holes 3.5 from edges
 hole_dy = 49;
 
-// pegs, printed separately. Snap pins like the active cooler's: a
-// split runs the whole peg, the barbed tip squeezes through the
-// board's hole and clicks open above it. The flex lives in the long
-// split, which keeps PLA inside its elastic range.
+// pegs, printed separately: double-ended rivets, push to click at
+// both ends. Crossed splits keep each barb's flex long and PLA-safe.
 pin_d = 2.5;      // pin through the board's 2.7 holes
 pcb_t = 1.6;      // Pi board thickness, the barb catches just above
 barb_d = 3.1;     // barb over the 2.7 hole, 0.2 catch per side
@@ -105,14 +112,13 @@ tip_h = 1.8;      // cone above the barb, the squeeze-in lead
 seat_l = 7;       // seat bar the board rests on, along the split
 seat_w = 2.6;     // seat bar width
 seat_h = 3;       // air under the board, clears the microSD card
-split_w = 1.1;    // the split; the halves flex toward each other
-shaft_d = 4.2;    // shaft into the saddle socket, snug, and the split
-                  // lets it squeeze in
-shaft_h = 3.7;    // fills most of the through socket, 0.3 shy of
-                  // the plate bottom, never pokes out
-socket_d = 4.3;   // socket through the plate, open at the bottom so
-                  // the air escapes; the shaft is shorter than the
-                  // plate and never pokes out underneath
+split_w = 1.1;    // the top split; the halves flex toward each other
+socket_d = 4.6;   // bore through the plate, clearance fit, the air
+                  // escapes below and nothing rubs
+anchor_d = 4.8;   // bottom barb, clicks into the counterbore
+cb_d = 5.8;       // counterbore in the plate's underside, hides the barb
+cb_h = 1.1;       // counterbore depth; the barb sits inside, flush
+shaft_d = 4;      // shaft, free slide in the bore
 
 eps = 0.01;
 $fn = 48;
@@ -164,11 +170,14 @@ module saddle() {
             }
         }
 
-        // peg sockets, straight through the plate: the trapped air
-        // that broke pegs escapes out the bottom
-        for (h = holes)
+        // peg sockets: clearance bore through the plate with a
+        // counterbore in the underside for the peg's bottom barb
+        for (h = holes) {
             translate([h[0], h[1], -eps])
                 cylinder(d = socket_d, h = plate_t + 2*eps);
+            translate([h[0], h[1], -eps])
+                cylinder(d = cb_d, h = cb_h + eps);
+        }
 
         // vent window under the board, beside the base
         translate([44, z11/2 - 19.5, -eps]) cube([18, 39, plate_t + 2*eps]);
@@ -176,27 +185,34 @@ module saddle() {
     }
 }
 
-// one peg, standing as printed: chamfered shaft, seat bar, pin, barb,
-// cone tip, all split lengthwise so the halves can flex
+// one peg, standing as printed on its flat bottom tip: a double
+// ended rivet. Entry cone, bottom barb for the saddle counterbore,
+// clearance shaft, seat bar, pin, top barb for the Pi's hole, tip
+// cone. Two crossed splits: the bottom one is thin across X and runs
+// up into the seat, the top one thin across Y from mid-shaft to the
+// tip; they overlap mid-peg where the four quadrants stay joined, so
+// each barb flexes on its own long spring.
 module peg() {
     difference() {
         union() {
-            cylinder(d1 = 3.4, d2 = shaft_d, h = 0.8);
-            translate([0, 0, 0.8 - eps])
-                cylinder(d = shaft_d, h = shaft_h - 0.8 + eps);
-            translate([-seat_l/2, -seat_w/2, shaft_h - eps])
+            cylinder(d1 = 3.4, d2 = anchor_d, h = 0.5);
+            translate([0, 0, 0.5 - eps]) cylinder(d = anchor_d, h = 0.3 + 2*eps);
+            translate([0, 0, 0.8]) cylinder(d1 = anchor_d, d2 = shaft_d, h = 0.2 + eps);
+            translate([0, 0, 1 - eps]) cylinder(d = shaft_d, h = 2.9 + 2*eps);
+            translate([-seat_l/2, -seat_w/2, 3.9 - eps])
                 cube([seat_l, seat_w, seat_h + eps]);
-            translate([0, 0, shaft_h + seat_h - eps])
+            translate([0, 0, 3.9 + seat_h - eps])
                 cylinder(d = pin_d, h = pcb_t + 0.1 + 2*eps);
-            translate([0, 0, shaft_h + seat_h + pcb_t + 0.1])
+            translate([0, 0, 3.9 + seat_h + pcb_t + 0.1])
                 cylinder(d = barb_d, h = barb_h + eps);
-            translate([0, 0, shaft_h + seat_h + pcb_t + 0.1 + barb_h])
+            translate([0, 0, 3.9 + seat_h + pcb_t + 0.1 + barb_h])
                 cylinder(d1 = barb_d, d2 = 1.4, h = tip_h);
         }
-        // the split, only through seat and pin: the shaft below stays
-        // solid and takes the socket press without breaking
-        translate([-seat_l/2 - 1, -split_w/2, shaft_h - 0.5])
-            cube([seat_l + 2, split_w, seat_h + pcb_t + barb_h + tip_h + 1]);
+        // bottom split, thin across X, tip up into the seat
+        translate([-0.7, -6, -eps]) cube([1.4, 12, 5.5 + eps]);
+        // top split, thin across Y, mid shaft past the tip
+        translate([-seat_l/2 - 1, -split_w/2, 3.5])
+            cube([seat_l + 2, split_w, seat_h + pcb_t + barb_h + tip_h + 5]);
     }
 }
 
@@ -211,5 +227,5 @@ if (part == "saddle") {
     // assembly preview, upright, pegs seated in their sockets
     saddle();
     for (h = holes)
-        translate([h[0], h[1], plate_t - shaft_h]) peg();
+        translate([h[0], h[1], 0.1]) peg();
 }
