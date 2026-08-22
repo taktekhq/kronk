@@ -6,14 +6,17 @@
 
 [pi5-saddle.scad](pi5-saddle.scad), rendered to [pi5-saddle.stl](pi5-saddle.stl) and [pi5-pegs.stl](pi5-pegs.stl).
 
-Tray for the Raspberry Pi 5. Rests on the LDNIO Z11 socket extender and the Cudy AC1200 WiFi extender. No wall screws, no board screws, tool free. Two parts: the saddle, and press-in pegs.
+Tray for the Raspberry Pi 5. Rests on the LDNIO Z11 socket extender and the Cudy AC1200 WiFi extender, and plugs into the Z11's top socket. No wall screws, no board screws, tool free. Two parts: the saddle, and press-in pegs.
 
-v6. The pegs are separate parts, so the saddle's top is flat and it prints upside down on the bed with no supports and no bridges. The wall-side skirt is gone, it hit the outlet's raised edge behind the cube; a 30mm boss under the plate drops into the round socket well on the cube's top face and keys the saddle instead, with skirt walls left on the left and room sides. Open notches on the arm edges give the splayed antennas room, and the foot butts the hinge fronts as the slide stop.
+v7. Two solid prongs under the plate plug into the cube's top socket, the one the saddle covers anyway, like a child blanking plug. The socket's sprung contacts grip them: hold-down and lateral lock in one move. The antenna notches are gone, the splayed antennas never reach the arm. No skirt on the wall side, the v5 print hit the outlet's raised edge there; left and room side skirts remain as alignment guides. The saddle top is flat, so it prints upside down with no supports and no bridges.
 
-Check before printing, two ruler numbers:
+Safety: the prongs are solid plastic, the same idea as a child safety blanking plug. Keep them that way. No metal, no foil, no hollow prongs, and stop if one ever snaps off inside the socket, pull it out with pliers before replugging anything.
 
-- `hinge_x`: cube face to the front of the antenna hinges, set to 30. If yours differs by more than 2mm, update and regenerate.
-- `boss_d`: the boss is 30, it must be smaller than the round socket well on the cube's top face. Check the well is over 31 wide.
+Check before printing, three top-socket numbers:
+
+- `prong_gap`: hole spacing center to center, set to 19.
+- `well_depth`: cube top surface down to the socket face, set to 9.
+- `prong_along_y`: true means the two holes line up wall-to-room. Set false if they line up along the wall.
 
 Print:
 
@@ -27,11 +30,11 @@ Print:
 Assembly:
 
 - Press the four pegs into the Pi's mounting holes from below, pin side up into the board, flange against the underside.
-- Cap the Z11 with the platform, boss into the top socket well, skirt on the left and room sides, arm over the Cudy, foot on the flat in front of the antenna hinges. The antennas stay splayed or raised, the side notches give them room.
+- Line the prongs over the top socket's holes and push the saddle straight down until the plate sits on the cube. The arm crosses the Cudy, the foot lands on its flat.
 - Drop the board with its pegs into the four sockets. The flanges keep 3mm of air under the board for the microSD card, and the board's weight traps the pegs.
-- Lift straight up to remove, pegs come along with the board.
-- Optional anchors, only if the fit is loose: one zip tie around the Z11 through the three skirt slots, one around the arm and the Cudy through the arm edge notches.
+- Pi off: lift straight up. Saddle off: pull straight up, it unplugs.
+- Optional anchors, only if the fit is loose: zip ties through the skirt slots and the arm edge notches.
 
 Fit:
 
-- Rocking between cube and foot: tune `cudy_drop`. Cube grip: tune `clr`. Pin tight or loose in the board: tune `pin_d`. Peg tight or loose in the saddle: tune `socket_d`. Foot placement: tune `hinge_x`. One variable per reprint.
+- Rocking between cube and foot: tune `cudy_drop`. Cube grip: tune `clr`. Pin tight or loose in the board: tune `pin_d`. Peg in the saddle: tune `socket_d`. Prong grip in the socket: tune `prong_d`. Foot placement: tune `foot_x`. One variable per reprint.
