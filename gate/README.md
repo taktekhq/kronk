@@ -37,7 +37,18 @@ It holds the MQTT password, keep it owner-only:
 chmod 600 ~/kronk-gate.env
 ```
 
-Copy the binary and unit, then enable:
+Download the release binary and unit on the Pi, then enable:
+
+```
+curl -Lo kronk-gate https://github.com/taktekhq/kronk/releases/latest/download/kronk-gate-arm64
+curl -LO https://raw.githubusercontent.com/taktekhq/kronk/main/gate/kronk-gate.service
+chmod +x kronk-gate
+sudo mv kronk-gate.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now kronk-gate
+```
+
+Or scp a [local build](#build):
 
 ```
 chmod +x kronk-gate-arm64
