@@ -13,6 +13,7 @@ Dated journal. Newest first.
 - The v5 pegs sat loose in their sockets and the Pi lifted off with no resistance. v9 pegs are snap pins like the Pi active cooler's: a split runs the whole peg, the barbed tip squeezes through the board's hole and clicks open above it, the fatter split shaft squeezes snug into the socket. The round flange became a seat bar along the split so the halves stay thin and PLA flexes instead of snapping.
 - Printed the v8 saddle and v9 pegs. The saddle plugs in, hole spacing and orientation confirmed, but it pulls out too easily: the prongs were 4.5 wide and reached only 8mm past the socket face. Real pins are 4.8 wide and engage 19mm, where the grip springs sit.
 - v10 prongs match the European convention, 4.8 by 19, and lean 0.5mm toward each other like a Europlug's converging pins, the socket bends them straight and the springback grips.
+- Measured the top socket well: 38 wide, 4 deep to the socket face, not the guessed 9. The base grew to 37.4 by 3.8, filling the well 0.2 shy of its floor, so the plate seats on the cube and the base bears just after. The prongs shortened to match the real depth.
 
 Next: print the v10 saddle, test the pull-out force, then the pegs and the Pi.
 

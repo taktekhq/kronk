@@ -68,14 +68,14 @@ arm_len = 42;     // arm past the cube face, ends at the board's edge,
 // socket bends them straight and the springback grips.
 prong_d = 4.8;    // standard pin diameter; drop to 4.6 if insertion fights
 prong_gap = 19;   // hole spacing, center to center, confirmed by v8
-well_depth = 9;   // cube top surface down to the socket face
+well_depth = 4;   // cube top surface down to the socket face, measured
 engage = 19;      // standard pin engagement below the socket face
 prong_lean = 0.5; // each tip pulls this much toward center; more lean,
                   // more grip; 0 is a parallel Schuko pin
-prong_along_y = true; // holes line up wall-to-room; false: along the wall // MEASURE
-base_d = 30;      // round base around the prongs, nests in the socket
-                  // well like a plug face; keep under the well diameter // MEASURE
-base_h = 3;       // base depth into the well
+prong_along_y = true; // holes line up wall-to-room, confirmed by v8
+base_d = 37.4;    // round base fills the measured 38 well, 0.6 clearance
+base_h = 3.8;     // almost the full 4 well depth; 0.2 shy so the plate
+                  // still seats on the cube top, the base bears just after
 
 // Raspberry Pi 5, long side parallel to the wall
 pi_l = 85;
