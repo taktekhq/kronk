@@ -26,7 +26,7 @@ GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o kro
 Create `/home/nizarmah/kronk-gate.env` on the Pi. Single-quote the values, no single quotes inside.
 
 ```
-KRONK_BROKER='tcp://192.168.1.2:1883'
+KRONK_BROKER='tcp://192.168.1.134:1883'
 KRONK_MQTT_USER='kronk-gate'
 KRONK_MQTT_PASS='change-me'
 ```
