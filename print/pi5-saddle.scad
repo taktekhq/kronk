@@ -1,4 +1,11 @@
-// Saddle tray for the Raspberry Pi 5, v10. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v11. Tool free, no screws.
+//
+// v11: expansion pegs, all four identical. Two of the Pi's holes are
+// covered above, a snap barb cannot click open there and breaks when
+// forced. The grip moved inside the bore: the split pin is 2.9 wide
+// across a 2.7 hole, the halves compress on the way in and press the
+// bore by spring, snug on every hole, nothing pops out above the
+// board, nothing to break.
 //
 // v10: the v8 prongs pulled out too easily, 4.5 wide and only 8mm past
 // the socket face. Now they match the European convention, 4.8 wide
@@ -83,15 +90,16 @@ pi_w = 56;
 hole_dx = 58;     // official mounting hole pattern, holes 3.5 from edges
 hole_dy = 49;
 
-// pegs, printed separately. Snap pins like the active cooler's: a
-// split runs the whole peg, the barbed tip squeezes through the
-// board's hole and clicks open above it. The flex lives in the long
-// split, which keeps PLA inside its elastic range.
-pin_d = 2.5;      // pin through the board's 2.7 holes
-pcb_t = 1.6;      // Pi board thickness, the barb catches just above
-barb_d = 3.1;     // barb over the 2.7 hole, 0.2 catch per side
-barb_h = 0.3;     // the flat catch ledge
-tip_h = 1.8;      // cone above the barb, the squeeze-in lead
+// pegs, printed separately, all four identical. Split expansion
+// pins: the pin is wider than the board's hole and the split lets the
+// halves compress into it, spring friction grips inside the bore. The
+// flex lives in the long split, which keeps PLA inside its elastic
+// range. The tip barely clears the board's top face, so holes with
+// covered tops take the peg like open ones.
+pin_d = 2.9;      // expansion width across the split; the hole is 2.7
+pcb_t = 1.6;      // Pi board thickness the pin grips through
+grip_h = 1.2;     // straight grip section inside the bore
+lead_h = 1.2;     // cone lead above it, ends 0.8 past the board top
 seat_l = 7;       // seat bar the board rests on, along the split
 seat_w = 2.6;     // seat bar width
 seat_h = 3;       // air under the board, clears the microSD card
@@ -171,8 +179,8 @@ module saddle() {
     }
 }
 
-// one peg, standing as printed: chamfered shaft, seat bar, pin, barb,
-// cone tip, all split lengthwise so the halves can flex
+// one peg, standing as printed: chamfered shaft, seat bar, expansion
+// pin with cone lead, all split lengthwise so the halves can flex
 module peg() {
     difference() {
         union() {
@@ -182,15 +190,13 @@ module peg() {
             translate([-seat_l/2, -seat_w/2, shaft_h - eps])
                 cube([seat_l, seat_w, seat_h + eps]);
             translate([0, 0, shaft_h + seat_h - eps])
-                cylinder(d = pin_d, h = pcb_t + 0.1 + 2*eps);
-            translate([0, 0, shaft_h + seat_h + pcb_t + 0.1])
-                cylinder(d = barb_d, h = barb_h + eps);
-            translate([0, 0, shaft_h + seat_h + pcb_t + 0.1 + barb_h])
-                cylinder(d1 = barb_d, d2 = 1.4, h = tip_h);
+                cylinder(d = pin_d, h = grip_h + 2*eps);
+            translate([0, 0, shaft_h + seat_h + grip_h])
+                cylinder(d1 = pin_d, d2 = 1.5, h = lead_h);
         }
         // the split, from just above the shaft base to past the tip
         translate([-seat_l/2 - 1, -split_w/2, 1.5])
-            cube([seat_l + 2, split_w, shaft_h + seat_h + pcb_t + barb_h + tip_h]);
+            cube([seat_l + 2, split_w, shaft_h + seat_h + grip_h + lead_h]);
     }
 }
 
@@ -198,9 +204,9 @@ if (part == "saddle") {
     // flipped, print ready: flat top on the bed
     rotate([180, 0, 0]) saddle();
 } else if (part == "pegs") {
-    // four pegs plus two spares, standing, print with a brim
-    for (i = [0:5])
-        translate([12*(i%3), 12*floor(i/3), 0]) peg();
+    // four pegs plus four spares, standing, print with a brim
+    for (i = [0:7])
+        translate([12*(i%4), 12*floor(i/4), 0]) peg();
 } else {
     // assembly preview, upright, pegs seated in their sockets
     saddle();

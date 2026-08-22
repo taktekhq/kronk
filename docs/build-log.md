@@ -16,8 +16,10 @@ Dated journal. Newest first.
 - Measured the top socket well: 38 wide, 4 deep to the socket face, not the guessed 9. The base grew to 37.4 by 3.8, filling the well 0.2 shy of its floor, so the plate seats on the cube and the base bears just after. The prongs shortened to match the real depth.
 - Tested the v9 pegs: snug in the saddle sockets and they click into the Pi's holes properly. One peg died to a too-hard squeeze, a spare took its place.
 - Printed the v10 saddle, 16g, 40 minutes. Plugged it in: perfect fit, locked in. The full-size converging prongs grip in the socket, the base fills the well, the plate seats flat on the cube. The saddle is done.
+- The snap pegs met the Pi's covered holes: two of the four mounting holes are blocked above, the barb has nowhere to click open, and forcing it breaks the peg. Both spares gone.
+- v11 pegs, all four identical: split expansion pins, 2.9 wide across the split into the 2.7 bore, the halves compress and grip inside the hole by spring friction. Nothing protrudes past the board top, covered and open holes behave the same, no barb to break. Eight per print.
 
-Next: pegs in, Pi on, power and ethernet connected, cable tug test.
+Next: print the v11 pegs, Pi on, power and ethernet connected, cable tug test.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 
