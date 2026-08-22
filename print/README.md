@@ -8,7 +8,7 @@
 
 Tray for the Raspberry Pi 5. Plugs into the top socket of the LDNIO Z11 socket extender and cantilevers over the Cudy AC1200. No wall screws, no board screws, tool free. Two parts: the saddle, and press-in pegs.
 
-v9. The plug carries everything: two solid prongs on a round base, shaped like a plug face, enter the top socket. The base nests in the round well, the contacts grip the prongs, hold-down and lateral lock in one push. No foot on the Cudy, the arm cantilevers over it. The skirt walls are 4mm alignment guides on the left and room sides only. The top is flat, so the saddle prints upside down with no supports and no bridges.
+v10. The plug carries everything: two solid prongs on a round base, shaped like a plug face, enter the top socket. The prongs follow the European convention, 4.8mm thick with 19mm engagement past the socket face, and lean 0.5mm toward each other like a Europlug's converging pins, so the socket bends them straight and the springback grips. The base nests in the round well, hold-down and lateral lock in one push. No foot on the Cudy, the arm cantilevers over it. The skirt walls are 4mm alignment guides on the left and room sides only. The top is flat, so the saddle prints upside down with no supports and no bridges.
 
 The pegs are snap pins like the Pi active cooler's: a split runs the whole peg, the barbed tip squeezes through the board's mounting hole and clicks open above it, and the split shaft squeezes snug into the saddle socket. The board clicks on and resists lifting; a firm straight pull, or pinching the tips, releases it.
 
@@ -40,4 +40,4 @@ Assembly:
 
 Fit:
 
-- Cube grip: tune `clr`. Board click too weak or too fierce: tune `barb_d`. Peg tight or loose in the saddle: tune `shaft_d`. Prong grip in the socket: tune `prong_d`. Base in the well: tune `base_d`. One variable per reprint.
+- Cube grip: tune `clr`. Board click too weak or too fierce: tune `barb_d`. Peg tight or loose in the saddle: tune `shaft_d`. Saddle pulls out too easily: raise `prong_lean`. Insertion fights: lower `prong_lean` or `prong_d`. Base in the well: tune `base_d`. One variable per reprint.

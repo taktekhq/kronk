@@ -1,4 +1,9 @@
-// Saddle tray for the Raspberry Pi 5, v9. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v10. Tool free, no screws.
+//
+// v10: the v8 prongs pulled out too easily, 4.5 wide and only 8mm past
+// the socket face. Now they match the European convention, 4.8 wide
+// with 19mm engagement, and lean toward each other like a Europlug's
+// converging pins so the socket bends them straight and grips.
 //
 // v9: snap pegs. The v5 pegs sat loose in their sockets and the Pi
 // lifted off freely. The pegs are now split snap pins like the Pi
@@ -56,11 +61,17 @@ skirt_drop = 4;   // short guide walls; the prongs do the locking
 arm_len = 42;     // arm past the cube face, ends at the board's edge,
                   // cantilevers over the Cudy, no foot
 
-// prongs into the cube's top socket, solid plastic only
-prong_d = 4.5;    // socket pins are 4.8, printed PLA runs a bit fat
-prong_gap = 19;   // hole spacing, center to center // MEASURE
-well_depth = 9;   // cube top surface down to the socket face // MEASURE
-engage = 8;       // how deep the prongs enter the holes
+// prongs into the cube's top socket, solid plastic only.
+// European convention: pins are 4.8 thick and engage 19 deep, the
+// socket's grip springs sit well behind the face. The prongs also
+// lean toward each other like a Europlug's converging pins: the
+// socket bends them straight and the springback grips.
+prong_d = 4.8;    // standard pin diameter; drop to 4.6 if insertion fights
+prong_gap = 19;   // hole spacing, center to center, confirmed by v8
+well_depth = 9;   // cube top surface down to the socket face
+engage = 19;      // standard pin engagement below the socket face
+prong_lean = 0.5; // each tip pulls this much toward center; more lean,
+                  // more grip; 0 is a parallel Schuko pin
 prong_along_y = true; // holes line up wall-to-room; false: along the wall // MEASURE
 base_d = 30;      // round base around the prongs, nests in the socket
                   // well like a plug face; keep under the well diameter // MEASURE
@@ -134,10 +145,14 @@ module saddle() {
             for (s = [-1, 1]) {
                 px = z11/2 + (prong_along_y ? 0 : s*prong_gap/2);
                 py = z11/2 + (prong_along_y ? s*prong_gap/2 : 0);
-                translate([px, py, -(well_depth + engage) + 1.5 - eps])
-                    cylinder(d = prong_d, h = well_depth + engage - 1.5 + 2*eps);
-                translate([px, py, -(well_depth + engage)])
-                    cylinder(d1 = 2.5, d2 = prong_d, h = 1.5 + eps);
+                bx = z11/2 + (prong_along_y ? 0 : s*(prong_gap/2 - prong_lean));
+                by = z11/2 + (prong_along_y ? s*(prong_gap/2 - prong_lean) : 0);
+                zb = -(well_depth + engage);
+                hull() {
+                    translate([px, py, -1]) cylinder(d = prong_d, h = 1 + eps);
+                    translate([bx, by, zb + 1.5]) cylinder(d = prong_d, h = 0.5);
+                }
+                translate([bx, by, zb]) cylinder(d1 = 2.4, d2 = prong_d, h = 1.5 + eps);
             }
         }
 
