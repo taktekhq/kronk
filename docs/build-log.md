@@ -2,6 +2,17 @@
 
 Dated journal. Newest first.
 
+## 2026-08-22: MQTT live, gate daemon connected
+
+- Installed the Mosquitto broker app on Home Assistant, created the `kronk-gate` user, added the MQTT integration.
+- Deployed the daemon on `kronk-gate` from the `gate-v0.1.0` release, curl straight onto the Pi.
+- First connect failed. The static binary skips mDNS, and the router's DNS knows no `.local` names.
+- The daemon now resolves `.local` itself, one multicast query per connect attempt. Released as `gate-v0.1.1`.
+- Upgrade gotcha: the running binary cannot be overwritten, `Text file busy`. Stop the service, curl, start.
+- Daemon connected: `resolved homeassistant.local to 192.168.1.134`, then `connected`.
+
+Next: listen test on `kronk/#`, the lock and doorbell entities, HomeKit Bridge.
+
 ## 2026-08-22: v5 printed, then plugged in, v10
 
 - Printed v5, saddle upside down with no supports, pegs standing. Much better print, much better fit.
