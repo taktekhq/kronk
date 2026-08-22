@@ -26,12 +26,12 @@ GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o kro
 Create `/home/nizarmah/kronk-gate.env` on the Pi. Single-quote the values, no single quotes inside.
 
 ```
-KRONK_BROKER='tcp://192.168.1.134:1883'
+KRONK_BROKER='tcp://homeassistant.local:1883'
 KRONK_MQTT_USER='kronk-gate'
 KRONK_MQTT_PASS='change-me'
 ```
 
-The broker is the Pi 5's IP, with a DHCP reservation in the router. Not `homeassistant.local`: the daemon is a static Go build and skips mDNS, the lookup dies with `no such host`.
+The daemon resolves `.local` names itself, one mDNS query per connect attempt. The static build cannot use the system resolver, so a plain hostname lookup would die with `no such host`.
 
 It holds the MQTT password, keep it owner-only:
 

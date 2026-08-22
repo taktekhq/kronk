@@ -45,7 +45,7 @@ The [`kronk-gate` daemon](../gate/README.md) publishes the doorbell and lock ove
 1. Install the Mosquitto broker add-on and start it.
 2. Create a Home Assistant user `kronk-gate` for the daemon. Mosquitto accepts Home Assistant credentials.
 3. Add the MQTT integration. It finds the add-on broker.
-4. Put the credentials in the daemon's env file on `kronk-gate`. Broker URL: `tcp://<pi5-ip>:1883`, with a DHCP reservation in the router. The daemon cannot resolve `homeassistant.local`, details in the [daemon README](../gate/README.md#deploy).
+4. Put the credentials in the daemon's env file on `kronk-gate`. Broker URL: `tcp://homeassistant.local:1883`. The daemon resolves `.local` over mDNS itself, details in the [daemon README](../gate/README.md#deploy).
 
 Lock and doorbell entities in `configuration.yaml`:
 
