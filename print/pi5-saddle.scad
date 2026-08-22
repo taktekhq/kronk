@@ -1,4 +1,14 @@
-// Saddle tray for the Raspberry Pi 5, v10. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v12. Tool free, no screws.
+//
+// v13: vented sockets, clean arm, stronger pegs. The whole blind
+// sockets trapped air under the entering shaft and broke pegs; the
+// sockets are now open through the plate bottom so the air escapes
+// below, ring uncut, all four identical. The shaft is shorter than
+// the plate, nothing pokes out underneath. The zip tie notches are
+// gone, the arm is a uniform rectangle, the plug is the only anchor.
+// The peg split no longer runs through the shaft: a solid shaft takes
+// the socket press, the split spans only seat and pin where the barb
+// needs to flex.
 //
 // v10: the v8 prongs pulled out too easily, 4.5 wide and only 8mm past
 // the socket face. Now they match the European convention, 4.8 wide
@@ -99,12 +109,9 @@ split_w = 1.1;    // the split; the halves flex toward each other
 shaft_d = 4.2;    // shaft into the saddle socket, snug, and the split
                   // lets it squeeze in
 shaft_h = 2.9;    // a touch shorter than the socket
-socket_d = 4.3;   // socket in the plate
-socket_h = 3;     // blind, 1mm floor keeps the underside clean
-
-// zip tie anchors on the arm, fallback only
-slot_l = 5;
-slot_w = 3;
+socket_d = 4.3;   // socket through the plate, open at the bottom so
+                  // the air escapes; the shaft is shorter than the
+                  // plate and never pokes out underneath
 
 eps = 0.01;
 $fn = 48;
@@ -156,18 +163,15 @@ module saddle() {
             }
         }
 
-        // blind sockets for the pegs, open from the top
+        // peg sockets, straight through the plate: the trapped air
+        // that broke pegs escapes out the bottom
         for (h = holes)
-            translate([h[0], h[1], plate_t - socket_h])
-                cylinder(d = socket_d, h = socket_h + eps);
+            translate([h[0], h[1], -eps])
+                cylinder(d = socket_d, h = plate_t + 2*eps);
 
         // vent window under the board, beside the base
         translate([44, z11/2 - 19.5, -eps]) cube([18, 39, plate_t + 2*eps]);
 
-        // zip tie notches on the arm edges, one loop around arm and Cudy
-        translate([66, pi_y0 - eps, -eps]) cube([slot_w, 2, plate_t + 2*eps]);
-        translate([66, pi_y0 + pi_w - 2 + eps, -eps])
-            cube([slot_w, 2, plate_t + 2*eps]);
     }
 }
 
@@ -188,9 +192,10 @@ module peg() {
             translate([0, 0, shaft_h + seat_h + pcb_t + 0.1 + barb_h])
                 cylinder(d1 = barb_d, d2 = 1.4, h = tip_h);
         }
-        // the split, from just above the shaft base to past the tip
-        translate([-seat_l/2 - 1, -split_w/2, 1.5])
-            cube([seat_l + 2, split_w, shaft_h + seat_h + pcb_t + barb_h + tip_h]);
+        // the split, only through seat and pin: the shaft below stays
+        // solid and takes the socket press without breaking
+        translate([-seat_l/2 - 1, -split_w/2, shaft_h - 0.5])
+            cube([seat_l + 2, split_w, seat_h + pcb_t + barb_h + tip_h + 1]);
     }
 }
 

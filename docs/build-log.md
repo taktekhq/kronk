@@ -19,8 +19,11 @@ Dated journal. Newest first.
 - The snap pegs have a flaw: two of the Pi's four mounting holes are covered above, the barb has nowhere to click open, and forcing it breaks the peg. Both spares gone. The two open holes take the pegs perfectly, easy in and snug.
 - Mounted the Pi on the saddle with the surviving pegs, power and ethernet connected. Everything holds. The power corner is live.
 - Known issue, fix later: pegs that work on the covered holes. The plan is identical split expansion pins that grip inside the bore instead of clicking open above it.
+- Correction, from the CAD screenshots: the Pi's holes were never covered and the pegs were never the problem. The hard "holes" were the saddle's peg sockets. The two sockets the arm's zip tie notches happened to cut open took pegs easily and held snug; the two whole sockets were too stiff, trapped air under the shaft, and broke pegs during insertion. The accident was the better design.
+- v13: the sockets now run straight through the plate, open at the bottom, so the trapped air escapes below instead of fighting the shaft. The ring stays whole, all four sockets identical, and the shaft is shorter than the plate so nothing pokes out underneath. The zip tie notches are gone, the arm is a uniform rectangle, the plug is the only anchor.
+- Made the pegs stronger: the split no longer runs through the shaft. A solid shaft takes the socket press, the split spans only the seat and pin where the barb needs its flex. One more peg died to the old air pocket during install, the Pi rides on three of four meanwhile.
 
-Next: rework the pegs for the covered holes.
+Next: print the v13 saddle and pegs, swap in, all four corners.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 
