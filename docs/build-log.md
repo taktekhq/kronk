@@ -2,15 +2,16 @@
 
 Dated journal. Newest first.
 
-## 2026-08-22: v5 printed, one collision left, v7
+## 2026-08-22: v5 printed, one collision left, v8
 
 - Printed v5, saddle upside down with no supports, pegs standing. Much better print, much better fit.
 - It wobbles on the wall: the wall-side skirt hits the outlet's raised edge between the cube and the wall, which levers the saddle up and keeps the arm off the Cudy.
 - v6: the wall-side skirt is gone, nothing extends wallward below the plate anymore. A 30mm boss under the plate drops into the round socket well on the cube's top face and keys the saddle laterally instead. Skirt stays on the left and room sides.
 - v7, before printing v6: the boss became two solid prongs that plug into the cube's top socket, the one the saddle covers anyway, like a child blanking plug. The socket's contacts grip them, hold-down and lateral lock in one move. Solid plastic, no metal, ever.
 - Removed the antenna notches, the splayed antennas never reach the arm.
+- v8: the plug carries everything. The prongs got a round base that nests in the socket well like a real plug face. The Cudy foot is gone, the arm just cantilevers over it and ends at the board's edge. The skirt walls shrank to 4mm alignment guides and lost their tie slots.
 
-Next: check the top socket's hole spacing, well depth, and hole orientation against the file, print the v7 saddle, pegs unchanged, test fit.
+Next: check the top socket's hole spacing, well depth, well diameter, and hole orientation against the file, print the v8 saddle, pegs unchanged, test fit.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 

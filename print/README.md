@@ -6,16 +6,17 @@
 
 [pi5-saddle.scad](pi5-saddle.scad), rendered to [pi5-saddle.stl](pi5-saddle.stl) and [pi5-pegs.stl](pi5-pegs.stl).
 
-Tray for the Raspberry Pi 5. Rests on the LDNIO Z11 socket extender and the Cudy AC1200 WiFi extender, and plugs into the Z11's top socket. No wall screws, no board screws, tool free. Two parts: the saddle, and press-in pegs.
+Tray for the Raspberry Pi 5. Plugs into the top socket of the LDNIO Z11 socket extender and cantilevers over the Cudy AC1200. No wall screws, no board screws, tool free. Two parts: the saddle, and press-in pegs.
 
-v7. Two solid prongs under the plate plug into the cube's top socket, the one the saddle covers anyway, like a child blanking plug. The socket's sprung contacts grip them: hold-down and lateral lock in one move. The antenna notches are gone, the splayed antennas never reach the arm. No skirt on the wall side, the v5 print hit the outlet's raised edge there; left and room side skirts remain as alignment guides. The saddle top is flat, so it prints upside down with no supports and no bridges.
+v8. The plug carries everything: two solid prongs on a round base, shaped like a plug face, enter the top socket. The base nests in the round well, the contacts grip the prongs, hold-down and lateral lock in one push. No foot on the Cudy, the arm cantilevers over it. The skirt walls are 4mm alignment guides on the left and room sides only. The top is flat, so the saddle prints upside down with no supports and no bridges.
 
-Safety: the prongs are solid plastic, the same idea as a child safety blanking plug. Keep them that way. No metal, no foil, no hollow prongs, and stop if one ever snaps off inside the socket, pull it out with pliers before replugging anything.
+Safety: prongs and base are solid plastic, the same idea as a child safety blanking plug. Keep them that way. No metal, no foil, no hollow prongs, and if a prong ever snaps off inside the socket, pull it out with pliers before replugging anything.
 
-Check before printing, three top-socket numbers:
+Check before printing, against the top socket:
 
 - `prong_gap`: hole spacing center to center, set to 19.
 - `well_depth`: cube top surface down to the socket face, set to 9.
+- `base_d`: the round base is 30, it must be smaller than the well.
 - `prong_along_y`: true means the two holes line up wall-to-room. Set false if they line up along the wall.
 
 Print:
@@ -30,11 +31,11 @@ Print:
 Assembly:
 
 - Press the four pegs into the Pi's mounting holes from below, pin side up into the board, flange against the underside.
-- Line the prongs over the top socket's holes and push the saddle straight down until the plate sits on the cube. The arm crosses the Cudy, the foot lands on its flat.
+- Line the prongs over the top socket's holes and push the saddle straight down until the plate sits on the cube. The arm floats over the Cudy.
 - Drop the board with its pegs into the four sockets. The flanges keep 3mm of air under the board for the microSD card, and the board's weight traps the pegs.
 - Pi off: lift straight up. Saddle off: pull straight up, it unplugs.
-- Optional anchors, only if the fit is loose: zip ties through the skirt slots and the arm edge notches.
+- Optional anchor, only if the fit is loose: a zip tie around the arm and the Cudy through the arm edge notches.
 
 Fit:
 
-- Rocking between cube and foot: tune `cudy_drop`. Cube grip: tune `clr`. Pin tight or loose in the board: tune `pin_d`. Peg in the saddle: tune `socket_d`. Prong grip in the socket: tune `prong_d`. Foot placement: tune `foot_x`. One variable per reprint.
+- Cube grip: tune `clr`. Pin tight or loose in the board: tune `pin_d`. Peg in the saddle: tune `socket_d`. Prong grip in the socket: tune `prong_d`. Base in the well: tune `base_d`. One variable per reprint.

@@ -1,16 +1,14 @@
-// Saddle tray for the Raspberry Pi 5, v7. Tool free, no screws.
-// Rests on the LDNIO Z11 socket extender and the Cudy AC1200 (RE1200)
-// WiFi extender plugged into the Z11's right face, and PLUGS INTO the
-// Z11's top socket.
+// Saddle tray for the Raspberry Pi 5, v8. Tool free, no screws.
+// Plugs into the top socket of the LDNIO Z11 socket extender and
+// carries the Pi over it and the Cudy AC1200 (RE1200) beside it.
 //
-// v7: two solid prongs under the plate plug into the cube's top
-// socket, the one the saddle covers anyway, like a child blanking
-// plug. The socket's sprung contacts grip them: hold-down plus
-// lateral lock in one move. SAFETY: the prongs are solid plastic and
-// must stay that way, no metal, no foil, no hollow prongs. The boss
-// is gone, the prongs replace it. The antenna notches are gone, the
-// splayed antennas never reach the arm. The wall side has no skirt,
-// the v5 print hit the outlet's raised edge there.
+// v8: the plug carries everything. Two solid prongs on a round base,
+// shaped like a plug face, enter the cube's top socket; the base nests
+// in the round well, the contacts grip the prongs. The Cudy foot is
+// gone, the arm just cantilevers over it. The skirt walls are short
+// alignment guides now, left and room side only. SAFETY: prongs and
+// base are solid plastic and must stay that way, no metal, no foil,
+// no hollow prongs.
 //
 // Pegs: separate press-in parts. The saddle top is flat, so it prints
 // upside down, top face on the bed, no supports, no bridges. Press
@@ -24,15 +22,16 @@
 // Set part="assembly" to preview everything upright with pegs seated.
 //
 // MEASURE, top socket of the cube: hole spacing (prong_gap), well
-// depth to the socket face (well_depth), and whether the two holes
-// line up wall-to-room (prong_along_y) or along the wall.
+// depth to the socket face (well_depth), well diameter (base_d must
+// stay under it), and whether the two holes line up wall-to-room
+// (prong_along_y) or along the wall.
 //
 // Print: saddle exactly as the STL opens, flat face on the bed, no
 // supports. Pegs standing, add a brim. 0.2mm, PLA, dry the spool.
 //
-// Fit tuning, one variable per reprint: rocking, cudy_drop. Cube grip,
-// clr. Pin in the board holes, pin_d. Peg in the saddle, socket_d.
-// Prong grip, prong_d. Foot placement, foot_x.
+// Fit tuning, one variable per reprint: cube grip, clr. Pin in the
+// board holes, pin_d. Peg in the saddle, socket_d. Prong grip in the
+// socket, prong_d. Base in the well, base_d.
 
 part = "saddle";  // "saddle" | "pegs" | "assembly"
 
@@ -42,18 +41,23 @@ clr = 0;          // extra clearance around the cube; the printed 51.0
 wall = 2.5;       // skirt wall thickness
 plate_t = 4;      // tray plate thickness
 
-// LDNIO Z11, measured 5.1cm each way, fit confirmed by the v1 print
+// LDNIO Z11, measured 5.1cm each way, fit confirmed on the wall
 z11 = 51;         // cube top, both directions
-skirt_drop = 10;  // skirt depth down the cube sides
+skirt_drop = 4;   // short guide walls; the prongs do the locking
 
 // Cudy AC1200
-cudy_drop = 10;   // Cudy flat top sits this far below the Z11 top
-arm_len = 52;     // arm length past the cube face, covers the body
-                  // and stays inside its far edge
-foot_t = 4;       // foot wall thickness
-foot_x = 30;      // foot's far face, from the cube face: on the clear
-                  // flat, past the 16mm plug hump, before the antenna
-                  // hinges
+arm_len = 42;     // arm past the cube face, ends at the board's edge,
+                  // cantilevers over the Cudy, no foot
+
+// prongs into the cube's top socket, solid plastic only
+prong_d = 4.5;    // socket pins are 4.8, printed PLA runs a bit fat
+prong_gap = 19;   // hole spacing, center to center // MEASURE
+well_depth = 9;   // cube top surface down to the socket face // MEASURE
+engage = 8;       // how deep the prongs enter the holes
+prong_along_y = true; // holes line up wall-to-room; false: along the wall // MEASURE
+base_d = 30;      // round base around the prongs, nests in the socket
+                  // well like a plug face; keep under the well diameter // MEASURE
+base_h = 3;       // base depth into the well
 
 // Raspberry Pi 5, long side parallel to the wall
 pi_l = 85;
@@ -71,14 +75,7 @@ shaft_h = 2.8;    // a touch shorter than the socket
 socket_d = 4.3;   // socket in the plate, loose drop-in fit
 socket_h = 3;     // blind, 1mm floor keeps the underside clean
 
-// prongs into the cube's top socket, solid plastic only
-prong_d = 4.5;    // socket pins are 4.8, printed PLA runs a bit fat
-prong_gap = 19;   // hole spacing, center to center // MEASURE
-well_depth = 9;   // cube top surface down to the socket face // MEASURE
-engage = 8;       // how deep the prongs enter the holes
-prong_along_y = true; // holes line up wall-to-room; false: along the wall // MEASURE
-
-// zip tie anchors, fallback only
+// zip tie anchors on the arm, fallback only
 slot_l = 5;
 slot_w = 3;
 
@@ -106,17 +103,18 @@ module saddle() {
                 cube([arm_x0 - plat_x0, plat_y1 - plat_y0, plate_t]);
             translate([arm_x0 - eps, pi_y0, 0])
                 cube([arm_x1 - arm_x0 + eps, pi_w, plate_t]);
-            // skirt, two sides only: left and room side. The wall side
-            // stays open, the v5 print hit the outlet's raised edge
-            // between cube and wall there. The right stays open for
-            // the Cudy.
+            // short guide walls, left and room side. Wall side stays
+            // open, the outlet's raised edge lives there. Right stays
+            // open for the Cudy.
             translate([plat_x0, plat_y0, -skirt_drop])
                 cube([wall, plat_y1 - plat_y0, skirt_drop + eps]);
             translate([plat_x0, plat_y1 - wall, -skirt_drop])
                 cube([z11 - plat_x0, wall, skirt_drop + eps]);
-            // prongs under the plate, plug into the cube's top socket
-            // like a blanking plug: hold-down and lateral lock. Solid
-            // plastic, cone tips for the lead-in.
+            // round base nesting in the socket well, prongs from its
+            // face, the whole thing shaped like a plug: hold-down and
+            // lateral lock. Solid plastic, cone tips for the lead-in.
+            translate([z11/2, z11/2, -base_h])
+                cylinder(d = base_d, h = base_h + eps);
             for (s = [-1, 1]) {
                 px = z11/2 + (prong_along_y ? 0 : s*prong_gap/2);
                 py = z11/2 + (prong_along_y ? s*prong_gap/2 : 0);
@@ -125,9 +123,6 @@ module saddle() {
                 translate([px, py, -(well_depth + engage)])
                     cylinder(d1 = 2.5, d2 = prong_d, h = 1.5 + eps);
             }
-            // foot on the clear flat, vertical support
-            translate([arm_x0 + foot_x - foot_t, pi_y0, -cudy_drop])
-                cube([foot_t, pi_w, cudy_drop + eps]);
         }
 
         // blind sockets for the pegs, open from the top
@@ -135,14 +130,8 @@ module saddle() {
             translate([h[0], h[1], plate_t - socket_h])
                 cylinder(d = socket_d, h = socket_h + eps);
 
-        // vent window under the board, beside the prongs
+        // vent window under the board, beside the base
         translate([44, z11/2 - 19.5, -eps]) cube([18, 39, plate_t + 2*eps]);
-
-        // zip tie slots in the two skirts, one loop around the cube
-        translate([plat_x0 - eps, z11/2 - slot_l/2, -6.5])
-            cube([wall + 2*eps, slot_l, slot_w]);
-        translate([z11/2 - slot_l/2, plat_y1 - wall - eps, -6.5])
-            cube([slot_l, wall + 2*eps, slot_w]);
 
         // zip tie notches on the arm edges, one loop around arm and Cudy
         translate([66, pi_y0 - eps, -eps]) cube([slot_w, 2, plate_t + 2*eps]);
