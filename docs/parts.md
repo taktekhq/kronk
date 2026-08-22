@@ -27,6 +27,20 @@ From home, not in the [bill](bill.csv):
 - Speaker: [stereo speaker, 50mm, 8 ohm, 3W](parts/speaker.md)
 - Home hub for internet access: an Apple TV or HomePod. I used an Apple TV I had.
 
+## Indoor mounting
+
+The indoor unit sits on the wall socket by the main router. No wall screws.
+
+- Socket extender, holds everything: LDNIO Z11, 4 AC outlets
+- Pi 5 support: [3D printed saddle](../print/README.md) resting on the socket extender and the WiFi extender
+
+From home, not in the [bill](bill.csv):
+
+- WiFi extender for ethernet: Cudy AC1200 mesh (RE1200). I used the one we had.
+- 3D printer: Bambu Lab A1 Mini
+- Filament: PLA Basic Black
+- Zip ties for the saddle, only if the fit is loose
+
 ## Storage
 
 - SD card for the Pi 5: Adata microSDXC 64GB, UHS-I Class 10 V10

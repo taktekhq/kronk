@@ -13,6 +13,7 @@ Writing rules for this repo. No exceptions.
 Repo layout:
 
 - `gate/`: the `kronk-gate` daemon source and config files that live on `kronk-gate`
+- `print/`: OpenSCAD sources and STLs for 3D printed parts
 - `docs/parts.md`: what you need, generic, with the exact item bought
 - `docs/parts/*.md`: one page per part that has detailed specs
 - `docs/bill.csv`: exactly what was paid

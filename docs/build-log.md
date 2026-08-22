@@ -2,6 +2,55 @@
 
 Dated journal. Newest first.
 
+## 2026-08-22: v5 printed, then plugged in, v10
+
+- Printed v5, saddle upside down with no supports, pegs standing. Much better print, much better fit.
+- It wobbles on the wall: the wall-side skirt hits the outlet's raised edge between the cube and the wall, which levers the saddle up and keeps the arm off the Cudy.
+- v6: the wall-side skirt is gone, nothing extends wallward below the plate anymore. A 30mm boss under the plate drops into the round socket well on the cube's top face and keys the saddle laterally instead. Skirt stays on the left and room sides.
+- v7, before printing v6: the boss became two solid prongs that plug into the cube's top socket, the one the saddle covers anyway, like a child blanking plug. The socket's contacts grip them, hold-down and lateral lock in one move. Solid plastic, no metal, ever.
+- Removed the antenna notches, the splayed antennas never reach the arm.
+- v8: the plug carries everything. The prongs got a round base that nests in the socket well like a real plug face. The Cudy foot is gone, the arm just cantilevers over it and ends at the board's edge. The skirt walls shrank to 4mm alignment guides and lost their tie slots.
+- The v5 pegs sat loose in their sockets and the Pi lifted off with no resistance. v9 pegs are snap pins like the Pi active cooler's: a split runs the whole peg, the barbed tip squeezes through the board's hole and clicks open above it, the fatter split shaft squeezes snug into the socket. The round flange became a seat bar along the split so the halves stay thin and PLA flexes instead of snapping.
+- Printed the v8 saddle and v9 pegs. The saddle plugs in, hole spacing and orientation confirmed, but it pulls out too easily: the prongs were 4.5 wide and reached only 8mm past the socket face. Real pins are 4.8 wide and engage 19mm, where the grip springs sit.
+- v10 prongs match the European convention, 4.8 by 19, and lean 0.5mm toward each other like a Europlug's converging pins, the socket bends them straight and the springback grips.
+- Measured the top socket well: 38 wide, 4 deep to the socket face, not the guessed 9. The base grew to 37.4 by 3.8, filling the well 0.2 shy of its floor, so the plate seats on the cube and the base bears just after. The prongs shortened to match the real depth.
+- Tested the v9 pegs: snug in the saddle sockets and they click into the Pi's holes properly. One peg died to a too-hard squeeze, a spare took its place.
+- Printed the v10 saddle, 16g, 40 minutes. Plugged it in: perfect fit, locked in. The full-size converging prongs grip in the socket, the base fills the well, the plate seats flat on the cube. The saddle is done.
+- The snap pegs have a flaw: two of the Pi's four mounting holes are covered above, the barb has nowhere to click open, and forcing it breaks the peg. Both spares gone. The two open holes take the pegs perfectly, easy in and snug.
+- Mounted the Pi on the saddle with the surviving pegs, power and ethernet connected. Everything holds. The power corner is live.
+- Known issue, fix later: pegs that work on the covered holes. The plan is identical split expansion pins that grip inside the bore instead of clicking open above it.
+
+Next: rework the pegs for the covered holes.
+
+## 2026-08-21: First saddle print failed, redesigned to v5
+
+- Printed the v1 saddle. 0.2mm PLA, no supports, 43 minutes. Heavy stringing, and the bridged underside printed badly.
+- Fit test on the wall. The Z11 side is right, the skirt seats well on the cube.
+- The Cudy side is wrong. The antennas stand near the Cudy's far end, not along the arm's sides, so the flares are useless and the arm reaching for the far edge ends at the antennas with the foot never touching the surface 10mm below.
+- The Pi mount is wrong. The pocket side hits the power button, the latch side hits the ethernet and USB ports, the latch never clicked.
+- A top photo decoded the Cudy: the antennas hinge at the sides of the body near its far end and splay outward at body level, one toward the wall, one toward the room. They never rise through the arm. The hinge fronts sit about 30mm from the cube face. The cube is 51mm each way, not 50.
+- Redesigned as v4. The antenna flares, chamfers, and through slots are gone. Open notches on the arm's side edges span the hinge zone, room for the paddles raised or splayed, no hinge load. The foot lands on the clear flat with its far face against the hinge fronts, which stops the saddle sliding off the open side; the left skirt wall stops the other direction.
+- The edge grips are gone. The Pi mounts by its four mounting holes, the only spots on a Pi 5 guaranteed free of parts. Nothing touches the board edges.
+- Cube cavity kept at the printed 51.0 that fit well.
+- The photo is scaled off the 51mm cube, good for layout, not for lengths: the Cudy top sits lower and reads about 15 percent short. The tape numbers stand where they conflict: 54 protrusion, 16 hump, 10 drop, 58 width. hinge_x is the one photo length the fit depends on, set to 30, ruler check pending.
+- Split the pegs into separate press-in parts as v5. The saddle's top is flat now, so it prints upside down on the bed, no supports and no bridges, which removes what failed in print one. The pegs print standing, four plus two spares. Press them into the board first, then drop board and pegs into sockets in the plate; the board's weight traps the flanges.
+- The stringing was moisture, dry the spool.
+
+Next: check hinge_x with a ruler, print the saddle and the pegs, test fit.
+
+## 2026-08-21: Power corner up, Pi 5 saddle designed
+
+- Bought the LDNIO Z11 socket extender, 4 AC outlets, and plugged it into the wall socket by the main router.
+- Plugged the Cudy AC1200 mesh WiFi extender into the Z11's right face. It bridges the Pi 5 to the network over ethernet.
+- The Pi 5, its power supply, and the ethernet cable still need a home. Decided against a wall box: no screws in the wall, no closed box around a hot Pi. Instead a printed saddle that rests on the Z11 and the Cudy.
+- The web has no body dimensions for the Z11 or the indoor AC1200. Measured by hand: Z11 cube 50x50x50, sticking 70mm from the wall. Cudy protrudes 54mm from the Z11 face, a 16mm plug hump then a 58x38 flat top, 10mm below the Z11 top. Antennas flank the flat top, 58mm gap between them.
+- Designed the saddle: [print/pi5-saddle.scad](../print/pi5-saddle.scad). A platform caps the Z11 with a skirt gripping three sides, a 54mm arm passes between the antennas, a foot steps down 10mm onto the Cudy flat. Vent windows under the board, zip tie slots as fallback anchors.
+- No screws anywhere. The Pi slides onto the tray: edge ribs lift the board 3mm, side guides set it straight, two pockets catch the left edge, a latch clicks behind the right edge. Press the latch, slide right, the Pi is out.
+- Flared notches on the arm sides nest around the antenna bases as lateral guides. No vertical load on the antennas, they are hinged plastic and would droop.
+- One part, prints upright, no supports, fits the A1 mini bed. PLA Basic Black.
+
+Next: print, test fit, adjust one variable and reprint if needed.
+
 ## 2026-08-21: Doorbell and lock on MQTT
 
 - Wrote the `kronk-gate` daemon in Go: the GPIO27 button publishes `kronk/doorbell`, `UNLOCK` on `kronk/lock/set` pulses the GPIO17 relay for 3s and publishes `kronk/lock/state`. Source and topics in [gate/README.md](../gate/README.md).
