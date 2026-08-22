@@ -8,11 +8,12 @@
 
 Tray for the Raspberry Pi 5. Rests on the LDNIO Z11 socket extender and the Cudy AC1200 WiFi extender. No wall screws, no board screws, tool free. Two parts: the saddle, and press-in pegs.
 
-v5. The pegs are separate parts, so the saddle's top is flat and it prints upside down on the bed with no supports and no bridges. The antennas hinge at the sides of the Cudy's body and splay outward; open notches on the arm edges give them room, and the foot butts the hinge fronts as the slide stop. The cube is 51mm; the cavity matches the print that fit.
+v6. The pegs are separate parts, so the saddle's top is flat and it prints upside down on the bed with no supports and no bridges. The wall-side skirt is gone, it hit the outlet's raised edge behind the cube; a 30mm boss under the plate drops into the round socket well on the cube's top face and keys the saddle instead, with skirt walls left on the left and room sides. Open notches on the arm edges give the splayed antennas room, and the foot butts the hinge fronts as the slide stop.
 
-Check before printing, one ruler number:
+Check before printing, two ruler numbers:
 
 - `hinge_x`: cube face to the front of the antenna hinges, set to 30. If yours differs by more than 2mm, update and regenerate.
+- `boss_d`: the boss is 30, it must be smaller than the round socket well on the cube's top face. Check the well is over 31 wide.
 
 Print:
 
@@ -26,7 +27,7 @@ Print:
 Assembly:
 
 - Press the four pegs into the Pi's mounting holes from below, pin side up into the board, flange against the underside.
-- Cap the Z11 with the platform, skirt on three sides, arm over the Cudy, foot on the flat in front of the antenna hinges. The antennas stay splayed or raised, the side notches give them room.
+- Cap the Z11 with the platform, boss into the top socket well, skirt on the left and room sides, arm over the Cudy, foot on the flat in front of the antenna hinges. The antennas stay splayed or raised, the side notches give them room.
 - Drop the board with its pegs into the four sockets. The flanges keep 3mm of air under the board for the microSD card, and the board's weight traps the pegs.
 - Lift straight up to remove, pegs come along with the board.
 - Optional anchors, only if the fit is loose: one zip tie around the Z11 through the three skirt slots, one around the arm and the Cudy through the arm edge notches.

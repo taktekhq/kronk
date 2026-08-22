@@ -2,6 +2,15 @@
 
 Dated journal. Newest first.
 
+## 2026-08-22: v5 printed, one collision left, v6
+
+- Printed v5, saddle upside down with no supports, pegs standing. Much better print, much better fit.
+- It wobbles on the wall: the wall-side skirt hits the outlet's raised edge between the cube and the wall, which levers the saddle up and keeps the arm off the Cudy.
+- v6: the wall-side skirt is gone, nothing extends wallward below the plate anymore. A 30mm boss under the plate drops into the round socket well on the cube's top face and keys the saddle laterally instead. Skirt stays on the left and room sides.
+- Vent window moved beside the boss.
+
+Next: print the v6 saddle, pegs unchanged, test fit.
+
 ## 2026-08-21: First saddle print failed, redesigned to v5
 
 - Printed the v1 saddle. 0.2mm PLA, no supports, 43 minutes. Heavy stringing, and the bridged underside printed badly.

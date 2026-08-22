@@ -1,4 +1,10 @@
-// Saddle tray for the Raspberry Pi 5, v5. Tool free, no screws.
+// Saddle tray for the Raspberry Pi 5, v6. Tool free, no screws.
+//
+// v6: the v5 print sat well but wobbled, its wall-side skirt hit the
+// outlet's raised edge between cube and wall. That skirt is gone;
+// nothing extends wallward below the plate anymore. A shallow boss
+// under the plate drops into the round socket well on the cube's top
+// face instead and keys the saddle laterally.
 // Rests on the LDNIO Z11 socket extender and the Cudy AC1200 (RE1200)
 // WiFi extender plugged into the Z11's right face.
 //
@@ -67,6 +73,10 @@ shaft_h = 2.8;    // a touch shorter than the socket
 socket_d = 4.3;   // socket in the plate, loose drop-in fit
 socket_h = 3;     // blind, 1mm floor keeps the underside clean
 
+// boss into the cube's top socket well, the lateral key
+boss_d = 30;      // must stay smaller than the well diameter // MEASURE
+boss_h = 3;       // shallow, the well is deeper than this
+
 // zip tie anchors, fallback only
 slot_l = 5;
 slot_w = 3;
@@ -95,13 +105,19 @@ module saddle() {
                 cube([arm_x0 - plat_x0, plat_y1 - plat_y0, plate_t]);
             translate([arm_x0 - eps, pi_y0, 0])
                 cube([arm_x1 - arm_x0 + eps, pi_w, plate_t]);
-            // skirt, three sides: left, wall side, room side; right open
+            // skirt, two sides only: left and room side. The wall side
+            // stays open, the v5 print hit the outlet's raised edge
+            // between cube and wall there. The right stays open for
+            // the Cudy.
             translate([plat_x0, plat_y0, -skirt_drop])
                 cube([wall, plat_y1 - plat_y0, skirt_drop + eps]);
-            translate([plat_x0, plat_y0, -skirt_drop])
-                cube([z11 - plat_x0, wall, skirt_drop + eps]);
             translate([plat_x0, plat_y1 - wall, -skirt_drop])
                 cube([z11 - plat_x0, wall, skirt_drop + eps]);
+            // boss under the plate, drops into the round socket well on
+            // the cube's top face and keys the saddle laterally,
+            // replacing the deleted wall-side skirt
+            translate([z11/2, z11/2, -boss_h])
+                cylinder(d = boss_d, h = boss_h + eps);
             // foot on the clear flat, far face against the hinge fronts
             translate([arm_x0 + hinge_x - foot_t, pi_y0, -cudy_drop])
                 cube([foot_t, pi_w, cudy_drop + eps]);
@@ -118,14 +134,12 @@ module saddle() {
             translate([arm_x0 + hinge_x, y, -1])
                 cube([hinge_len, notch_depth, plate_t + 2]);
 
-        // vent window under the board center
-        translate([16, z11/2 - 19.5, -eps]) cube([46, 39, plate_t + 2*eps]);
+        // vent window under the board, beside the boss
+        translate([44, z11/2 - 19.5, -eps]) cube([18, 39, plate_t + 2*eps]);
 
-        // zip tie slots in the three skirts, one loop around the cube
+        // zip tie slots in the two skirts, one loop around the cube
         translate([plat_x0 - eps, z11/2 - slot_l/2, -6.5])
             cube([wall + 2*eps, slot_l, slot_w]);
-        translate([z11/2 - slot_l/2, plat_y0 - eps, -6.5])
-            cube([slot_l, wall + 2*eps, slot_w]);
         translate([z11/2 - slot_l/2, plat_y1 - wall - eps, -6.5])
             cube([slot_l, wall + 2*eps, slot_w]);
 
