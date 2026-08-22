@@ -12,7 +12,7 @@ Dated journal. Newest first.
 - v8: the plug carries everything. The prongs got a round base that nests in the socket well like a real plug face. The Cudy foot is gone, the arm just cantilevers over it and ends at the board's edge. The skirt walls shrank to 4mm alignment guides and lost their tie slots.
 - The v5 pegs sat loose in their sockets and the Pi lifted off with no resistance. v9 pegs are snap pins like the Pi active cooler's: a split runs the whole peg, the barbed tip squeezes through the board's hole and clicks open above it, the fatter split shaft squeezes snug into the socket. The round flange became a seat bar along the split so the halves stay thin and PLA flexes instead of snapping.
 
-Next: check the top socket's hole spacing, well depth, well diameter, and hole orientation against the file, print the v8 saddle, pegs unchanged, test fit.
+Next: check the top socket's hole spacing, well depth, well diameter, and hole orientation against the file, print the v8 saddle and the v9 pegs, test fit.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 
