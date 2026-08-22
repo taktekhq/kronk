@@ -52,18 +52,6 @@ sudo systemctl enable --now kronk-gate
 
 Upgrading: `sudo systemctl stop kronk-gate` first. Writing into the running binary fails with `Text file busy`. Curl, then start the service again.
 
-Or scp a [local build](#build):
-
-```
-chmod +x kronk-gate-arm64
-scp kronk-gate-arm64 nizarmah@kronk-gate.local:kronk-gate
-scp kronk-gate.service nizarmah@kronk-gate.local:
-ssh nizarmah@kronk-gate.local
-sudo mv kronk-gate.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now kronk-gate
-```
-
 Manual run instead of the service:
 
 ```
