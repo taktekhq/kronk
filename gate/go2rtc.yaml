@@ -2,3 +2,4 @@ streams:
   gate:
     - exec:rpicam-vid -t 0 --inline --width 1920 --height 1080 --framerate 25 --intra 100 --bitrate 2000000 --codec h264 -o -
     - ffmpeg:device?audio=plughw:0,0#audio=opus#raw=-af volume=24dB
+    - exec:aplay -q -t raw -f S16_LE -c 1 -r 16000 -D plughw:CARD=Headphones,DEV=0#backchannel=1

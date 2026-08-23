@@ -19,7 +19,7 @@ First hardware project, documented in public so anyone can build one.
 
 ## Status
 
-The gate camera is live in Apple Home with audio, recording, and face recognition. The doorbell button and lock relay are on MQTT. Home Assistant entities, HomeKit, and the speaker are next.
+The gate camera is live in Apple Home with audio, recording, and face recognition. The doorbell rings and the lock opens from the Home app. Talk-back is next: the speaker chain at the gate is designed and configured, not yet wired.
 
 ## License
 

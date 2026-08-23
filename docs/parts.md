@@ -9,9 +9,13 @@ What you need to build kronk, and what I got. Prices are in the [bill](bill.csv)
 - Camera cable for the Pi Zero: Raspberry Pi Zero camera cable
 - Doorbell button: [metal push button, momentary, 12mm, LED ring](parts/push-button.md)
 - Microphone: [USB 2.0 mini microphone](parts/microphone.md)
+- Amplifier: [TDA7266 dual channel](parts/amplifier.md)
+- Speaker: [stereo speaker, 50mm, 8 ohm, 3W](parts/speaker.md)
 - Relay for the gate opener: [1 channel 5V relay](parts/relay.md)
 - Power: [12V to 5V 3A buck converter](parts/buck-converter.md)
 - Microphone adapter: micro USB male to USB-A female (OTG). A plain cable does not work. Getting a UGreen Micro USB Male to USB 2.0 Female Adapter Converter.
+
+Still to buy, for the speaker's [PWM filter](gate-setup.md#filter-and-amp): resistors 270Ω and 150Ω, capacitors 33nF, 10nF, and 1µF electrolytic. Cents each, any assortment pack covers it.
 
 From home, not in the [bill](bill.csv):
 
@@ -23,8 +27,6 @@ From home, not in the [bill](bill.csv):
 - Main computer: Raspberry Pi 5, 4GB RAM
 - Power supply: [official Raspberry Pi 27W USB-C, EU plug](parts/power-supply.md)
 - Cooling: [official Raspberry Pi 5 Active Cooler](parts/active-cooler.md)
-- Amplifier: [TDA7266 dual channel](parts/amplifier.md)
-- Speaker: [stereo speaker, 50mm, 8 ohm, 3W](parts/speaker.md)
 - Home hub for internet access: an Apple TV or HomePod. I used an Apple TV I had.
 
 ## Indoor mounting

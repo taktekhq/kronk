@@ -110,6 +110,23 @@ The gate button rings Apple Home as a video doorbell on the camera, snapshot in 
 5. On the camera, Extensions: enable Custom Doorbell Button, pick the button, then toggle the extension off and on. The selection only registers when the extension starts. If the device type still says Camera, set it to Doorbell by hand.
 6. Camera, HomeKit: Reset Pairing. Remove the camera in the Home app, add it back with the new QR code, it pairs as a doorbell. Re-enable Stream and Allow Recording, HKSV settings reset with the pairing.
 
+## Talk-back through Scrypted
+
+Untested. The gate speaker comes first, this is the path to try after it plays.
+
+HomeKit's microphone button reaches the camera through Scrypted's Intercom capability. A plain RTSP camera has none, the ONVIF plugin provides it.
+
+1. Point the camera at `rtsp://kronk-gate.local:8554/gate?backchannel=1`. go2rtc advertises the incoming audio track only when the URL asks.
+2. Install `@scrypted/onvif` and add the gate as an ONVIF camera. Leave Two Way Audio checked.
+3. Hold the microphone button on the camera tile in the Home app. The gate speaker plays.
+
+Two frictions:
+
+- The write-ups that got this working set RTSP Parser to Scrypted (UDP). The camera runs TCP because UDP over WiFi smears the video.
+- go2rtc takes Opus, PCM, PCMA, PCMU, and AAC on the backchannel. The `info` link on `http://kronk-gate.local:1984` shows whether the track arrived.
+
+Fallback if ONVIF does not take: a Home Assistant shell command posting to the go2rtc API, which plays a fixed clip at the gate. No live talk.
+
 ## Recording (HomeKit Secure Video)
 
 HKSV needs iCloud+, an online home hub, and the camera exposing a motion sensor. Without motion, the Home app hides the Recording section entirely.

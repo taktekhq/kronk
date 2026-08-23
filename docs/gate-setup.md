@@ -82,6 +82,106 @@ If the mic is silent, isolate mic vs pipeline by recording straight from ALSA:
 arecord -D plughw:0,0 -f S16_LE -r 16000 test.wav
 ```
 
+## Speaker
+
+Audio out at the gate, so a visitor hears you from the Home app. The [amp](parts/amplifier.md) and [speaker](parts/speaker.md) mount at the gate. The iPhone is the indoor handset.
+
+The Pi Zero 2 W has no audio jack and no DAC. Three ways out:
+
+- PWM on a GPIO through a passive filter. Uses the amp already bought, needs four passives.
+- A USB sound card with an output. The Zero's one USB port holds the mic, so this needs a hub.
+- An I2S DAC. Best quality. A board like the MAX98357A is its own amp and retires the TDA7266.
+
+PWM below. Check the mic dongle first, some of them also play:
+
+```
+aplay -l
+```
+
+A playback device there skips the filter, wire the amp to its jack.
+
+### PWM out
+
+Add to `/boot/firmware/config.txt`, `/boot/config.txt` on older images:
+
+```
+dtparam=audio=on
+dtoverlay=audremap,pins_12_13
+```
+
+Reboot. `aplay -l` lists a `bcm2835 Headphones` card. The mic holds card 0, so address it by name:
+
+```
+speaker-test -D plughw:CARD=Headphones,DEV=0 -c 1 -t sine -f 440
+```
+
+Silent until the filter and amp are in. Set the level in `alsamixer`, F6 for the card, the `PCM` control, then `sudo alsactl store`.
+
+### Filter and amp
+
+GPIO12 is the left channel. One channel is enough for voice, GPIO13 stays unused.
+
+| Signal | Zero physical pin |
+|---|---|
+| PWM left, GPIO12 | 32 |
+| ground | 34 |
+
+Filter values are the ones on the Pi's own audio output:
+
+```
+GPIO12 ──270Ω──┬──150Ω──┬──1µF──► amp IN L
+               │        │
+              33nF     10nF
+               │        │
+              GND      GND
+```
+
+The 1µF blocks DC. Electrolytic, positive side toward the filter. One stage, 270Ω and 33nF, is enough for voice.
+
+| Amp | To |
+|---|---|
+| VCC | 5V from the [buck converter](parts/buck-converter.md), not the Pi's 5V pin |
+| GND | buck ground, and the Pi's pin 34 |
+| IN L | filter output |
+| OUT L, both terminals | the [speaker](parts/speaker.md) |
+
+- The TDA7266 is bridged. Grounding either output terminal kills the chip.
+- The amp on the Pi's 5V pin browns out the Zero.
+- 12V drives a 3W speaker past what it survives. 5V gives about 1.5W into 8 ohm.
+- Grounds must be common.
+
+`speaker-test` is audible now. Set the amp's pot below distortion.
+
+### Backchannel
+
+`#backchannel=1` makes an `exec` source consume audio instead of producing it. Third source in [gate/go2rtc.yaml](../gate/go2rtc.yaml):
+
+```
+- exec:aplay -q -t raw -f S16_LE -c 1 -r 16000 -D plughw:CARD=Headphones,DEV=0#backchannel=1
+```
+
+With no `#audio=` go2rtc writes raw signed 16 bit little endian, 16kHz, mono. Hence `-t raw`, there is no WAV header on the pipe.
+
+Restart go2rtc, push a file through it:
+
+```
+curl -X POST "http://kronk-gate.local:1984/api/streams?dst=gate&src=ffmpeg:/usr/share/sounds/alsa/Front_Center.wav"
+```
+
+The speaker plays it. That covers go2rtc to the cone, with no Apple Home involved.
+
+Consumers must ask for the track, or go2rtc never advertises it:
+
+```
+rtsp://kronk-gate.local:8554/gate?backchannel=1
+```
+
+The browser's own two-way audio button on port 1984 does not work. Browsers release the microphone only on HTTPS or localhost.
+
+Latency is `aplay`'s buffer. `--buffer-size=2048` is about 130ms.
+
+Mic and speaker in one enclosure will howl. Point them apart, amp pot down before mic gain.
+
 ## Relay
 
 The [relay](parts/relay.md) has two sides. The 3 pin control side connects to the Zero. The 3 screw terminals, COM, NO, NC, switch the gate opener circuit and stay empty until that wiring session. The opener goes on COM and NO: normally open keeps the gate locked if power drops.
