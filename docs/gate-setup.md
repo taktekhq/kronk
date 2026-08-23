@@ -124,11 +124,13 @@ Build this before the filter. It needs nothing but the amp, the speaker, and 5V,
 | Amp | To |
 |---|---|
 | OUT L, both terminals | the [speaker](parts/speaker.md) |
-| VCC | 5V from the [buck converter](parts/buck-converter.md), not the Pi's 5V pin |
-| GND | buck ground |
+| VCC | the gate unit's 5V rail, upstream of the Pi |
+| GND | the same rail's ground |
+
+The rail is the USB charger today and the [buck converter](parts/buck-converter.md) once the unit runs off 12V at the gate. Either way the amp taps the supply, not the Pi's header. The buck has 3A to give and the Zero uses well under half of it.
 
 - The TDA7266 is bridged. Grounding either output terminal kills the chip.
-- The amp on the Pi's 5V pin browns out the Zero.
+- The amp on the Pi's 5V pin browns out the Zero. The relay already sits there.
 - 12V drives a 3W speaker past what it survives. 5V gives about 1.5W into 8 ohm.
 
 Bench test with a phone, headphone output into IN L and the amp's ground, any music. The speaker plays. Set the pot below distortion. A dead amp or a dead speaker shows up here, not after the filter is soldered.
