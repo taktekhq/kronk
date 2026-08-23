@@ -32,14 +32,13 @@ From home, not in the [bill](bill.csv):
 The indoor unit sits on the wall socket by the main router. No wall screws.
 
 - Socket extender, holds everything: LDNIO Z11, 4 AC outlets
-- Pi 5 support: [3D printed saddle](../print/README.md) resting on the socket extender and the WiFi extender
+- Pi 5 support: [3D printed saddle](../print/pi5-saddle/README.md) resting on the socket extender and the WiFi extender
 
 From home, not in the [bill](bill.csv):
 
 - WiFi extender for ethernet: Cudy AC1200 mesh (RE1200). I used the one we had.
 - 3D printer: Bambu Lab A1 Mini
-- Filament: PLA Basic Black
-- Zip ties for the saddle, only if the fit is loose
+- Filament: PLA, Basic Black then PLA Tough Jade White
 
 ## Storage
 
