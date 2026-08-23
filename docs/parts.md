@@ -32,7 +32,7 @@ From home, not in the [bill](bill.csv):
 The indoor unit sits on the wall socket by the main router. No wall screws.
 
 - Socket extender, holds everything: LDNIO Z11, 4 AC outlets
-- Pi 5 support: [3D printed saddle](../print/README.md) resting on the socket extender and the WiFi extender
+- Pi 5 support: [3D printed saddle](../print/pi5-saddle/README.md) resting on the socket extender and the WiFi extender
 
 From home, not in the [bill](bill.csv):
 

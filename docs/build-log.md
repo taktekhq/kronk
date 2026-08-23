@@ -38,7 +38,7 @@ Next: listen test on `kronk/#`, the lock and doorbell entities, HomeKit Bridge.
 - Printed v13: impossible to press in. Printed holes shrink, and the solid shaft that was meant to be stronger cannot give the way the old split one did. Friction fits between printed parts are done.
 - v14: the pegs are double-ended rivets. The bore opened to a clearance fit, nothing rubs, and each end clicks: a bottom barb into a counterbore hidden in the plate's underside, flush, and the top barb through the Pi's hole as before. Two crossed splits, one per barb, each with a long PLA-safe flex. Push to click at both ends, pull the seat bar to free a peg.
 - Dropped the stale 3mf, re-export after v14 proves out.
-- Sliced v14 with PLA Tough, Jade White: tougher, more ductile, kinder to the flexing barbs than Basic PLA. Saved the project file: [print/pi5-saddle-and-pegs.3mf](../print/pi5-saddle-and-pegs.3mf). Print started, 16g, 44 minutes.
+- Sliced v14 with PLA Tough, Jade White: tougher, more ductile, kinder to the flexing barbs than Basic PLA. Saved the project file: [print/pi5-saddle/pi5-saddle-and-pegs.3mf](../print/pi5-saddle/pi5-saddle-and-pegs.3mf). Print started, 16g, 44 minutes.
 - First v14 print failed: the pegs stand on two slivers of foot, they came off the bed and strung. Tree supports fixed it, the slicer builds a small disk under each foot. Reprinted, perfect. The working project file is saved, supports on for the pegs.
 
 Next: click test both ends, swap in, all four corners.
@@ -65,7 +65,7 @@ Next: check hinge_x with a ruler, print the saddle and the pegs, test fit.
 - Plugged the Cudy AC1200 mesh WiFi extender into the Z11's right face. It bridges the Pi 5 to the network over ethernet.
 - The Pi 5, its power supply, and the ethernet cable still need a home. Decided against a wall box: no screws in the wall, no closed box around a hot Pi. Instead a printed saddle that rests on the Z11 and the Cudy.
 - The web has no body dimensions for the Z11 or the indoor AC1200. Measured by hand: Z11 cube 50x50x50, sticking 70mm from the wall. Cudy protrudes 54mm from the Z11 face, a 16mm plug hump then a 58x38 flat top, 10mm below the Z11 top. Antennas flank the flat top, 58mm gap between them.
-- Designed the saddle: [print/pi5-saddle.scad](../print/pi5-saddle.scad). A platform caps the Z11 with a skirt gripping three sides, a 54mm arm passes between the antennas, a foot steps down 10mm onto the Cudy flat. Vent windows under the board, zip tie slots as fallback anchors.
+- Designed the saddle: [print/pi5-saddle.scad](../print/pi5-saddle/pi5-saddle.scad). A platform caps the Z11 with a skirt gripping three sides, a 54mm arm passes between the antennas, a foot steps down 10mm onto the Cudy flat. Vent windows under the board, zip tie slots as fallback anchors.
 - No screws anywhere. The Pi slides onto the tray: edge ribs lift the board 3mm, side guides set it straight, two pockets catch the left edge, a latch clicks behind the right edge. Press the latch, slide right, the Pi is out.
 - Flared notches on the arm sides nest around the antenna bases as lateral guides. No vertical load on the antennas, they are hinged plastic and would droop.
 - One part, prints upright, no supports, fits the A1 mini bed. PLA Basic Black.
