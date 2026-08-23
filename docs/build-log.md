@@ -2,6 +2,16 @@
 
 Dated journal. Newest first.
 
+## 2026-08-23: Lock and doorbell in Apple Home
+
+- Added the lock and doorbell event entities in `configuration.yaml`. Both live, `lock.gate` read the retained `LOCKED` from the broker.
+- The HomeKit Bridge UI has no event domain, an event entity cannot be exposed as an accessory. Replaced the UI bridge with a YAML bridge, `linked_doorbell_sensor` hung the doorbell on the lock.
+- The UI bridge and the YAML bridge both exposed the lock, two locks in Apple Home grouped into one accessory. Deleted the UI bridge, it carried nothing else.
+- Moved the ring to Scrypted for video in the notification: MQTT plugin button subscribed to `kronk/doorbell`, Custom Doorbell Button extension on the camera, re-paired as a video doorbell.
+- Three snags. The MQTT device connects with null credentials until the plugin restarts, credentials go on the device not the plugin. The doorbell button selection only registers when the extension starts, toggle it off and on. The button script must pulse the state back to false, the daemon sends no release.
+- Dropped `linked_doorbell_sensor` from the YAML bridge, one ring per press.
+- End state: unlock and ring in Apple Home, ring carries the camera snapshot. Press to notification runs about a second.
+
 ## 2026-08-22: MQTT live, gate daemon connected
 
 - Installed the Mosquitto broker app on Home Assistant, created the `kronk-gate` user, added the MQTT integration.

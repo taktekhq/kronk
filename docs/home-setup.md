@@ -13,9 +13,9 @@ Steps to set up the [Pi 5](parts.md#indoor-unit). Work in progress.
 
 ## Apple Home
 
-1. Add the HomeKit Bridge integration in Home Assistant.
-2. Add the bridge to Apple Home.
-3. An Apple TV signed into the same account becomes the Home hub automatically, which gives access over the internet.
+An Apple TV signed into the same account becomes the Home hub automatically, which gives access over the internet.
+
+Two paths into Apple Home, both further down: the camera and doorbell pair from Scrypted, the lock through the [YAML HomeKit Bridge](#lock-in-apple-home). Don't add a HomeKit Bridge from the integrations UI, a second bridge doubles the lock.
 
 Keep Apple devices out of Home Assistant. The Apple TV integration loops back through the HomeKit Bridge and fills Apple Home with ghost duplicates.
 
@@ -70,7 +70,45 @@ mqtt:
 
 The Lock button does nothing by design. The relay is momentary, the gate locks itself after the pulse.
 
-Expose both through the HomeKit Bridge.
+The event entity feeds automations and the logbook. Rings reach Apple Home through Scrypted instead.
+
+## Lock in Apple Home
+
+The HomeKit Bridge cannot expose event entities, and a UI bridge next to a YAML bridge doubles the lock. One YAML bridge, in `configuration.yaml`:
+
+```yaml
+homekit:
+  - name: Kronk Bridge
+    filter:
+      include_entities:
+        - lock.gate
+```
+
+Restart Home Assistant, then scan the pairing QR code from the sidebar notification in the Home app.
+
+## Doorbell through Scrypted
+
+The gate button rings Apple Home as a video doorbell on the camera, snapshot in the notification.
+
+1. Create a Home Assistant user `scrypted` for the broker, local only, not admin.
+2. In Scrypted, install the `@scrypted/mqtt` and `@scrypted/dummy-switch` plugins.
+3. MQTT plugin, Add New: name `Gate doorbell button`, template `button.ts`, subscription URL `mqtt://127.0.0.1:1883` with no path, the `scrypted` credentials. Credentials go on the device, the plugin's general settings are ignored. Restart the MQTT plugin after creating it, settings only load when the script runs.
+4. The script pulses, the daemon sends `ding` with no release:
+
+   ```ts
+   mqtt.subscribe({
+       'kronk/doorbell': value => {
+           if (value.text !== 'ding') return;
+           device.binaryState = true;
+           setTimeout(() => device.binaryState = false, 3000);
+       },
+   });
+   mqtt.handleTypes(ScryptedInterface.BinarySensor);
+   ```
+
+   Press the button: the device Console logs the message.
+5. On the camera, Extensions: enable Custom Doorbell Button, pick the button, then toggle the extension off and on. The selection only registers when the extension starts. If the device type still says Camera, set it to Doorbell by hand.
+6. Camera, HomeKit: Reset Pairing. Remove the camera in the Home app, add it back with the new QR code, it pairs as a doorbell. Re-enable Stream and Allow Recording, HKSV settings reset with the pairing.
 
 ## Recording (HomeKit Secure Video)
 
