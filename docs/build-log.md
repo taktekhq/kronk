@@ -40,8 +40,9 @@ Next: listen test on `kronk/#`, the lock and doorbell entities, HomeKit Bridge.
 - Dropped the stale 3mf, re-export after v14 proves out.
 - Sliced v14 with PLA Tough, Jade White: tougher, more ductile, kinder to the flexing barbs than Basic PLA. Saved the project file: [print/pi5-saddle/pi5-saddle-and-pegs.3mf](../print/pi5-saddle/pi5-saddle-and-pegs.3mf). Print started, 16g, 44 minutes.
 - First v14 print failed: the pegs stand on two slivers of foot, they came off the bed and strung. Tree supports fixed it, the slicer builds a small disk under each foot. Reprinted, perfect. The working project file is saved, supports on for the pegs.
+- The v14 rivets pass: pegs click into the saddle easily and pull back out just as cleanly. Both ends click, nothing fights, nothing breaks. The peg saga is over.
 
-Next: click test both ends, swap in, all four corners.
+Next: Pi onto the new pegs on the wall, then back to MQTT.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 
