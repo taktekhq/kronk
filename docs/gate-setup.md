@@ -115,18 +115,34 @@ Reboot. `aplay -l` lists a `bcm2835 Headphones` card. The mic holds card 0, so a
 speaker-test -D plughw:CARD=Headphones,DEV=0 -c 1 -t sine -f 440
 ```
 
-Silent until the filter and amp are in. Set the level in `alsamixer`, F6 for the card, the `PCM` control, then `sudo alsactl store`.
+Silent until the amp and filter are in. Set the level in `alsamixer`, F6 for the card, the `PCM` control, then `sudo alsactl store`.
 
-### Filter and amp
+### Speaker and amp
 
-GPIO12 is the left channel. One channel is enough for voice, GPIO13 stays unused.
+Build this before the filter. It needs nothing but the amp, the speaker, and 5V, and it proves both parts on their own.
+
+| Amp | To |
+|---|---|
+| OUT L, both terminals | the [speaker](parts/speaker.md) |
+| VCC | 5V from the [buck converter](parts/buck-converter.md), not the Pi's 5V pin |
+| GND | buck ground |
+
+- The TDA7266 is bridged. Grounding either output terminal kills the chip.
+- The amp on the Pi's 5V pin browns out the Zero.
+- 12V drives a 3W speaker past what it survives. 5V gives about 1.5W into 8 ohm.
+
+Bench test with a phone, headphone output into IN L and the amp's ground, any music. The speaker plays. Set the pot below distortion. A dead amp or a dead speaker shows up here, not after the filter is soldered.
+
+### Filter
+
+Only this last hop needs the passives. GPIO12 is the left channel. One channel is enough for voice, GPIO13 stays unused.
 
 | Signal | Zero physical pin |
 |---|---|
 | PWM left, GPIO12 | 32 |
 | ground | 34 |
 
-Filter values are the ones on the Pi's own audio output:
+Values are the ones on the Pi's own audio output:
 
 ```
 GPIO12 ──270Ω──┬──150Ω──┬──1µF──► amp IN L
@@ -138,19 +154,9 @@ GPIO12 ──270Ω──┬──150Ω──┬──1µF──► amp IN L
 
 The 1µF blocks DC. Electrolytic, positive side toward the filter. One stage, 270Ω and 33nF, is enough for voice.
 
-| Amp | To |
-|---|---|
-| VCC | 5V from the [buck converter](parts/buck-converter.md), not the Pi's 5V pin |
-| GND | buck ground, and the Pi's pin 34 |
-| IN L | filter output |
-| OUT L, both terminals | the [speaker](parts/speaker.md) |
+The Pi's pin 34 joins the amp's ground. Grounds must be common or the output is noise.
 
-- The TDA7266 is bridged. Grounding either output terminal kills the chip.
-- The amp on the Pi's 5V pin browns out the Zero.
-- 12V drives a 3W speaker past what it survives. 5V gives about 1.5W into 8 ohm.
-- Grounds must be common.
-
-`speaker-test` is audible now. Set the amp's pot below distortion.
+`speaker-test` is audible now.
 
 ### Backchannel
 

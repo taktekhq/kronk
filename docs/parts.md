@@ -15,7 +15,7 @@ What you need to build kronk, and what I got. Prices are in the [bill](bill.csv)
 - Power: [12V to 5V 3A buck converter](parts/buck-converter.md)
 - Microphone adapter: micro USB male to USB-A female (OTG). A plain cable does not work. Getting a UGreen Micro USB Male to USB 2.0 Female Adapter Converter.
 
-Still to buy, for the speaker's [PWM filter](gate-setup.md#filter-and-amp): resistors 270Ω and 150Ω, capacitors 33nF, 10nF, and 1µF electrolytic. Cents each, any assortment pack covers it.
+Still to buy, for the speaker's [PWM filter](gate-setup.md#filter): resistors 270Ω and 150Ω, capacitors 33nF, 10nF, and 1µF electrolytic. Cents each, any assortment pack covers it.
 
 From home, not in the [bill](bill.csv):
 

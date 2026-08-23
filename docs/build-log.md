@@ -8,7 +8,8 @@ Dated journal. Newest first.
 - The Pi Zero 2 W has no audio jack and no DAC. Picked PWM through a passive filter over a USB sound card or an I2S DAC, it is the one that uses the TDA7266 already bought.
 - `dtoverlay=audremap,pins_12_13` puts PWM audio on GPIO12 and GPIO13. No conflict with the relay on GPIO17 or the button on GPIO27. GPIO12 alone carries voice.
 - Addressed the card by name, `plughw:CARD=Headphones,DEV=0`. The mic holds card 0.
-- Took the filter values off the Pi's own audio output: 270Ω and 33nF, then 150Ω and 10nF, then 1µF to block DC into the amp. Not bought yet.
+- Split the wiring into two steps in [gate setup](gate-setup.md). Speaker into the amp and the amp onto 5V needs no passives and bench tests off a phone's headphone output, which proves both parts before anything is soldered.
+- Took the filter values off the Pi's own audio output: 270Ω and 33nF, then 150Ω and 10nF, then 1µF to block DC into the amp. Not bought yet, and only this last hop waits on them.
 - Amp runs off the buck's 5V, not the Pi's 5V pin. 12V would drive the 3W speaker past its rating.
 - Added `aplay` as a third source in [gate/go2rtc.yaml](../gate/go2rtc.yaml). `#backchannel=1` makes an `exec` source consume audio instead of producing it.
 - Read go2rtc's source for two things the docs skip. The default backchannel codec is raw signed 16 bit little endian at 16kHz mono, so no `#audio=` is needed. The RTSP server advertises the incoming track only when the client URL carries `?backchannel=1`.
