@@ -18,8 +18,9 @@ Top socket numbers, all confirmed on the wall: holes 19 apart lined up wall-to-r
 
 Print:
 
-- Saddle: exactly as the STL opens, flat face on the bed. No supports, nothing to bridge.
-- Pegs: standing as the STL opens, six of them, four plus two spares. Brim required, the standing feet are small.
+- Saddle: exactly as the STL opens, flat face on the bed. Needs nothing.
+- Pegs: standing as the STL opens, six of them, four plus two spares. Supports ON, tree slim: the slicer builds a small disk under each peg's tiny foot, which is what keeps them on the bed. Clean the support film off each foot before inserting.
+- The 3mf has all of this set already.
 - 0.2mm layers, PLA. Dry the spool: 45 to 50C oven for 4 to 6 hours, keep it bagged after.
 - Regenerate after edits:
   `openscad -o pi5-saddle.stl pi5-saddle.scad`

@@ -38,10 +38,10 @@ Next: listen test on `kronk/#`, the lock and doorbell entities, HomeKit Bridge.
 - Printed v13: impossible to press in. Printed holes shrink, and the solid shaft that was meant to be stronger cannot give the way the old split one did. Friction fits between printed parts are done.
 - v14: the pegs are double-ended rivets. The bore opened to a clearance fit, nothing rubs, and each end clicks: a bottom barb into a counterbore hidden in the plate's underside, flush, and the top barb through the Pi's hole as before. Two crossed splits, one per barb, each with a long PLA-safe flex. Push to click at both ends, pull the seat bar to free a peg.
 - Dropped the stale 3mf, re-export after v14 proves out.
-
 - Sliced v14 with PLA Tough, Jade White: tougher, more ductile, kinder to the flexing barbs than Basic PLA. Saved the project file: [print/pi5-saddle-and-pegs.3mf](../print/pi5-saddle-and-pegs.3mf). Print started, 16g, 44 minutes.
+- First v14 print failed: the pegs stand on two slivers of foot, they came off the bed and strung. Tree supports fixed it, the slicer builds a small disk under each foot. Reprinted, perfect. The working project file is saved, supports on for the pegs.
 
-Next: v14 off the printer, click test both ends, swap in, all four corners.
+Next: click test both ends, swap in, all four corners.
 
 ## 2026-08-21: First saddle print failed, redesigned to v5
 
