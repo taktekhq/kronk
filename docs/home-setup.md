@@ -13,9 +13,9 @@ Steps to set up the [Pi 5](parts.md#indoor-unit). Work in progress.
 
 ## Apple Home
 
-1. Add the HomeKit Bridge integration in Home Assistant.
-2. Add the bridge to Apple Home.
-3. An Apple TV signed into the same account becomes the Home hub automatically, which gives access over the internet.
+An Apple TV signed into the same account becomes the Home hub automatically, which gives access over the internet.
+
+Two paths into Apple Home, both further down: the camera and doorbell pair from Scrypted, the lock through the [YAML HomeKit Bridge](#lock-in-apple-home). Don't add a HomeKit Bridge from the integrations UI, a second bridge doubles the lock.
 
 Keep Apple devices out of Home Assistant. The Apple TV integration loops back through the HomeKit Bridge and fills Apple Home with ghost duplicates.
 
@@ -107,7 +107,7 @@ The gate button rings Apple Home as a video doorbell on the camera, snapshot in 
    ```
 
    Press the button: the device Console logs the message.
-5. On the camera, Extensions: enable Custom Doorbell Button, pick the button, then toggle the extension off and on. The selection only registers when the extension starts.
+5. On the camera, Extensions: enable Custom Doorbell Button, pick the button, then toggle the extension off and on. The selection only registers when the extension starts. If the device type still says Camera, set it to Doorbell by hand.
 6. Camera, HomeKit: Reset Pairing. Remove the camera in the Home app, add it back with the new QR code, it pairs as a doorbell. Re-enable Stream and Allow Recording, HKSV settings reset with the pairing.
 
 ## Recording (HomeKit Secure Video)
