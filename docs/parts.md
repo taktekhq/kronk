@@ -38,7 +38,7 @@ From home, not in the [bill](bill.csv):
 
 - WiFi extender for ethernet: Cudy AC1200 mesh (RE1200). I used the one we had.
 - 3D printer: Bambu Lab A1 Mini
-- Filament: PLA Basic Black
+- Filament: PLA, Basic Black then PLA Tough Jade White
 - Zip ties for the saddle, only if the fit is loose
 
 ## Storage
