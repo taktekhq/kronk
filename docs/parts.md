@@ -18,6 +18,14 @@ From home, not in the [bill](bill.csv):
 - Power cable: micro USB to USB-A. I used one I had.
 - Power brick with a USB-A port: any charger works. I used an old Samsung one.
 
+## Gate mounting
+
+- Box: [3D printed gate box](../print/gate-box/README.md), tub and faceplate
+- Faceplate screws: M3 countersunk, 10mm. 4.
+- Camera screws: M2, 5mm. 4.
+- Pi pegs: 4, printed from the [saddle](../print/pi5-saddle/README.md) file
+- Wall screws and plugs: M4 or wood screws, pan head. 4.
+
 ## Indoor unit
 
 - Main computer: Raspberry Pi 5, 4GB RAM

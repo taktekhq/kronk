@@ -53,7 +53,7 @@ Hostname: `kronk-gate`.
 
 - Two-way audio.
 - Remote viewing through the Apple TV hub is slow, poor over cellular. Candidate fix: a low bandwidth substream in Scrypted.
-- Gate unit enclosure and weatherproofing.
+- Gate unit enclosure: [gate box](../print/gate-box/README.md) designed, not printed. Weatherproofing beyond the skirt is open.
 - How the relay wires into the existing gate opener, and where the 12V comes from.
 - The second Pi Zero 2 W: spare, or a second unit later.
 - The building's existing wired doorbell has a button per floor. Tap it for the floors, or add a separate board. Needs a voltage measurement first, those bells often run 8 to 12V AC.

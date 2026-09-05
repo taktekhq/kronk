@@ -2,6 +2,17 @@
 
 Dated journal. Newest first.
 
+## 2026-09-05: Gate box designed, v1
+
+- The speaker is out of the gate unit. What goes in the box: Pi Zero 2 W, camera, USB mic on the OTG adapter, power cable, button, relay.
+- Jumpers are chained in twos: F-F off the Pi's header, F-M onto the relay and the button. The joint unplugs without touching the Pi.
+- Designed the [gate box](../print/gate-box/README.md): a tub that screws to the wall and a faceplate with the camera, one name, and the button. Outside 101 x 133 x 41mm.
+- The Pi rides on the saddle's rivet pegs, same sockets. The relay sits in a corner cradle, boxed in by four pillars from the faceplate. Cable exits, mic grille, and vents all in the bottom wall.
+- One name for now. The faceplate takes a list of names, one row each, and the box grows a row per name.
+- Rendered both STLs. Nothing printed, the relay, the mic chain, the camera lens, and the button tail need measuring first.
+
+Next: measure, print, fit.
+
 ## 2026-08-23: Lock and doorbell in Apple Home
 
 - Added the lock and doorbell event entities in `configuration.yaml`. Both live, `lock.gate` read the retained `LOCKED` from the broker.
