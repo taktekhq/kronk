@@ -20,11 +20,13 @@ From home, not in the [bill](bill.csv):
 
 ## Gate mounting
 
-- Box: [3D printed gate box](../print/gate-box/README.md), tub and faceplate
-- Faceplate screws: M3 countersunk, 10mm. 4.
+- Box: [3D printed gate box](../print/gate-box/README.md), tub, backplate, and panel
+- Panel screws: M3 countersunk, 12mm. 4.
 - Camera screws: M2, 5mm. 4.
 - Pi pegs: 4, printed from the [saddle](../print/pi5-saddle/README.md) file
 - Wall screws and plugs: M4 or wood screws, pan head. 4.
+- Name label: printed card, 61 x 18mm
+- Label cover: clear sheet, 61 x 18mm, cut from packaging
 
 ## Indoor unit
 

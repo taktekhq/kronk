@@ -2,14 +2,16 @@
 
 Dated journal. Newest first.
 
-## 2026-09-05: Gate box designed, v1
+## 2026-09-05: Gate box designed, v2
 
 - The speaker is out of the gate unit. What goes in the box: Pi Zero 2 W, camera, USB mic on the OTG adapter, power cable, button, relay.
 - Jumpers are chained in twos: F-F off the Pi's header, F-M onto the relay and the button. The joint unplugs without touching the Pi.
-- Designed the [gate box](../print/gate-box/README.md): a tub that screws to the wall and a faceplate with the camera, one name, and the button. Outside 101 x 133 x 41mm.
-- The Pi rides on the saddle's rivet pegs, same sockets. The relay sits in a corner cradle, boxed in by four pillars from the faceplate. Cable exits, mic grille, and vents all in the bottom wall.
-- One name for now. The faceplate takes a list of names, one row each, and the box grows a row per name.
-- Rendered both STLs. Nothing printed, the relay, the mic chain, the camera lens, and the button tail need measuring first.
+- Designed the [gate box](../print/gate-box/README.md) v1: a tub that screws to the wall and a flat faceplate with the camera, an engraved name, and the button. Ugly.
+- v2 is an interphone panel. The face split into a structural backplate printed face down and a panel printed face up, so the front can carry a raised bezel, a hooded camera eye, a framed label window with the button in a collar, seam lines, and a slotted mic grille. Corners rounded. Outside 106 x 138 x 44mm.
+- The name is a printed card behind a clear sheet, in a pocket on the panel's back. The backplate closes the pocket.
+- The Pi rides on the saddle's rivet pegs, same sockets. The relay sits in a corner cradle, boxed in by four pillars from the backplate. Cable exits and vents in the bottom wall.
+- One name for now. The panel takes a list of names, one row each, and the box grows a row per name.
+- Rendered all three STLs. Nothing printed, the relay, the mic chain, the camera lens, and the button tail need measuring first.
 
 Next: measure, print, fit.
 
